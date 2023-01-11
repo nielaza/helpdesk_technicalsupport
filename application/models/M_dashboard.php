@@ -32,15 +32,6 @@ class M_dashboard extends CI_Model
         return $query;
     }
 
-	// public function bar_teknisi()
-    // {
-	// 	$query = $this->db->query("SELECT B.nama_teknisi, COUNT(*) AS total FROM tiket A 
-    //                                LEFT JOIN teknisi B ON A.id_teknisi = B.id 
-    //                                WHERE YEAR(A.created)=YEAR(NOW()) AND A.status NOT IN (0)
-    //                                GROUP BY A.id");
-    //     return $query;
-    // }
-
 	public function piestatus()
     {
       $query = $this->db->query("SELECT status, COUNT(*) AS jumstat FROM tiket 

@@ -13,7 +13,7 @@
         <ul>
           <li><a class="active" href="<?php echo base_url() ?>">HOME</a></li>
           <li><a href="<?php echo base_url('modul/tentang_kami') ?>">TENTANG KAMI</a></li>
-          <li><a href="<?php echo base_url('modul/team_sistem_informasi') ?>">TEAM SISTEM INFORMASI</a></li>
+          <!-- <li><a href="<?php //echo base_url('modul/team_sistem_informasi') ?>">TEAM SISTEM INFORMASI</a></li> -->
           <li class="get-started-btn"><a href="<?php echo base_url('tiket/buat_tiket') ?>" style="padding:10px 10px 10px 10px !important;">BUAT TIKET</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>

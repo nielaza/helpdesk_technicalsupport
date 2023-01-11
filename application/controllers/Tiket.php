@@ -40,7 +40,7 @@ class Tiket extends CI_Controller
             $jenis	            = $this->input->post('jenis');
             $model	            = $this->input->post('model');
             $lokasi	            = $this->input->post('lokasi');
-            $lampiran			= $_FILES['spk']['name'];
+            $lampiran			= $_FILES['lampiran']['name'];
             if($lampiran=''){}else{
                 $config['upload_path'] 		= './uploads/';
                 $config['allowed_types'] 	= 'jpg|jpeg|png|pdf';
@@ -70,6 +70,8 @@ class Tiket extends CI_Controller
             );
 
             $this->m_tiket->insert($data);
+            $datanya = "swal('Success', 'Data Tiket Anda telah terkirim', 'success');";
+            $this->session->set_flashdata("message", $datanya);
             redirect(base_url());
         }
 	}
@@ -81,23 +83,7 @@ class Tiket extends CI_Controller
         $data['sidebar']	= "admin/template/sidebar";
         $data['body'] 		= "admin/tiket/list_tiket";
 
-
-        $kondisi_baik       = $this->db->query("SELECT COUNT(id) AS jml_baik FROM inventory_komputer WHERE kondisi = 1")->row();
-        $data['tiket_baru']     = $new->jml_newtiket;
-
-        $kondisi_bermasalah = $this->db->query("SELECT COUNT(id) AS jml_bermasalah FROM inventory_komputer WHERE kondisi = 2")->row();
-        $data['tiket_proses']   = $proses->jml_tiketproses;
-
-        $kondisi_rusak      = $this->db->query("SELECT COUNT(id) AS jml_selesai FROM inventory_komputer WHERE kondisi = 3")->row();
-        $data['tiket_selesai']  = $selesai->jml_tiketselesai;
-
-        $data['label_perbulan']     = $this->m_dashboard->linebulan()->result();
-        $data['label_teknisi']      = $this->m_dashboard->pieteknisi()->result();
-        $data['label_status']       = $this->m_dashboard->piestatus()->result();
-        $data['label_jenis']        = $this->m_dashboard->bar_jenis()->result();
-        $data['label_lokasi']       = $this->m_dashboard->bar_lokasi()->result();
-
-        $data['data_tiket'] = $this->m_tiket->list_tiket();
+        $data['data_tiket']     = $this->m_tiket->list_tiket();
     
         $this->load->view('admin/template/template', $data);
     }

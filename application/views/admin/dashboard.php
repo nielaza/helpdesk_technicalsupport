@@ -120,7 +120,7 @@
             <div class="col-lg-6 mb-6">
 				<div class="card shadow mb-4">
 					<div class="card-header py-3">
-						<h6 class="m-0 font-weight-bold text-gray-800">Tiket By Status
+						<h6 class="m-0 font-weight-bold text-gray-800">Tiket by Status
 							(<script type="text/javascript">var year = new Date();document.write(year.getFullYear());</script>)
 						</h6>
 					</div>
@@ -136,7 +136,7 @@
 			<div class="col-lg-6 mb-6">
 				<div class="card shadow mb-4">
 					<div class="card-header py-3">
-						<h6 class="m-0 font-weight-bold text-gray-800">Tiket By Teknisi
+						<h6 class="m-0 font-weight-bold text-gray-800">Tiket by Teknisi
 							(<script type="text/javascript">var year = new Date();document.write(year.getFullYear());</script>)
 						</h6>
 					</div>
@@ -154,7 +154,7 @@
             <div class="col-lg-6 mb-6">
 				<div class="card shadow mb-4">
 					<div class="card-header py-3">
-						<h6 class="m-0 font-weight-bold text-gray-800">Tiket By Jenis
+						<h6 class="m-0 font-weight-bold text-gray-800">Tiket by Jenis
 							(<script type="text/javascript">var year = new Date();document.write(year.getFullYear());</script>)
 						</h6>
 					</div>
@@ -170,7 +170,7 @@
 			<div class="col-lg-6 mb-6">
 				<div class="card shadow mb-4">
 					<div class="card-header py-3">
-						<h6 class="m-0 font-weight-bold text-gray-800">Tiket By Lokasi
+						<h6 class="m-0 font-weight-bold text-gray-800">Tiket by Lokasi
 							(<script type="text/javascript">var year = new Date();document.write(year.getFullYear());</script>)
 						</h6>
 					</div>
