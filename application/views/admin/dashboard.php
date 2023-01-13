@@ -6,7 +6,7 @@
 
 		<div class="row">
 			<div class="col-xl-2 col-md-6 mb-4">
-                <a href="#" style="text-decoration:none">
+				<a href="<?php echo site_url('tiket/tiket-all') ?>" style="text-decoration:none">
 				<div class="card bg-info text-white shadow h-100 py-2">
 					<div class="card-body">
 						<div class="row no-gutters align-items-center">
@@ -20,11 +20,11 @@
 						</div>
 					</div>
 				</div>
-                </a>
+				</a>
 			</div>
 
 			<div class="col-xl-2 col-md-6 mb-4">
-                <a href="#" style="text-decoration:none">
+				<a href="<?php echo site_url('tiket/tiket-baru') ?>" style="text-decoration:none">
 				<div class="card bg-danger text-white shadow h-100 py-2">
 					<div class="card-body">
 						<div class="row no-gutters align-items-center">
@@ -38,11 +38,11 @@
 						</div>
 					</div>
 				</div>
-                </a>
+				</a>
 			</div>
 
 			<div class="col-xl-2 col-md-6 mb-4">
-                <a href="#" style="text-decoration:none">
+				<a href="<?php echo site_url('tiket/tiket-proses') ?>" style="text-decoration:none">
 				<div class="card bg-warning text-white shadow h-100 py-2">
 					<div class="card-body">
 						<div class="row no-gutters align-items-center">
@@ -56,13 +56,13 @@
 						</div>
 					</div>
 				</div>
-                </a>
+				</a>
 			</div>
 		<!-- </div>
 
 		<div class="row"> -->
 			<div class="col-xl-3 col-md-6 mb-4">
-                <a href="#" style="text-decoration:none">
+				<a href="<?php echo site_url('tiket/tiket-selesai') ?>" style="text-decoration:none">
 				<div class="card bg-primary text-white shadow h-100 py-2">
 					<div class="card-body">
 						<div class="row no-gutters align-items-center">
@@ -76,11 +76,11 @@
 						</div>
 					</div>
 				</div>
-                </a>
+				</a>
 			</div>
 
 			<div class="col-xl-3 col-md-6 mb-4">
-                <a href="#" style="text-decoration:none">
+				<a href="<?php echo site_url('tiket/tiket-approved') ?>" style="text-decoration:none">
 				<div class="card bg-success text-white shadow h-100 py-2">
 					<div class="card-body">
 						<div class="row no-gutters align-items-center">
@@ -94,7 +94,7 @@
 						</div>
 					</div>
 				</div>
-                </a>
+				</a>
 			</div>
 		</div>
 

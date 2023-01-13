@@ -19,19 +19,19 @@ class Dashboard extends CI_Controller
         $data['sidebar']	= "admin/template/sidebar";
         $data['body'] 		= "admin/dashboard";
 
-        $all = $this->db->query("SELECT COUNT(id) AS jml_tiket FROM tiket")->row();
+        $all                    = $this->m_dashboard->all();
         $data['semua_tiket']    = $all->jml_tiket;
 
-        $new = $this->db->query("SELECT COUNT(id) AS jml_newtiket FROM tiket WHERE status = 1")->row();
+        $new                    = $this->m_dashboard->baru();
         $data['tiket_baru']     = $new->jml_newtiket;
 
-        $proses = $this->db->query("SELECT COUNT(id) AS jml_tiketproses FROM tiket WHERE status = 2")->row();
+        $proses                 = $this->m_dashboard->proses();
         $data['tiket_proses']   = $proses->jml_tiketproses;
 
-        $selesai = $this->db->query("SELECT COUNT(id) AS jml_tiketselesai FROM tiket WHERE status = 3")->row();
+        $selesai                = $this->m_dashboard->selesai();
         $data['tiket_selesai']  = $selesai->jml_tiketselesai;
 
-        $approved = $this->db->query("SELECT COUNT(id) AS jml_tiketapproved FROM tiket WHERE status = 4")->row();
+        $approved               = $this->m_dashboard->approved();
         $data['tiket_approved'] = $approved->jml_tiketapproved;
 
         $data['label_perbulan']     = $this->m_dashboard->linebulan()->result();

@@ -8,7 +8,7 @@ class M_lokasi extends CI_Model
 		parent::__construct();
 	}
 
-    function list_lokasi()
+    public function list_lokasi()
 	{
 		$data = $this->db
 			->select('*')
@@ -18,7 +18,7 @@ class M_lokasi extends CI_Model
 		return $data;
 	}
 
-	function insert($data)
+	public function insert($data)
 	{
 		$this->db->insert('lokasi',$data);
 	}

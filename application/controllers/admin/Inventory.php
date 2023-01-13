@@ -19,17 +19,17 @@ class Inventory extends CI_Controller
         $data['sidebar']	= "admin/template/sidebar";
         $data['body'] 		= "admin/inventory/index";
 
-        $jumlah_inventory   = $this->db->query("SELECT COUNT(id) AS total FROM inventory_komputer")->row();
-        $data['jml_inventory']  = $jumlah_inventory->total;
+        $jumlah_inventory   = $this->m_inventory->all();
+        $data['all']        = $jumlah_inventory->total;
 
-        $kondisi_baik       = $this->db->query("SELECT COUNT(id) AS jml_baik FROM inventory_komputer WHERE kondisi = 1")->row();
-        $data['baik']           = $kondisi_baik->jml_baik;
+        $kondisi_baik       = $this->m_inventory->baik();
+        $data['baik']       = $kondisi_baik->jml_baik;
 
-        $kondisi_bermasalah = $this->db->query("SELECT COUNT(id) AS jml_bermasalah FROM inventory_komputer WHERE kondisi = 2")->row();
-        $data['bermasalah']     = $kondisi_bermasalah->jml_bermasalah;
+        $kondisi_bermasalah = $this->m_inventory->bermasalah();
+        $data['bermasalah'] = $kondisi_bermasalah->jml_bermasalah;
 
-        $kondisi_rusak      = $this->db->query("SELECT COUNT(id) AS jml_rusak FROM inventory_komputer WHERE kondisi = 3")->row();
-        $data['rusak']          = $kondisi_rusak->jml_rusak;
+        $kondisi_rusak      = $this->m_inventory->rusak();
+        $data['rusak']      = $kondisi_rusak->jml_rusak;
 
         $data['label_jenishardware']    = $this->m_inventory->piejenis()->result();
         $data['label_sumberdana']       = $this->m_inventory->piesumber()->result();
@@ -39,6 +39,81 @@ class Inventory extends CI_Controller
 
         $data['data_inventory']  = $this->m_inventory->list_inventory();
     
+        $this->load->view('admin/template/template', $data);
+    }
+
+    public function kondisi_baik()
+    {
+        $data['title'] 		= "Data Inventory Komputer";
+        $data['navbar']     = "admin/template/navbar";
+        $data['sidebar']	= "admin/template/sidebar";
+        $data['body'] 		= "admin/inventory/kondisi_baik";
+
+        $jumlah_inventory   = $this->m_inventory->all();
+        $data['all']        = $jumlah_inventory->total;
+
+        $kondisi_baik       = $this->m_inventory->baik();
+        $data['baik']       = $kondisi_baik->jml_baik;
+
+        $kondisi_bermasalah = $this->m_inventory->bermasalah();
+        $data['bermasalah'] = $kondisi_bermasalah->jml_bermasalah;
+
+        $kondisi_rusak      = $this->m_inventory->rusak();
+        $data['rusak']      = $kondisi_rusak->jml_rusak;
+
+        $id_kondisi = '1';
+        $data['data_inventory']  = $this->m_inventory->kondisi_inventory($id_kondisi);
+    
+        $this->load->view('admin/template/template', $data);
+    }
+
+    public function kondisi_bermasalah()
+    {
+        $data['title'] 		= "Data Inventory Komputer";
+        $data['navbar']     = "admin/template/navbar";
+        $data['sidebar']	= "admin/template/sidebar";
+        $data['body'] 		= "admin/inventory/kondisi_bermasalah";
+
+        $jumlah_inventory   = $this->m_inventory->all();
+        $data['all']        = $jumlah_inventory->total;
+
+        $kondisi_baik       = $this->m_inventory->baik();
+        $data['baik']       = $kondisi_baik->jml_baik;
+
+        $kondisi_bermasalah = $this->m_inventory->bermasalah();
+        $data['bermasalah'] = $kondisi_bermasalah->jml_bermasalah;
+
+        $kondisi_rusak      = $this->m_inventory->rusak();
+        $data['rusak']      = $kondisi_rusak->jml_rusak;
+
+        $id_kondisi = '2';
+        $data['data_inventory']  = $this->m_inventory->kondisi_inventory($id_kondisi);
+    
+        $this->load->view('admin/template/template', $data);
+    }
+
+    public function kondisi_rusak()
+    {
+        $data['title'] 		= "Data Inventory Komputer";
+        $data['navbar']     = "admin/template/navbar";
+        $data['sidebar']	= "admin/template/sidebar";
+        $data['body'] 		= "admin/inventory/kondisi_rusak";
+
+        $jumlah_inventory   = $this->m_inventory->all();
+        $data['all']        = $jumlah_inventory->total;
+
+        $kondisi_baik       = $this->m_inventory->baik();
+        $data['baik']       = $kondisi_baik->jml_baik;
+
+        $kondisi_bermasalah = $this->m_inventory->bermasalah();
+        $data['bermasalah'] = $kondisi_bermasalah->jml_bermasalah;
+
+        $kondisi_rusak      = $this->m_inventory->rusak();
+        $data['rusak']      = $kondisi_rusak->jml_rusak;
+
+        $id_kondisi = '3';
+        $data['data_inventory']  = $this->m_inventory->kondisi_inventory($id_kondisi);
+
         $this->load->view('admin/template/template', $data);
     }
 }

@@ -8,7 +8,7 @@ class M_sumberdana extends CI_Model
 		parent::__construct();
 	}
 
-    function list_sumberdana()
+    public function list_sumberdana()
 	{
 		$data = $this->db
 			->select('*')
@@ -18,7 +18,7 @@ class M_sumberdana extends CI_Model
 		return $data;
 	}
 
-	function insert($data)
+	public function insert($data)
 	{
 		$this->db->insert('jenis_infrastruktur',$data);
 	}

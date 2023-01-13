@@ -55,8 +55,6 @@
     </section> -->
     <!-- End Services Section -->
 
-    <?php echo $this->session->flashdata('message');?>
-
     <!-- ======= Why Us Section ======= -->
     <section class="why-us" data-aos="fade-up" date-aos-delay="200">
       <div class="container">

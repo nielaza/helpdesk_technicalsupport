@@ -8,7 +8,7 @@ class M_kelengkapan extends CI_Model
 		parent::__construct();
 	}
 
-    function list_kelengkapan()
+    public function list_kelengkapan()
 	{
 		$data = $this->db
 			->select('*')
@@ -18,7 +18,7 @@ class M_kelengkapan extends CI_Model
 		return $data;
 	}
 
-	function insert($data)
+	public function insert($data)
 	{
 		$this->db->insert('jenis_infrastruktur',$data);
 	}

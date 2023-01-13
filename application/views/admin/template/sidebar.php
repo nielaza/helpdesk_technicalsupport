@@ -21,7 +21,7 @@
 
 		<hr class="sidebar-divider">
 		<li class="nav-item">
-			<a class="nav-link" href="<?php echo site_url('tiket/list_tiket') ?>">
+			<a class="nav-link" href="<?php echo site_url('tiket/tiket-all') ?>">
 				<i class="fas fa-fw fa-ticket-alt"></i>
 				<span>Data Tiket</span>
 			</a>

@@ -8,7 +8,7 @@ class M_user extends CI_Model
 		parent::__construct();
 	}
 
-    function list_user()
+    public function list_user()
 	{
 		$data = $this->db
 			->select('*')
@@ -18,7 +18,7 @@ class M_user extends CI_Model
 		return $data;
 	}
 
-	function insert($data)
+	public function insert($data)
 	{
 		$this->db->insert('user',$data);
 	}

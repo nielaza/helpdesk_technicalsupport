@@ -8,7 +8,7 @@ class M_inventory extends CI_Model
 		parent::__construct();
 	}
 
-    function list_inventory()
+    public function list_inventory()
 	{
 		$data = $this->db
 			->select('inventory_komputer.*, jenis_infrastruktur.jenis, kondisi.kondisi, sumber_dana.sumber, kelengkapan.kelengkapan, lokasi_infrastruktur.lokasi')
@@ -23,7 +23,33 @@ class M_inventory extends CI_Model
 		return $data;
 	}
 
-	function insert($data)
+	public function kondisi()
+    {
+		$data = $this->db
+			->select('*')
+			->from('kondisi')
+			->order_by('kondisi', 'ASC')
+			->get()->result();
+		return $data;
+    }
+
+	public function kondisi_inventory($id_kondisi)
+	{
+		$data = $this->db
+			->select('inventory_komputer.*, jenis_infrastruktur.jenis, kondisi.kondisi, sumber_dana.sumber, kelengkapan.kelengkapan, lokasi_infrastruktur.lokasi')
+			->from('inventory_komputer')
+			->join('jenis_infrastruktur', 'inventory_komputer.jenis_infrastruktur = jenis_infrastruktur.id', 'left')
+			->join('kondisi', 'inventory_komputer.kondisi = kondisi.id', 'left')
+			->join('sumber_dana', 'inventory_komputer.sumber_dana = sumber_dana.id', 'left')
+			->join('kelengkapan', 'inventory_komputer.kelengkapan = kelengkapan.id', 'left')
+			->join('lokasi_infrastruktur', 'inventory_komputer.bidang_unit = lokasi_infrastruktur.id', 'left')
+			->where('inventory_komputer.kondisi', $id_kondisi)
+            ->order_by('inventory_komputer.no_barang', 'ASC')
+			->get()->result();
+		return $data;
+	}
+
+	public function insert($data)
 	{
 		$this->db->insert('jenis_infrastruktur',$data);
 	}
@@ -84,6 +110,45 @@ class M_inventory extends CI_Model
 			->group_by('inventory_komputer.bidang_unit')
 			->order_by('inventory_komputer.bidang_unit', 'ASC')
 			->get();
+		return $data;
+    }
+
+	public function all()
+    {
+		$data = $this->db
+			->select('COUNT(*) AS total')
+			->from('inventory_komputer')
+			->get()->row();
+		return $data;
+    }
+
+	public function baik()
+    {
+		$data = $this->db
+			->select('COUNT(*) AS jml_baik')
+			->from('inventory_komputer')
+			->where('kondisi', 1)
+			->get()->row();
+		return $data;
+    }
+
+	public function bermasalah()
+    {
+		$data = $this->db
+			->select('COUNT(*) AS jml_bermasalah')
+			->from('inventory_komputer')
+			->where('kondisi', 2)
+			->get()->row();
+		return $data;
+    }
+
+	public function rusak()
+    {
+		$data = $this->db
+			->select('COUNT(*) AS jml_rusak')
+			->from('inventory_komputer')
+			->where('kondisi', 3)
+			->get()->row();
 		return $data;
     }
 
