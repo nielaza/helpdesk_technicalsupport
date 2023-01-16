@@ -6,115 +6,283 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
- 
-$styleJudul = [
-	'font' => [
-		'color' => [
-			'rgb' => 'FFFFFF'
-		],
-		'bold'=>true,
-		'size'=>11
-	],
-	'fill'=>[
-		'fillType' =>  fill::FILL_SOLID,
-		'startColor' => [
-			'rgb' => 'e74c3c'
-		]
-	],
-	'alignment'=>[
-		'horizontal' => Alignment::HORIZONTAL_CENTER
-	]
- 
-];
- 
+  
 $spreadsheet = new Spreadsheet();
 $sheet = $spreadsheet->getActiveSheet();
- 
-//Set Default Teks
-$spreadsheet->getDefaultStyle()
-			->getFont()
-			->setName('Times New Roman')
-			->setSize(10);
- 
-//Style Judul table
-$spreadsheet->getActiveSheet()
-			->setCellValue('A1', "Daftar Mahasiswa");
- 
-$spreadsheet->getActiveSheet()
-            ->mergeCells("A1:C1");
-			// ->mergeCells("A1:E1");
- 
-$spreadsheet->getActiveSheet()
-			->getStyle('A1')
-			->getFont()
-			->setSize(20);
- 
-$spreadsheet->getActiveSheet()
-			->getStyle('A1')
-			->getAlignment()
-			->setHorizontal(Alignment::HORIZONTAL_CENTER);
- 
-// style lebar kolom
-$spreadsheet->getActiveSheet()
-			->getColumnDimension('A')
-			->setWidth(5);
+
+$drawing = new \PhpOffice\PhpSpreadsheet\Worksheet\Drawing();
+$drawing->setName('Paid');
+$drawing->setDescription('Paid');
+$drawing->setPath('assets/img/logo_pusdatin.png'); 
+$drawing->setCoordinates('B2');
+$drawing->setHeight(60);
+$drawing->setOffsetX(20);
+$drawing->getShadow()->setVisible(true);
+$drawing->getShadow()->setDirection(45);
+$drawing->setWorksheet($spreadsheet->getActiveSheet());
+
+$drawing = new \PhpOffice\PhpSpreadsheet\Worksheet\Drawing();
+$drawing->setName('Paid');
+$drawing->setDescription('Paid');
+$drawing->setPath('uploads/'.$tiket[0]->lampiran.''); 
+$drawing->setCoordinates('D11');
+$drawing->setWidth(180);
+$drawing->setOffsetX(20);
+$drawing->getShadow()->setVisible(true);
+$drawing->getShadow()->setDirection(45);
+$drawing->setWorksheet($spreadsheet->getActiveSheet());
+
 $spreadsheet->getActiveSheet()
 			->getColumnDimension('B')
-			->setWidth(18);
+			->setWidth(45);
 $spreadsheet->getActiveSheet()
 			->getColumnDimension('C')
-			->setWidth(13);
-// $spreadsheet->getActiveSheet()
-// 			->getColumnDimension('D')
-// 			->setWidth(9);
-// $spreadsheet->getActiveSheet()
-// 			->getColumnDimension('E')
-// 			->setWidth(18);
- 
-// SET judul table
+			->setWidth(45);
 $spreadsheet->getActiveSheet()
-			->setCellValue('A2', "ID")
-			->setCellValue('B2', "Nama")
-			->setCellValue('C2', "NIM");
-			// ->setCellValue('D2', "Kelas")
-			// ->setCellValue('E2', "Jurusan");
- 
-// STYLE judul table
+			->getColumnDimension('D')
+			->setWidth(45);
+
+$spreadsheet->getActiveSheet()->getRowDimension('2')->setRowHeight(27, 'pt');
+$spreadsheet->getActiveSheet()->getRowDimension('9')->setRowHeight(25, 'pt');
+$spreadsheet->getActiveSheet()->getRowDimension('10')->setRowHeight(24, 'pt');
+$spreadsheet->getActiveSheet()->getRowDimension('11')->setRowHeight(190, 'pt');
+
 $spreadsheet->getActiveSheet()
-			->getStyle('A2:C2')
-            // ->getStyle('A2:E2')
-			->applyFromArray($styleJudul);
- 
-// ambil data JSON
-// $file = file_get_contents('daftar-mahasiswa.json');
-// $dataMahasiwa = json_decode($file, true);
- 
-//tampilkan data JSON
-$index = 3;
-// foreach($dataMahasiwa as $mahasiswa){
-	$spreadsheet->getActiveSheet()
-	->setCellValue('A'.$index, '1')
-	->setCellValue('B'.$index, 'Daniel')
-	->setCellValue('C'.$index, '2022');
-	// ->setCellValue('D'.$index, $mahasiswa['kelas'])
-	// ->setCellValue('E'.$index, $mahasiswa['jurusan']);
- 
- 
-// $index++;
-// }
+			->setCellValue('D2', "SURAT PERINTAH PERBAIKAN");
+$spreadsheet->getActiveSheet()
+			->getStyle('D2')
+			->getFont()
+			->setBold(true)
+			->setSize(14);
+$spreadsheet->getActiveSheet()
+			->getStyle('D2')
+			->getAlignment()
+			->setHorizontal(Alignment::HORIZONTAL_CENTER)
+			->setVertical(Alignment::VERTICAL_CENTER);
+$spreadsheet->getActiveSheet()->getStyle('D2')->getFill()
+    		->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
+    		->getStartColor()->setARGB('000000');
+$spreadsheet->getActiveSheet()->getStyle('D2')
+    		->getFont()->getColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_WHITE);
+$spreadsheet->getActiveSheet()
+			->setCellValue('D3', "Kode Tiket : ".$tiket[0]->kode_tiket."");
+$spreadsheet->getActiveSheet()
+            ->setCellValue('D4', "Hari : ".nama_hari(date('l'))."");
+$spreadsheet->getActiveSheet()
+            ->setCellValue('B5', "Tanggal Aduan Masuk : ".tanggal_indonesia(date('Y-m-d', strtotime($tiket[0]->created)))."");
+$spreadsheet->getActiveSheet()
+            ->setCellValue('D5', "Tanggal : ".tanggal_indonesia(date('Y-m-d'))."");
+$spreadsheet->getActiveSheet()
+            ->setCellValue('B7', "Pemilik Aset : ".$tiket[0]->user_pemohon."");
+$spreadsheet->getActiveSheet()
+            ->setCellValue('C7', "Nama Aset : ");
+$spreadsheet->getActiveSheet()
+            ->setCellValue('C8', "".$tiket[0]->jenis." - ".$tiket[0]->model."");
+$spreadsheet->getActiveSheet()
+            ->setCellValue('D7', "Bidang / Unit : ");
+$spreadsheet->getActiveSheet()
+            ->setCellValue('D8', "".$tiket[0]->lokasi."");
+$spreadsheet->getActiveSheet()
+            ->setCellValue('B8', "No. Telp : ".$tiket[0]->telp."");
+$spreadsheet->getActiveSheet()
+            ->setCellValue('B10', "JENIS PEKERJAAN");
+$spreadsheet->getActiveSheet()
+            ->setCellValue('B11', "[   ] Pembuatan Kabel LAN  …..  M
+			[   ] Connection internet error
+			[   ] Printer error
+			[   ] Windows error
+			[   ] Lain - lain :
+			
+				…...........................................................................
+			
+				…...........................................................................
+			
+				…...........................................................................");
+$spreadsheet->getActiveSheet()->getStyle('B11')
+    		->getAlignment()->setWrapText(true)
+			->setHorizontal(Alignment::HORIZONTAL_LEFT)
+			->setVertical(Alignment::VERTICAL_TOP);
+$spreadsheet->getActiveSheet()
+			->getStyle('B10')
+			->getFont()
+			->setBold(true);
+$spreadsheet->getActiveSheet()
+			->getStyle('B10')
+			->getAlignment()
+			->setHorizontal(Alignment::HORIZONTAL_CENTER)
+			->setVertical(Alignment::VERTICAL_CENTER);
+$spreadsheet->getActiveSheet()
+            ->setCellValue('C10', "KELUHAN CLIENT");
+$spreadsheet->getActiveSheet()
+			->getStyle('C10')
+			->getFont()
+			->setBold(true);
+$spreadsheet->getActiveSheet()
+			->getStyle('C10')
+			->getAlignment()
+			->setHorizontal(Alignment::HORIZONTAL_CENTER)
+			->setVertical(Alignment::VERTICAL_CENTER);
+$spreadsheet->getActiveSheet()
+            ->setCellValue('C11', "".$tiket[0]->keterangan."");
+$spreadsheet->getActiveSheet()
+			->getStyle('C11')
+			->getAlignment()
+			->setHorizontal(Alignment::HORIZONTAL_CENTER)
+			->setVertical(Alignment::VERTICAL_CENTER);
+$spreadsheet->getActiveSheet()
+            ->setCellValue('D10', "KETERANGAN");
+$spreadsheet->getActiveSheet()
+			->getStyle('D10')
+			->getFont()
+			->setBold(true);
+$spreadsheet->getActiveSheet()
+			->getStyle('D10')
+			->getAlignment()
+			->setHorizontal(Alignment::HORIZONTAL_CENTER)
+			->setVertical(Alignment::VERTICAL_CENTER);
+$spreadsheet->getActiveSheet()
+            ->setCellValue('B13', "Catatan :");
+$spreadsheet->getActiveSheet()
+            ->setCellValue('B17', "Pemilik Aset / Pemberi Pekerjaan");
+$spreadsheet->getActiveSheet()
+			->getStyle('B17')
+			->getAlignment()
+			->setHorizontal(Alignment::HORIZONTAL_CENTER);
+$spreadsheet->getActiveSheet()
+            ->setCellValue('B23', "……………………………………..");
+$spreadsheet->getActiveSheet()
+			->getStyle('B23')
+			->getFont()
+			->setBold(true)
+			->setUnderline(true);
+$spreadsheet->getActiveSheet()
+			->getStyle('B23')
+			->getAlignment()
+			->setHorizontal(Alignment::HORIZONTAL_CENTER);
+$spreadsheet->getActiveSheet()
+            ->setCellValue('C17', "Tim PPHP");
+$spreadsheet->getActiveSheet()
+			->getStyle('C17')
+			->getAlignment()
+			->setHorizontal(Alignment::HORIZONTAL_CENTER);
+$spreadsheet->getActiveSheet()
+            ->setCellValue('C23', "……………………………………..");
+$spreadsheet->getActiveSheet()
+			->getStyle('C23')
+			->getFont()
+			->setBold(true)
+			->setUnderline(true);
+$spreadsheet->getActiveSheet()
+			->getStyle('C23')
+			->getAlignment()
+			->setHorizontal(Alignment::HORIZONTAL_CENTER);
+$spreadsheet->getActiveSheet()
+            ->setCellValue('D17', "Tenaga Ahli");
+$spreadsheet->getActiveSheet()
+			->getStyle('D17')
+			->getAlignment()
+			->setHorizontal(Alignment::HORIZONTAL_CENTER);
+$spreadsheet->getActiveSheet()
+            ->setCellValue('D23', "……………………………………..");
+$spreadsheet->getActiveSheet()
+			->getStyle('D23')
+			->getFont()
+			->setBold(true)
+			->setUnderline(true);
+$spreadsheet->getActiveSheet()
+			->getStyle('D23')
+			->getAlignment()
+			->setHorizontal(Alignment::HORIZONTAL_CENTER);
+$spreadsheet->getActiveSheet()
+            ->setCellValue('D24', "".$this->session->userdata('nama_lengkap')."");
+$spreadsheet->getActiveSheet()
+			->getStyle('D24')
+			->getAlignment()
+			->setHorizontal(Alignment::HORIZONTAL_CENTER);
 
+$spreadsheet->getActiveSheet()->getStyle('B1:D1')
+    		->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM);
+$spreadsheet->getActiveSheet()->getStyle('B1:B24')
+    		->getBorders()->getLeft()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM);
+$spreadsheet->getActiveSheet()->getStyle('D1:D24')
+    		->getBorders()->getRight()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM);
+$spreadsheet->getActiveSheet()->getStyle('B24:D24')
+    		->getBorders()->getBottom()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM);
 
+$spreadsheet->getActiveSheet()->getStyle('B7:D7')
+    		->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+$spreadsheet->getActiveSheet()->getStyle('B7:B9')
+    		->getBorders()->getRight()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+$spreadsheet->getActiveSheet()->getStyle('D7:D9')
+    		->getBorders()->getLeft()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+
+$spreadsheet->getActiveSheet()->getStyle('B10')
+    		->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+$spreadsheet->getActiveSheet()->getStyle('B10')
+    		->getBorders()->getBottom()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+$spreadsheet->getActiveSheet()->getStyle('B10')
+    		->getBorders()->getRight()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+$spreadsheet->getActiveSheet()->getStyle('B11')
+    		->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+$spreadsheet->getActiveSheet()->getStyle('B11')
+    		->getBorders()->getBottom()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+$spreadsheet->getActiveSheet()->getStyle('B11')
+    		->getBorders()->getRight()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+$spreadsheet->getActiveSheet()->getStyle('B12')
+    		->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+$spreadsheet->getActiveSheet()->getStyle('B12')
+    		->getBorders()->getBottom()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+$spreadsheet->getActiveSheet()->getStyle('B12')
+    		->getBorders()->getRight()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+
+$spreadsheet->getActiveSheet()->getStyle('C10')
+    		->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+$spreadsheet->getActiveSheet()->getStyle('C10')
+    		->getBorders()->getBottom()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+$spreadsheet->getActiveSheet()->getStyle('C10')
+    		->getBorders()->getLeft()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+$spreadsheet->getActiveSheet()->getStyle('C10')
+    		->getBorders()->getRight()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+$spreadsheet->getActiveSheet()->getStyle('C11')
+    		->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+$spreadsheet->getActiveSheet()->getStyle('C11')
+    		->getBorders()->getBottom()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+$spreadsheet->getActiveSheet()->getStyle('C11')
+    		->getBorders()->getLeft()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+$spreadsheet->getActiveSheet()->getStyle('C11')
+    		->getBorders()->getRight()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+$spreadsheet->getActiveSheet()->getStyle('C12')
+    		->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+$spreadsheet->getActiveSheet()->getStyle('C12')
+    		->getBorders()->getBottom()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+$spreadsheet->getActiveSheet()->getStyle('C12')
+    		->getBorders()->getLeft()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+$spreadsheet->getActiveSheet()->getStyle('C12')
+    		->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+
+$spreadsheet->getActiveSheet()->getStyle('D10')
+    		->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+$spreadsheet->getActiveSheet()->getStyle('D10')
+    		->getBorders()->getBottom()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+$spreadsheet->getActiveSheet()->getStyle('D10')
+    		->getBorders()->getLeft()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+$spreadsheet->getActiveSheet()->getStyle('D11')
+    		->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+$spreadsheet->getActiveSheet()->getStyle('D11')
+    		->getBorders()->getBottom()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+$spreadsheet->getActiveSheet()->getStyle('D11')
+    		->getBorders()->getLeft()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+$spreadsheet->getActiveSheet()->getStyle('D12')
+    		->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+$spreadsheet->getActiveSheet()->getStyle('D12')
+    		->getBorders()->getBottom()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+$spreadsheet->getActiveSheet()->getStyle('D12')
+    		->getBorders()->getLeft()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+			
 $writer = new Xlsx($spreadsheet);
-$filename = 'laporan-siswa';
 
 header('Content-Type: application/vnd.ms-excel');
-header('Content-Disposition: attachment;filename="'. $filename .'.xlsx"'); 
+header('Content-Disposition: attachment;filename=Surat Perintah Perbaikan'.' - '.$tiket[0]->user_pemohon.' '.'('.tanggal_indonesia(date('Y-m-d', strtotime($tiket[0]->created))).')'.'.xlsx'); 
 header('Cache-Control: max-age=0');
 $writer->save('php://output');
- 
-
-// header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'); 
-// header('Content-Disposition: attachment;filename="mahasiswa.xls"');
-// $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
-// $writer->save('php://output');
 ?>

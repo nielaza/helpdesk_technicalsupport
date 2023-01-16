@@ -148,7 +148,7 @@
 										<strong style="color: #1CC88A;">Pengerjaan selesai Approval by User</strong>
 									</td>
 								<?php } ?>
-								<td><?php echo date('d F Y', strtotime($row->created))?></td>
+								<td><?php echo tanggal_indonesia(date('Y-m-d', strtotime($row->created)))?></td>
 							</tr>
 						<?php $no++;}?>
 					</tbody>

@@ -7,7 +7,7 @@ class Tiket extends CI_Controller
 	{
 		parent::__construct();
         date_default_timezone_set('Asia/Jakarta');
-		$this->load->helper('url');
+		$this->load->helper(['url','tanggal']);
 		$this->load->library(['session','pagination']);
 		$this->load->model('m_tiket');
     }
