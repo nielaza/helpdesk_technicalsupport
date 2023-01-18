@@ -129,7 +129,7 @@
 										<strong style="color: #B14145;">Belum Ditangani</strong>
 									</td>
 								<?php } else { ?>
-									<td><strong style="color: #FC8500;"><?php echo $row->nama_teknisi?></strong></td>
+									<td><strong style="color: #FC8500;"><?php echo $row->nama_lengkap?></strong></td>
 								<?php } ?>
 								<?php if ($row->status == 1) {?>
 									<td>
@@ -145,7 +145,7 @@
 									</td>
 								<?php } else if ($row->status == 4) {?>
 									<td>
-										<strong style="color: #1CC88A;">Pengerjaan selesai Approval by User</strong>
+										<button type="button" class="btn btn-success" style="font-size:14px"><i class="fas fa-check-circle fa"></i><strong>  Tiket Done</strong></button>
 									</td>
 								<?php } ?>
 								<td><?php echo date('d F Y', strtotime($row->created))?></td>

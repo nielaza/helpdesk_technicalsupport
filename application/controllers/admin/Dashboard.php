@@ -19,8 +19,10 @@ class Dashboard extends CI_Controller
         $data['sidebar']	= "admin/template/sidebar";
         $data['body'] 		= "admin/dashboard";
 
+        /////////////////////////////////////////// Dashboard Admin //////////////////////////////////////////////////////////
+
         $all                    = $this->m_dashboard->all();
-        $data['semua_tiket']    = $all->jml_tiket;
+        $data['all_tiket']      = $all->jml_tiket;
 
         $new                    = $this->m_dashboard->baru();
         $data['tiket_baru']     = $new->jml_newtiket;
@@ -39,7 +41,26 @@ class Dashboard extends CI_Controller
         $data['label_status']       = $this->m_dashboard->piestatus()->result();
         $data['label_jenis']        = $this->m_dashboard->bar_jenis()->result();
         $data['label_lokasi']       = $this->m_dashboard->bar_lokasi()->result();
-    
+
+        ////////////////////////////////////////// Dashboard Teknisi /////////////////////////////////////////////////////////
+        
+        $id_user                    = $this->session->userdata('id');
+        
+        $all                        = $this->m_dashboard->all();
+        $data['semua_tiket']        = $all->jml_tiket;
+
+        $new                        = $this->m_dashboard->baru();
+        $data['teknisi_baru']       = $new->jml_newtiket;
+
+        $teknisi_processed          = $this->m_dashboard->processed($id_user);
+        $data['teknisi_proses']     = $teknisi_processed->jml_tiketproses;
+
+        $teknisi_finished           = $this->m_dashboard->finished($id_user);
+        $data['teknisi_selesai']    = $teknisi_finished->jml_tiketselesai;
+
+        $teknisi_done               = $this->m_dashboard->done($id_user);
+        $data['teknisi_beres']      = $teknisi_done->jml_tiketapproved;
+
         $this->load->view('admin/template/template', $data);
     }
 }

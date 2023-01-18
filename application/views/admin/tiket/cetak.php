@@ -282,7 +282,8 @@ $spreadsheet->getActiveSheet()->getStyle('D12')
 $writer = new Xlsx($spreadsheet);
 
 header('Content-Type: application/vnd.ms-excel');
-header('Content-Disposition: attachment;filename=Surat Perintah Perbaikan'.' - '.$tiket[0]->user_pemohon.' '.'('.tanggal_indonesia(date('Y-m-d', strtotime($tiket[0]->created))).')'.'.xlsx'); 
+// header('Content-Disposition: attachment;filename=Surat Perintah Perbaikan'.' - '.$tiket[0]->user_pemohon.' '.'('.tanggal_indonesia(date('Y-m-d', strtotime($tiket[0]->created))).')'.'.xlsx'); 
+header('Content-Disposition: attachment;filename=Surat Perintah Perbaikan'.' - '.$tiket[0]->user_pemohon.' '.'('.tanggal_indonesia(date('Y-m-d', strtotime($tiket[0]->created))).')'.'.xls'); 
 header('Cache-Control: max-age=0');
 $writer->save('php://output');
 ?>

@@ -24,9 +24,9 @@ class Auth extends CI_Controller
             $password = sha1($this->input->post('password', TRUE));
 
             $data = array(
-                'username' => $username,
-                'password' => $password,
-                'status' => 'Aktif'
+                'username'  => $username,
+                'password'  => $password,
+                'status'    => 'Aktif'
             );
             $cek_login = $this->M_login->login_cek($data)->num_rows();
             if ($cek_login > 0) {
@@ -35,7 +35,11 @@ class Auth extends CI_Controller
 
                 $cek['login'] = 'Berhasil';
                 $this->session->set_userdata($cek);
-                redirect(base_url('admin/dashboard'));
+                if($this->session->userdata('level') == "Unit"){
+                    redirect(base_url('tiket/tiket-all'));
+                } else {
+                    redirect(base_url('admin/dashboard'));
+                }
             } else {
                 $this->session->set_flashdata('info', 'Username Atau Password salah !!!');
                 redirect(base_url('admin/auth/login'));

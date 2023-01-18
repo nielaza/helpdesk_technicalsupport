@@ -94,6 +94,16 @@ class M_dashboard extends CI_Model
 		return $data;
     }
 
+	public function unit_all($id_lokasi)
+    {
+		$data = $this->db
+			->select('COUNT(*) AS jml_tiket')
+			->from('tiket')
+			->where('id_lokasi', $id_lokasi)
+			->get()->row();
+		return $data;
+    }
+
 	public function baru()
     {
 		$data = $this->db
@@ -130,6 +140,90 @@ class M_dashboard extends CI_Model
 			->select('COUNT(*) AS jml_tiketapproved')
 			->from('tiket')
 			->where('status', 4)
+			->get()->row();
+		return $data;
+    }
+
+	////////////////////// Teknisi //////////////////////
+
+	public function processed($id_user)
+    {
+		$data = $this->db
+			->select('COUNT(*) AS jml_tiketproses, teknisi.id_user')
+			->from('tiket')
+			->join('teknisi', 'tiket.id_teknisi = teknisi.id', 'left')
+			->where('tiket.status', 2)
+			->where('tiket.id_teknisi', $id_user)
+			->get()->row();
+		return $data;
+    }
+
+	public function finished($id_user)
+    {
+		$data = $this->db
+			->select('COUNT(*) AS jml_tiketselesai, teknisi.id_user')
+			->from('tiket')
+			->join('teknisi', 'tiket.id_teknisi = teknisi.id', 'left')
+			->where('tiket.status', 3)
+			->where('tiket.id_teknisi', $id_user)
+			->get()->row();
+		return $data;
+    }
+
+	public function done($id_user)
+    {
+		$data = $this->db
+			->select('COUNT(*) AS jml_tiketapproved, teknisi.id_user')
+			->from('tiket')
+			->join('teknisi', 'tiket.id_teknisi = teknisi.id', 'left')
+			->where('tiket.status', 4)
+			->where('tiket.id_teknisi', $id_user)
+			->get()->row();
+		return $data;
+    }
+
+	////////////////////// Unit //////////////////////
+
+	public function unit_new($id_lokasi)
+    {
+		$data = $this->db
+			->select('COUNT(*) AS jml_newtiket')
+			->from('tiket')
+			->where('status', 1)
+			->where('id_lokasi', $id_lokasi)
+			->get()->row();
+		return $data;
+    }
+
+	public function unit_processed($id_lokasi)
+    {
+		$data = $this->db
+			->select('COUNT(*) AS jml_tiketproses')
+			->from('tiket')
+			->where('status', 2)
+			->where('id_lokasi', $id_lokasi)
+			->get()->row();
+		return $data;
+    }
+
+	public function unit_finished($id_lokasi)
+    {
+		$data = $this->db
+			->select('COUNT(*) AS jml_tiketselesai')
+			->from('tiket')
+			->where('status', 3)
+			->where('id_lokasi', $id_lokasi)
+			->get()->row();
+		return $data;
+    }
+
+	public function unit_done($id_lokasi)
+    {
+		$data = $this->db
+			->select('COUNT(*) AS jml_tiketapproved')
+			->from('tiket')
+			->where('status', 4)
+			->where('id_lokasi', $id_lokasi)
 			->get()->row();
 		return $data;
     }

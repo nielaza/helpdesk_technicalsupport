@@ -55,24 +55,38 @@ class M_tiket extends CI_Model
     public function list_tiket()
 	{
 		$data = $this->db
-			->select('tiket.*, jenis_infrastruktur.jenis, lokasi_infrastruktur.lokasi, teknisi.nama_teknisi')
+			->select('tiket.*, jenis_infrastruktur.jenis, lokasi_infrastruktur.lokasi, user.nama_lengkap')
 			->from('tiket')
             ->join('jenis_infrastruktur', 'tiket.id_jenis = jenis_infrastruktur.id', 'left')
 			->join('lokasi_infrastruktur', 'tiket.id_lokasi = lokasi_infrastruktur.id', 'left')
-			->join('teknisi', 'tiket.id_teknisi = teknisi.id', 'left')
+			->join('user', 'tiket.id_teknisi = user.id', 'left')
 			->order_by('tiket.created', 'DESC')
 			->get()->result();
 		return $data;
 	}
 
-	public function tiket_cetak($id)
+	public function unit_tiket($id_lokasi)
 	{
 		$data = $this->db
-			->select('tiket.*, jenis_infrastruktur.jenis, lokasi_infrastruktur.lokasi, teknisi.nama_teknisi')
+			->select('tiket.*, jenis_infrastruktur.jenis, lokasi_infrastruktur.lokasi, user.nama_lengkap')
 			->from('tiket')
             ->join('jenis_infrastruktur', 'tiket.id_jenis = jenis_infrastruktur.id', 'left')
 			->join('lokasi_infrastruktur', 'tiket.id_lokasi = lokasi_infrastruktur.id', 'left')
-			->join('teknisi', 'tiket.id_teknisi = teknisi.id', 'left')
+			->join('user', 'tiket.id_teknisi = user.id', 'left')
+			->where('tiket.id_lokasi', $id_lokasi)
+			->order_by('tiket.created', 'DESC')
+			->get()->result();
+		return $data;
+	}
+
+	public function tiket($id)
+	{
+		$data = $this->db
+			->select('tiket.*, jenis_infrastruktur.jenis, lokasi_infrastruktur.lokasi, user.nama_lengkap')
+			->from('tiket')
+            ->join('jenis_infrastruktur', 'tiket.id_jenis = jenis_infrastruktur.id', 'left')
+			->join('lokasi_infrastruktur', 'tiket.id_lokasi = lokasi_infrastruktur.id', 'left')
+			->join('user', 'tiket.id_teknisi = user.id', 'left')
 			->where('tiket.id', $id)
 			->get()->result();
 		return $data;
@@ -81,11 +95,11 @@ class M_tiket extends CI_Model
 	public function tiket_status($status)
 	{
 		$data = $this->db
-			->select('tiket.*, jenis_infrastruktur.jenis, lokasi_infrastruktur.lokasi, teknisi.nama_teknisi')
+			->select('tiket.*, jenis_infrastruktur.jenis, lokasi_infrastruktur.lokasi, user.nama_lengkap')
 			->from('tiket')
             ->join('jenis_infrastruktur', 'tiket.id_jenis = jenis_infrastruktur.id', 'left')
 			->join('lokasi_infrastruktur', 'tiket.id_lokasi = lokasi_infrastruktur.id', 'left')
-			->join('teknisi', 'tiket.id_teknisi = teknisi.id', 'left')
+			->join('user', 'tiket.id_teknisi = user.id', 'left')
 			->where('tiket.status', $status)
 			->order_by('tiket.created', 'DESC')
 			->get()->result();
@@ -97,6 +111,16 @@ class M_tiket extends CI_Model
 		$data = $this->db
 			->select('COUNT(*) AS jml_tiket')
 			->from('tiket')
+			->get()->row();
+		return $data;
+    }
+
+	public function unit_all($id_lokasi)
+    {
+		$data = $this->db
+			->select('COUNT(*) AS jml_tiket')
+			->from('tiket')
+			->where('id_lokasi', $id_lokasi)
 			->get()->row();
 		return $data;
     }
@@ -141,6 +165,140 @@ class M_tiket extends CI_Model
 		return $data;
     }
 
+	////////////////////// Teknisi //////////////////////
+
+	public function processed($id_user)
+    {
+		$data = $this->db
+			->select('COUNT(*) AS jml_tiketproses, teknisi.id_user')
+			->from('tiket')
+			->join('teknisi', 'tiket.id_teknisi = teknisi.id', 'left')
+			->where('tiket.status', 2)
+			->where('tiket.id_teknisi', $id_user)
+			->get()->row();
+		return $data;
+    }
+
+	public function finished($id_user)
+    {
+		$data = $this->db
+			->select('COUNT(*) AS jml_tiketselesai, teknisi.id_user')
+			->from('tiket')
+			->join('teknisi', 'tiket.id_teknisi = teknisi.id', 'left')
+			->where('tiket.status', 3)
+			->where('tiket.id_teknisi', $id_user)
+			->get()->row();
+		return $data;
+    }
+
+	public function done($id_user)
+    {
+		$data = $this->db
+			->select('COUNT(*) AS jml_tiketapproved, teknisi.id_user')
+			->from('tiket')
+			->join('teknisi', 'tiket.id_teknisi = teknisi.id', 'left')
+			->where('tiket.status', 4)
+			->where('tiket.id_teknisi', $id_user)
+			->get()->row();
+		return $data;
+    }
+
+	public function tiket_teknisi($status, $id_user)
+	{
+		$data = $this->db
+			->select('tiket.*, jenis_infrastruktur.jenis, lokasi_infrastruktur.lokasi, user.nama_lengkap')
+			->from('tiket')
+            ->join('jenis_infrastruktur', 'tiket.id_jenis = jenis_infrastruktur.id', 'left')
+			->join('lokasi_infrastruktur', 'tiket.id_lokasi = lokasi_infrastruktur.id', 'left')
+			->join('user', 'tiket.id_teknisi = user.id', 'left')
+			->where('tiket.status', $status)
+			->where('tiket.id_teknisi', $id_user)
+			->order_by('tiket.created', 'DESC')
+			->get()->result();
+		return $data;
+	}
+
+	////////////////////// Unit //////////////////////
+
+	public function unit_new($id_lokasi)
+    {
+		$data = $this->db
+			->select('COUNT(*) AS jml_newtiket')
+			->from('tiket')
+			->where('status', 1)
+			->where('id_lokasi', $id_lokasi)
+			->get()->row();
+		return $data;
+    }
+
+	public function unit_processed($id_lokasi)
+    {
+		$data = $this->db
+			->select('COUNT(*) AS jml_tiketproses')
+			->from('tiket')
+			->where('status', 2)
+			->where('id_lokasi', $id_lokasi)
+			->get()->row();
+		return $data;
+    }
+
+	public function unit_finished($id_lokasi)
+    {
+		$data = $this->db
+			->select('COUNT(*) AS jml_tiketselesai')
+			->from('tiket')
+			->where('status', 3)
+			->where('id_lokasi', $id_lokasi)
+			->get()->row();
+		return $data;
+    }
+
+	public function unit_done($id_lokasi)
+    {
+		$data = $this->db
+			->select('COUNT(*) AS jml_tiketapproved')
+			->from('tiket')
+			->where('status', 4)
+			->where('id_lokasi', $id_lokasi)
+			->get()->row();
+		return $data;
+    }
+
+	public function tiket_unit($status, $id_lokasi)
+	{
+		$data = $this->db
+			->select('tiket.*, jenis_infrastruktur.jenis, lokasi_infrastruktur.lokasi, user.nama_lengkap')
+			->from('tiket')
+            ->join('jenis_infrastruktur', 'tiket.id_jenis = jenis_infrastruktur.id', 'left')
+			->join('lokasi_infrastruktur', 'tiket.id_lokasi = lokasi_infrastruktur.id', 'left')
+			->join('user', 'tiket.id_teknisi = user.id', 'left')
+			->where('tiket.status', $status)
+			->where('tiket.id_lokasi', $id_lokasi)
+			->order_by('tiket.created', 'DESC')
+			->get()->result();
+		return $data;
+	}
+
+	public function update($table, $data, $where){
+		$this->db->update($table, $data, $where);
+	}
+
+	public function insert_review($data)
+	{
+		$this->db->insert('review_user',$data);
+	}
+
+	public function tiket_review()
+	{
+		$data = $this->db
+			->select('review_user.*, tiket.kode_tiket, tiket.user_pemohon, tiket.created as tgl_tiket, user.nama_lengkap')
+			->from('review_user')
+            ->join('tiket', 'review_user.id_tiket = tiket.id', 'left')
+			->join('user', 'tiket.id_teknisi = user.id', 'left')
+			->order_by('review_user.id', 'ASC')
+			->get()->result();
+		return $data;
+	}
 
 }
 ?>

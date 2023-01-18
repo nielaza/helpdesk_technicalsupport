@@ -1,4 +1,4 @@
-<?php //if ($this->session->userdata('level') == "Admin") { ?>
+<?php if ($this->session->userdata('level') == "Admin") { ?>
 	<div class="container-fluid">
 		<div class="d-sm-flex align-items-center justify-content-between mb-4">
 			<h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
@@ -12,7 +12,7 @@
 						<div class="row no-gutters align-items-center">
 							<div class="col mr-2">
 								<div class="text-xs font-weight-bold text-uppercase mb-1">Semua Tiket</div>
-								<div class="h5 mb-0 font-weight-bold"><?php echo $semua_tiket ?></div>
+								<div class="h5 mb-0 font-weight-bold"><?php echo $all_tiket ?></div>
 							</div>
 							<div class="col-auto">
 								<i class="fas fa-ticket-alt fa-2x"></i>
@@ -184,7 +184,193 @@
 			</div>
 		</div>
 	</div>
-<?php //} ?>
+<?php } else if ($this->session->userdata('level') == "Teknisi") { ?>
+	<div class="container-fluid">
+		<div class="d-sm-flex align-items-center justify-content-between mb-4">
+			<h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+		</div>
+
+		<div class="row">
+			<div class="col-xl-2 col-md-6 mb-4">
+				<a href="<?php echo site_url('tiket/tiket-all') ?>" style="text-decoration:none">
+				<div class="card bg-info text-white shadow h-100 py-2">
+					<div class="card-body">
+						<div class="row no-gutters align-items-center">
+							<div class="col mr-2">
+								<div class="text-xs font-weight-bold text-uppercase mb-1">Semua Tiket</div>
+								<div class="h5 mb-0 font-weight-bold"><?php echo $semua_tiket ?></div>
+							</div>
+							<div class="col-auto">
+								<i class="fas fa-ticket-alt fa-2x"></i>
+							</div>
+						</div>
+					</div>
+				</div>
+				</a>
+			</div>
+
+			<div class="col-xl-2 col-md-6 mb-4">
+				<a href="<?php echo site_url('tiket/tiket-baru') ?>" style="text-decoration:none">
+				<div class="card bg-danger text-white shadow h-100 py-2">
+					<div class="card-body">
+						<div class="row no-gutters align-items-center">
+							<div class="col mr-2">
+								<div class="text-xs font-weight-bold text-uppercase mb-1">Tiket Baru</div>
+								<div class="h5 mb-0 font-weight-bold"><?php echo $teknisi_baru ?></div>
+							</div>
+							<div class="col-auto">
+								<i class="fas fa-clipboard-list fa-2x"></i>
+							</div>
+						</div>
+					</div>
+				</div>
+				</a>
+			</div>
+
+			<div class="col-xl-2 col-md-6 mb-4">
+				<a href="<?php echo site_url('tiket/tiket-proses') ?>" style="text-decoration:none">
+				<div class="card bg-warning text-white shadow h-100 py-2">
+					<div class="card-body">
+						<div class="row no-gutters align-items-center">
+							<div class="col mr-2">
+								<div class="text-xs font-weight-bold text-uppercase mb-1">Tiket Proses</div>
+								<div class="h5 mb-0 font-weight-bold"><?php echo $teknisi_proses ?></div>
+							</div>
+							<div class="col-auto">
+								<i class="fas fa-circle-notch fa-2x"></i>
+							</div>
+						</div>
+					</div>
+				</div>
+				</a>
+			</div>
+		<!-- </div>
+
+		<div class="row"> -->
+			<div class="col-xl-3 col-md-6 mb-4">
+				<a href="<?php echo site_url('tiket/tiket-selesai') ?>" style="text-decoration:none">
+				<div class="card bg-primary text-white shadow h-100 py-2">
+					<div class="card-body">
+						<div class="row no-gutters align-items-center">
+							<div class="col mr-2">
+								<div class="text-xs font-weight-bold text-uppercase mb-1">Tiket Selesai</div>
+								<div class="h5 mb-0 font-weight-bold"><?php echo $teknisi_selesai ?></div>
+							</div>
+							<div class="col-auto">
+								<i class="fas fa-check-circle fa-2x"></i>
+							</div>
+						</div>
+					</div>
+				</div>
+				</a>
+			</div>
+
+			<div class="col-xl-3 col-md-6 mb-4">
+				<a href="<?php echo site_url('tiket/tiket-approved') ?>" style="text-decoration:none">
+				<div class="card bg-success text-white shadow h-100 py-2">
+					<div class="card-body">
+						<div class="row no-gutters align-items-center">
+							<div class="col mr-2">
+								<div class="text-xs font-weight-bold text-uppercase mb-1">Tiket Approved by User</div>
+								<div class="h5 mb-0 font-weight-bold"><?php echo $teknisi_beres ?></div>
+							</div>
+							<div class="col-auto">
+								<i class="fas fa-check-circle fa-2x"></i>
+							</div>
+						</div>
+					</div>
+				</div>
+				</a>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-lg-12 mb-12">
+				<div class="card shadow mb-4">
+					<div class="card-header py-3">
+						<h6 class="m-0 font-weight-bold text-gray-800">Tiket 
+							(<script type="text/javascript">var year = new Date();document.write(year.getFullYear());</script>)
+						</h6>
+					</div>
+					<!-- Card Body -->
+					<div class="card-body">
+						<div class="chart-area">
+							<canvas id="myAreaChart"></canvas>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+            <div class="col-lg-6 mb-6">
+				<div class="card shadow mb-4">
+					<div class="card-header py-3">
+						<h6 class="m-0 font-weight-bold text-gray-800">Tiket by Status
+							(<script type="text/javascript">var year = new Date();document.write(year.getFullYear());</script>)
+						</h6>
+					</div>
+					<!-- Card Body -->
+					<div class="card-body">
+						<div class="chart-area">
+							<canvas id="myPieChart2"></canvas>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-lg-6 mb-6">
+				<div class="card shadow mb-4">
+					<div class="card-header py-3">
+						<h6 class="m-0 font-weight-bold text-gray-800">Tiket by Teknisi
+							(<script type="text/javascript">var year = new Date();document.write(year.getFullYear());</script>)
+						</h6>
+					</div>
+					<!-- Card Body -->
+					<div class="card-body">
+						<div class="chart-area">
+							<canvas id="myPieChart3"></canvas>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	    <div class="row">
+            <div class="col-lg-6 mb-6">
+				<div class="card shadow mb-4">
+					<div class="card-header py-3">
+						<h6 class="m-0 font-weight-bold text-gray-800">Tiket by Jenis
+							(<script type="text/javascript">var year = new Date();document.write(year.getFullYear());</script>)
+						</h6>
+					</div>
+					<!-- Card Body -->
+					<div class="card-body">
+						<div class="chart-area">
+							<canvas id="myBarChart2"></canvas>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-lg-6 mb-6">
+				<div class="card shadow mb-4">
+					<div class="card-header py-3">
+						<h6 class="m-0 font-weight-bold text-gray-800">Tiket by Lokasi
+							(<script type="text/javascript">var year = new Date();document.write(year.getFullYear());</script>)
+						</h6>
+					</div>
+					<!-- Card Body -->
+					<div class="card-body">
+						<div class="chart-area">
+							<canvas id="myBarChart"></canvas>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+<?php } ?>
 
 <?php
     //Inisialisasi nilai variabel awal
@@ -239,10 +425,10 @@
         if ($data->id_teknisi == 0) {
             $stat2 = "Belum Ditangani";
             $bg2 = "#B14145";
-		} else if ($data->id_teknisi == 1) {
+		} else if ($data->id_teknisi == 2) {
             $stat2 = "Wahid Ikhsan";
             $bg2 = "#2E6095";
-		} else if ($data->id_teknisi == 2) {
+		} else if ($data->id_teknisi == 3) {
             $stat2 = "Ade Rulliana";
             $bg2 = "#1CC88A";
         }

@@ -112,6 +112,9 @@
                             <th>Teknisi</th>
                             <th>Status</th>
 							<th>Tgl. Tiket</th>
+							<?php if ($this->session->userdata('level') == "Teknisi") { ?>
+                            <th>Input Pengerjaan</th>
+							<?php } ?>
 						</tr>
 					</thead>
 					<tbody>
@@ -129,7 +132,7 @@
 										<strong style="color: #B14145;">Belum Ditangani</strong>
 									</td>
 								<?php } else { ?>
-									<td><strong style="color: #FC8500;"><?php echo $row->nama_teknisi?></strong></td>
+									<td><strong style="color: #FC8500;"><?php echo $row->nama_lengkap?></strong></td>
 								<?php } ?>
 								<?php if ($row->status == 1) {?>
 									<td>
@@ -149,6 +152,13 @@
 									</td>
 								<?php } ?>
 								<td><?php echo date('d F Y', strtotime($row->created))?></td>
+								<?php if ($this->session->userdata('level') == "Teknisi") { ?>
+                                <td class="text-center">
+                                    <a href="<?php echo site_url('tiket/pengerjaan/'.$row->id)?>" class="btn btn-primary btn-circle btn-sm" title="Input Pengerjaan">
+                                        <i class="fas fa-check"></i>
+                                    </a>
+                                </td>
+								<?php } ?>
 							</tr>
 						<?php $no++;}?>
 					</tbody>
