@@ -83,7 +83,6 @@
 					<thead>
 						<tr>
 							<th>No.</th>
-                            <th>No Barang</th>
 							<th>Jenis Infrastruktur</th>
 							<th>Kondisi</th>
 							<th>Sumber Dana</th>
@@ -98,7 +97,6 @@
 						<?php $no = 1; foreach ($data_inventory as $row){?>
 							<tr>
 								<td><?php echo $no ?></td>
-                                <td><?php echo $row->no_barang?></td>
 								<td><?php echo $row->jenis?></td>
 								<td><?php echo $row->kondisi?></td>
 								<td><?php echo $row->sumber?></td>

@@ -17,7 +17,16 @@
 		<li class="nav-item active">
 			<a class="nav-link" href="<?php echo site_url('admin/dashboard') ?>">
 				<i class="fas fa-fw fa-tachometer-alt"></i>
-				<span>Dashboard</span></a>
+				<span>Dashboard</span>
+			</a>
+		</li>
+
+		<hr class="sidebar-divider">
+		<li class="nav-item">
+			<a class="nav-link" href="<?php echo site_url('tiket/rekap-teknisi') ?>">
+				<i class="fas fa-fw fa-user"></i>
+				<span>Rekap Teknisi</span>
+			</a>
 		</li>
 
 		<hr class="sidebar-divider">
@@ -53,6 +62,14 @@
 			</div>
 		</li>
 
+		<hr class="sidebar-divider">
+		<li class="nav-item">
+			<a class="nav-link" href="<?php echo site_url('admin/inventory/pencarian') ?>">
+				<i class="fas fa-fw fa-search"></i>
+				<span>Cari Inventory</span>
+			</a>
+		</li>
+
 		<!-- Divider -->
 		<hr class="sidebar-divider">
 		<!-- Nav Item - Pages Collapse Menu -->
@@ -80,7 +97,16 @@
 		<li class="nav-item active">
 			<a class="nav-link" href="<?php echo site_url('admin/dashboard') ?>">
 				<i class="fas fa-fw fa-tachometer-alt"></i>
-				<span>Dashboard</span></a>
+				<span>Dashboard</span>
+			</a>
+		</li>
+
+		<hr class="sidebar-divider">
+		<li class="nav-item">
+			<a class="nav-link" href="<?php echo site_url('tiket/rekap-teknisi') ?>">
+				<i class="fas fa-fw fa-user"></i>
+				<span>Rekap Teknisi</span>
+			</a>
 		</li>
 
 		<hr class="sidebar-divider">
@@ -108,6 +134,14 @@
 					<a class="collapse-item" href="<?php echo site_url('admin/kelengkapan') ?>">Kelengkapan</a>
 				</div>
 			</div>
+		</li>
+
+		<hr class="sidebar-divider">
+		<li class="nav-item">
+			<a class="nav-link" href="<?php echo site_url('admin/inventory/pencarian') ?>">
+				<i class="fas fa-fw fa-search"></i>
+				<span>Cari Inventory</span>
+			</a>
 		</li>
 	<!-- Divider -->
 	<hr class="sidebar-divider d-none d-md-block">

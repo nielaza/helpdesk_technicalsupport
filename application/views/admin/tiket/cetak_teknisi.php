@@ -196,7 +196,7 @@ $spreadsheet->getActiveSheet()
 			->getAlignment()
 			->setHorizontal(Alignment::HORIZONTAL_CENTER);
 $spreadsheet->getActiveSheet()
-            ->setCellValue('D24', "".$this->session->userdata('nama_lengkap')."");
+            ->setCellValue('D24', "".$teknis."");
 $spreadsheet->getActiveSheet()
 			->getStyle('D24')
 			->getAlignment()

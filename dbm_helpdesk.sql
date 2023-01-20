@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jan 11, 2023 at 01:24 AM
+-- Generation Time: Jan 20, 2023 at 07:33 AM
 -- Server version: 8.0.18
 -- PHP Version: 7.3.11
 
@@ -207,6 +207,28 @@ INSERT INTO `lokasi_infrastruktur` (`id`, `lokasi`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `review_user`
+--
+
+CREATE TABLE `review_user` (
+  `id` int(11) NOT NULL,
+  `id_tiket` int(11) NOT NULL,
+  `emot` varchar(20) COLLATE utf8mb4_general_ci NOT NULL,
+  `komentar` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `created` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `review_user`
+--
+
+INSERT INTO `review_user` (`id`, `id_tiket`, `emot`, `komentar`, `created`) VALUES
+(1, 2, 'Puas', 'Mantaap', '2023-01-17 10:05:54'),
+(2, 3, 'Tidak Puas', 'lama', '2023-01-17 14:22:41');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `sumber_dana`
 --
 
@@ -236,6 +258,7 @@ INSERT INTO `sumber_dana` (`id`, `sumber`) VALUES
 
 CREATE TABLE `teknisi` (
   `id` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL,
   `nama_teknisi` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
   `status` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -244,9 +267,9 @@ CREATE TABLE `teknisi` (
 -- Dumping data for table `teknisi`
 --
 
-INSERT INTO `teknisi` (`id`, `nama_teknisi`, `status`) VALUES
-(1, 'Wahid Ikhsan', 1),
-(2, 'Ade Rulliana', 1);
+INSERT INTO `teknisi` (`id`, `id_user`, `nama_teknisi`, `status`) VALUES
+(1, 2, 'Wahid Ikhsan', 1),
+(2, 3, 'Ade Rulliana', 1);
 
 -- --------------------------------------------------------
 
@@ -256,12 +279,15 @@ INSERT INTO `teknisi` (`id`, `nama_teknisi`, `status`) VALUES
 
 CREATE TABLE `tiket` (
   `id` int(11) NOT NULL,
+  `kode_tiket` varchar(30) COLLATE utf8mb4_general_ci NOT NULL,
+  `group_tiket` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `user_pemohon` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
   `id_jenis` int(1) NOT NULL,
   `model` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
   `id_lokasi` int(11) NOT NULL,
   `lampiran` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
   `keterangan` text COLLATE utf8mb4_general_ci NOT NULL,
+  `jenis_pekerjaan` text COLLATE utf8mb4_general_ci NOT NULL,
   `telp` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `id_teknisi` int(1) NOT NULL,
   `status` int(1) NOT NULL,
@@ -272,9 +298,32 @@ CREATE TABLE `tiket` (
 -- Dumping data for table `tiket`
 --
 
-INSERT INTO `tiket` (`id`, `user_pemohon`, `id_jenis`, `model`, `id_lokasi`, `lampiran`, `keterangan`, `telp`, `id_teknisi`, `status`, `created`) VALUES
-(1, 'Fulan', 1, 'Asus', 11, 'tiket-230109-6b6cceed88.png', 'Install Ulang', '08998115748', 1, 2, '2023-01-09 11:56:34'),
-(2, 'Fulana', 4, 'Lenovo', 8, 'tiket-230110-636f8557c0.png', 'Install', '087871211267', 0, 1, '2023-01-10 08:55:20');
+INSERT INTO `tiket` (`id`, `kode_tiket`, `group_tiket`, `user_pemohon`, `id_jenis`, `model`, `id_lokasi`, `lampiran`, `keterangan`, `jenis_pekerjaan`, `telp`, `id_teknisi`, `status`, `created`) VALUES
+(1, 'T20230117001HAM', '', 'Fulan', 1, 'HP', 11, 'tiket-230117-c8ca5df335.png', 'Komputer lemot', '', '08131232123', 3, 3, '2023-01-16 09:41:11'),
+(2, 'T20230117002SWC', '', 'Fulana', 2, 'Asus', 1, 'tiket-230117-9202ee93f5.png', 'Install Ulang', 'Install software', '08129945498', 2, 4, '2023-01-17 09:42:35'),
+(3, 'T20230117003QZS', '', 'Arif', 2, 'Lenovo', 10, 'tiket-230117-234744fbbb.png', 'Install ulang laptop', 'recovery', '08099412323', 2, 4, '2023-01-18 13:43:22'),
+(4, 'T20230119004TLX', 'T20230117001HAM', 'daniel', 3, 'epson', 11, '', 'error', 'deep clean', '', 3, 2, '2023-01-19 00:00:00'),
+(5, 'T20230120005DJK', 'T20230117003QZS', 'Setiawan', 5, 'Office', 10, '', 'Aktivasi', 'Aktivasi Office', '', 2, 2, '2023-01-19 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tiket_group`
+--
+
+CREATE TABLE `tiket_group` (
+  `id` int(11) NOT NULL,
+  `kode_tiket` varchar(30) COLLATE utf8mb4_general_ci NOT NULL,
+  `group_tiket` varchar(30) COLLATE utf8mb4_general_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tiket_group`
+--
+
+INSERT INTO `tiket_group` (`id`, `kode_tiket`, `group_tiket`) VALUES
+(1, 'T20230119004TLX', 'T20230117001HAM'),
+(2, 'T20230120005DJK', 'T20230117003QZS');
 
 -- --------------------------------------------------------
 
@@ -302,7 +351,21 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `id_lokasi`, `nama_lengkap`, `nip_user`, `jenis_kelamin`, `telp`, `email`, `username`, `password`, `level`, `status`) VALUES
-(1, 0, 'Admin', '000000001', 'Pria', '08998115748', 'admin@binamarga.jakarta.go.id', 'admin', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'Admin', 'Aktif');
+(1, 0, 'Admin', '', '', '08998115748', 'admin@binamarga.jakarta.go.id', 'admin', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'Admin', 'Aktif'),
+(2, 0, 'Wahid Ikhsan', '', '', '', '', 'wahid', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'Teknisi', 'Aktif'),
+(3, 0, 'Ade Rulliana', '', '', '', '', 'ade', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'Teknisi', 'Aktif'),
+(4, 1, 'Sekretariat Umum', '', '', '', '', 'umum', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'Unit', 'Aktif'),
+(5, 2, 'Sekretariat Keuangan', '', '', '', '', 'keuangan', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'Unit', 'Aktif'),
+(6, 3, 'Sekretariat Kepegawaian', '', '', '', '', 'kepegawaian', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'Unit', 'Aktif'),
+(7, 4, 'Sekretariat Program', '', '', '', '', 'program', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'Unit', 'Aktif'),
+(8, 5, 'Bidang Kelengkapan Jalan', '', '', '', '', 'kelengkapanjalan', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'Unit', 'Aktif'),
+(9, 6, 'Bidang Jalan dan Jembatan', '', '', '', '', 'jantan', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'Unit', 'Aktif'),
+(10, 7, 'Bidang Prasarana dan Sarana Utilitas Kota', '', '', '', '', 'sarpraskota', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'Unit', 'Aktif'),
+(11, 8, 'Bidang Penerangan Jalan dan Sarana Umum', '', '', '', '', 'peneranganjalan', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'Unit', 'Aktif'),
+(12, 9, 'UPPPP', '', '', '', '', 'upppp', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'Unit', 'Aktif'),
+(13, 10, 'Unit Alkal', '', '', '', '', 'alkal', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'Unit', 'Aktif'),
+(14, 11, 'Pusdatin', '', '', '', '', 'pusdatin', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'Unit', 'Aktif'),
+(15, 12, 'Unit Pengadaan Tanah', '', '', '', '', 'unittanah', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'Unit', 'Aktif');
 
 --
 -- Indexes for dumped tables
@@ -345,6 +408,12 @@ ALTER TABLE `lokasi_infrastruktur`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `review_user`
+--
+ALTER TABLE `review_user`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `sumber_dana`
 --
 ALTER TABLE `sumber_dana`
@@ -360,6 +429,12 @@ ALTER TABLE `teknisi`
 -- Indexes for table `tiket`
 --
 ALTER TABLE `tiket`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tiket_group`
+--
+ALTER TABLE `tiket_group`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -409,6 +484,12 @@ ALTER TABLE `lokasi_infrastruktur`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
+-- AUTO_INCREMENT for table `review_user`
+--
+ALTER TABLE `review_user`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `sumber_dana`
 --
 ALTER TABLE `sumber_dana`
@@ -424,13 +505,19 @@ ALTER TABLE `teknisi`
 -- AUTO_INCREMENT for table `tiket`
 --
 ALTER TABLE `tiket`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `tiket_group`
+--
+ALTER TABLE `tiket_group`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

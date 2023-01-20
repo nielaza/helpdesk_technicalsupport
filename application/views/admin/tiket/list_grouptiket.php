@@ -1,99 +1,7 @@
 <div class="container-fluid">
-	<h5 class="h5 mb-0 text-gray-800">Data Tiket</h5><hr>
-
-	<div class="row">
-		<div class="col-xl-2 col-md-6 mb-4">
-			<a href="<?php echo site_url('tiket/tiket-all') ?>" style="text-decoration:none">
-			<div class="card bg-info text-white shadow h-100 py-2">
-				<div class="card-body">
-					<div class="row no-gutters align-items-center">
-						<div class="col mr-2">
-							<div class="text-xs font-weight-bold text-uppercase mb-1">Semua Tiket</div>
-							<div class="h5 mb-0 font-weight-bold"><?php echo $semua_tiket ?></div>
-						</div>
-						<div class="col-auto">
-							<i class="fas fa-ticket-alt fa-2x"></i>
-						</div>
-					</div>
-				</div>
-			</div>
-			</a>
-		</div>
-
-		<div class="col-xl-2 col-md-6 mb-4">
-			<a href="<?php echo site_url('tiket/tiket-baru') ?>" style="text-decoration:none">
-			<div class="card bg-danger text-white shadow h-100 py-2">
-				<div class="card-body">
-					<div class="row no-gutters align-items-center">
-						<div class="col mr-2">
-							<div class="text-xs font-weight-bold text-uppercase mb-1">Tiket Baru</div>
-							<div class="h5 mb-0 font-weight-bold"><?php echo $tiket_baru ?></div>
-						</div>
-						<div class="col-auto">
-							<i class="fas fa-clipboard-list fa-2x"></i>
-						</div>
-					</div>
-				</div>
-			</div>
-			</a>
-		</div>
-
-		<div class="col-xl-2 col-md-6 mb-4">
-			<a href="<?php echo site_url('tiket/tiket-proses') ?>" style="text-decoration:none">
-			<div class="card bg-warning text-white shadow h-100 py-2">
-				<div class="card-body">
-					<div class="row no-gutters align-items-center">
-						<div class="col mr-2">
-							<div class="text-xs font-weight-bold text-uppercase mb-1">Tiket Proses</div>
-							<div class="h5 mb-0 font-weight-bold"><?php echo $tiket_proses ?></div>
-						</div>
-						<div class="col-auto">
-							<i class="fas fa-circle-notch fa-2x"></i>
-						</div>
-					</div>
-				</div>
-			</div>
-			</a>
-		</div>
-	<!-- </div>
-
-	<div class="row"> -->
-		<div class="col-xl-3 col-md-6 mb-4">
-			<a href="<?php echo site_url('tiket/tiket-selesai') ?>" style="text-decoration:none">
-			<div class="card bg-primary text-white shadow h-100 py-2">
-				<div class="card-body">
-					<div class="row no-gutters align-items-center">
-						<div class="col mr-2">
-							<div class="text-xs font-weight-bold text-uppercase mb-1">Tiket Selesai</div>
-							<div class="h5 mb-0 font-weight-bold"><?php echo $tiket_selesai ?></div>
-						</div>
-						<div class="col-auto">
-							<i class="fas fa-check-circle fa-2x"></i>
-						</div>
-					</div>
-				</div>
-			</div>
-			</a>
-		</div>
-
-		<div class="col-xl-3 col-md-6 mb-4">
-			<a href="<?php echo site_url('tiket/tiket-approved') ?>" style="text-decoration:none">
-			<div class="card bg-success text-white shadow h-100 py-2">
-				<div class="card-body">
-					<div class="row no-gutters align-items-center">
-						<div class="col mr-2">
-							<div class="text-xs font-weight-bold text-uppercase mb-1">Tiket Approved by User</div>
-							<div class="h5 mb-0 font-weight-bold"><?php echo $tiket_approved ?></div>
-						</div>
-						<div class="col-auto">
-							<i class="fas fa-check-circle fa-2x"></i>
-						</div>
-					</div>
-				</div>
-			</div>
-			</a>
-		</div>
-	</div>
+	<h5 class="h5 mb-0 text-gray-800">Data Group Tiket</h5>
+    <br>
+    <a href="<?php echo base_url().'tiket/group-tiket/'.$kode_tiket; ?>" class="btn btn-sm btn-success">Tambah Tiket</a><hr>
 
 	<!-- Datatable -->
 	<div class="card shadow mb-4">
@@ -127,7 +35,7 @@
 										<li role="separator" class="divider"></li>
 										<li><a href="<?php echo site_url('tiket/cetak_tiket/'.$row->id)?>" style="text-decoration: none"><strong>Cetak Tiket</strong></a></li>
 										<li><a href="<?php echo site_url('tiket/cetak_grouptiket/'.$row->id)?>" style="text-decoration: none"><strong>Cetak Group Tiket</strong></a></li>
-										<li><a href="<?php echo site_url('tiket/tiket-group/'.$row->kode_tiket)?>" style="text-decoration: none"><strong>Input Group Tiket</strong></a></li>
+										<li><a href="#" style="text-decoration: none"><strong>Input Group Tiket</strong></a></li>
 									</ul>
 									</div>
 								</td>

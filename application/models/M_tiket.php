@@ -52,6 +52,19 @@ class M_tiket extends CI_Model
 		$this->db->insert('tiket',$data);
 	}
 
+	public function daftar_tiket()
+	{
+		$data = $this->db
+			->select('tiket.*, jenis_infrastruktur.jenis, lokasi_infrastruktur.lokasi, user.nama_lengkap')
+			->from('tiket')
+            ->join('jenis_infrastruktur', 'tiket.id_jenis = jenis_infrastruktur.id', 'left')
+			->join('lokasi_infrastruktur', 'tiket.id_lokasi = lokasi_infrastruktur.id', 'left')
+			->join('user', 'tiket.id_teknisi = user.id', 'left')
+			->order_by('tiket.id', 'ASC')
+			->get()->result();
+		return $data;
+	}
+
     public function list_tiket()
 	{
 		$data = $this->db
@@ -60,7 +73,7 @@ class M_tiket extends CI_Model
             ->join('jenis_infrastruktur', 'tiket.id_jenis = jenis_infrastruktur.id', 'left')
 			->join('lokasi_infrastruktur', 'tiket.id_lokasi = lokasi_infrastruktur.id', 'left')
 			->join('user', 'tiket.id_teknisi = user.id', 'left')
-			->order_by('tiket.created', 'DESC')
+			->order_by('tiket.id', 'ASC')
 			->get()->result();
 		return $data;
 	}
@@ -74,7 +87,7 @@ class M_tiket extends CI_Model
 			->join('lokasi_infrastruktur', 'tiket.id_lokasi = lokasi_infrastruktur.id', 'left')
 			->join('user', 'tiket.id_teknisi = user.id', 'left')
 			->where('tiket.id_lokasi', $id_lokasi)
-			->order_by('tiket.created', 'DESC')
+			->order_by('tiket.id', 'ASC')
 			->get()->result();
 		return $data;
 	}
@@ -92,6 +105,19 @@ class M_tiket extends CI_Model
 		return $data;
 	}
 
+	public function cetak_teknisi($id_tiket)
+	{
+		$data = $this->db
+			->select('tiket.*, jenis_infrastruktur.jenis, lokasi_infrastruktur.lokasi, user.nama_lengkap')
+			->from('tiket')
+            ->join('jenis_infrastruktur', 'tiket.id_jenis = jenis_infrastruktur.id', 'left')
+			->join('lokasi_infrastruktur', 'tiket.id_lokasi = lokasi_infrastruktur.id', 'left')
+			->join('user', 'tiket.id_teknisi = user.id', 'left')
+			->where('tiket.id', $id_tiket)
+			->get()->result();
+		return $data;
+	}
+
 	public function tiket_status($status)
 	{
 		$data = $this->db
@@ -101,7 +127,7 @@ class M_tiket extends CI_Model
 			->join('lokasi_infrastruktur', 'tiket.id_lokasi = lokasi_infrastruktur.id', 'left')
 			->join('user', 'tiket.id_teknisi = user.id', 'left')
 			->where('tiket.status', $status)
-			->order_by('tiket.created', 'DESC')
+			->order_by('tiket.id', 'ASC')
 			->get()->result();
 		return $data;
 	}
@@ -213,7 +239,7 @@ class M_tiket extends CI_Model
 			->join('user', 'tiket.id_teknisi = user.id', 'left')
 			->where('tiket.status', $status)
 			->where('tiket.id_teknisi', $id_user)
-			->order_by('tiket.created', 'DESC')
+			->order_by('tiket.id', 'ASC')
 			->get()->result();
 		return $data;
 	}
@@ -274,7 +300,7 @@ class M_tiket extends CI_Model
 			->join('user', 'tiket.id_teknisi = user.id', 'left')
 			->where('tiket.status', $status)
 			->where('tiket.id_lokasi', $id_lokasi)
-			->order_by('tiket.created', 'DESC')
+			->order_by('tiket.id', 'ASC')
 			->get()->result();
 		return $data;
 	}
@@ -299,6 +325,65 @@ class M_tiket extends CI_Model
 			->get()->result();
 		return $data;
 	}
+
+	public function list_teknisi()
+	{
+		$data = $this->db
+			->select('*')
+			->from('user')
+			->where('level', 'Teknisi')
+            ->order_by('id', 'ASC')
+			->get()->result();
+		return $data;
+	}
+
+	public function tiket_group($kode_tiket)
+	{
+		$data = $this->db
+			->select('tiket.*, tiket_group.kode_tiket as kodetiket_group, tiket_group.group_tiket as tiket_group, jenis_infrastruktur.jenis, lokasi_infrastruktur.lokasi, user.nama_lengkap')
+			->from('tiket')
+			->join('tiket_group', 'tiket.kode_tiket = tiket_group.group_tiket', 'left')
+            ->join('jenis_infrastruktur', 'tiket.id_jenis = jenis_infrastruktur.id', 'left')
+			->join('lokasi_infrastruktur', 'tiket.id_lokasi = lokasi_infrastruktur.id', 'left')
+			->join('user', 'tiket.id_teknisi = user.id', 'left')
+			->where('tiket.group_tiket', $kode_tiket)
+			->order_by('tiket.id', 'ASC')
+			->get()->result();
+		return $data;
+	}
+
+	public function group_tiket($kode_tiket)
+	{
+		$data = $this->db
+			->select('tiket.*, jenis_infrastruktur.jenis, lokasi_infrastruktur.lokasi, user.nama_lengkap')
+			->from('tiket')
+			// ->join('tiket_group', 'tiket.kode_tiket = tiket_group.group_tiket', 'left')
+            ->join('jenis_infrastruktur', 'tiket.id_jenis = jenis_infrastruktur.id', 'left')
+			->join('lokasi_infrastruktur', 'tiket.id_lokasi = lokasi_infrastruktur.id', 'left')
+			->join('user', 'tiket.id_teknisi = user.id', 'left')
+			->where('tiket.kode_tiket', $kode_tiket)
+			->order_by('tiket.id', 'ASC')
+			->get()->result();
+		return $data;
+	}
+
+	public function insert_group($data)
+	{
+		$this->db->insert('tiket_group',$data);
+	}
+
+	// public function rekap_tiket($where)
+	// {
+	// 	$data = $this->db
+	// 		->select('tiket.*, jenis_infrastruktur.jenis, lokasi_infrastruktur.lokasi, user.nama_lengkap')
+	// 		->from('tiket')
+    //         ->join('jenis_infrastruktur', 'tiket.id_jenis = jenis_infrastruktur.id', 'left')
+	// 		->join('lokasi_infrastruktur', 'tiket.id_lokasi = lokasi_infrastruktur.id', 'left')
+	// 		->join('user', 'tiket.id_teknisi = user.id', 'left')
+	// 		->order_by('tiket.id', 'DESC')
+	// 		->get()->result();
+	// 	return $data;
+	// }
 
 }
 ?>

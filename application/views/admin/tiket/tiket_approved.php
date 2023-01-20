@@ -117,7 +117,7 @@
 					<tbody>
 						<?php $no = 1; foreach ($data_tiket as $row){?>
 							<tr>
-								<td><?php echo $no ?></td>
+								<td><?php echo $no ?>.</td>
                                 <td><strong style="color: #2E6095;"><?php echo $row->user_pemohon?></strong></td>
                                 <td><?php echo $row->jenis?></td>
                                 <td><?php echo $row->model?></td>

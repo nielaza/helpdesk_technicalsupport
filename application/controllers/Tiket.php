@@ -11,6 +11,32 @@ class Tiket extends CI_Controller
 		$this->load->library(['session','pagination']);
 		$this->load->model('m_tiket');
     }
+
+    public function daftar_tiket()
+    {
+        $data['header']     = "header";
+        $data['content']	= "daftar_tiket";
+        $data['footer']		= "footer";
+
+        $all                    = $this->m_tiket->all();
+        $data['semua_tiket']    = $all->jml_tiket;
+
+        $new                    = $this->m_tiket->baru();
+        $data['tiket_baru']     = $new->jml_newtiket;
+
+        $proses                 = $this->m_tiket->proses();
+        $data['tiket_proses']   = $proses->jml_tiketproses;
+
+        $selesai                = $this->m_tiket->selesai();
+        $data['tiket_selesai']  = $selesai->jml_tiketselesai;
+
+        $approved               = $this->m_tiket->approved();
+        $data['tiket_approved'] = $approved->jml_tiketapproved;
+
+        $data['data_tiket']     = $this->m_tiket->daftar_tiket();
+    
+        $this->load->view('template', $data);
+    }
     
     public function buat_tiket()
 	{
@@ -79,7 +105,7 @@ class Tiket extends CI_Controller
         }
 	}
 
-    public function cetak_tiket($id)
+    public function proses_tiket($id)
 	{
         $id_user            = $this->session->userdata('id');
 
@@ -94,6 +120,82 @@ class Tiket extends CI_Controller
 		$data['tiket']      = $this->m_tiket->tiket($id);
 		
 		$this->load->view('admin/tiket/cetak', $data);
+	}
+
+    public function cetak_tiket($id)
+	{
+		$data['tiket']      = $this->m_tiket->tiket($id);
+		
+		$this->load->view('admin/tiket/cetak', $data);
+	}
+
+    public function tiket_teknisi($id)
+    {
+        $data['title'] 		= "Rekap Technical Support";
+        $data['navbar']     = "admin/template/navbar";
+        $data['sidebar']	= "admin/template/sidebar";
+        $data['body'] 		= "admin/tiket/tiket_teknisi";
+
+        $data['tiket']          = $this->m_tiket->tiket($id);
+        $data['list_teknisi']   = $this->m_tiket->list_teknisi();
+    
+        $this->load->view('admin/template/template', $data);
+    }
+
+    // public function prosestiket_teknisi()
+	// {
+    //     $teknis 	    = $this->input->post('teknisi');
+    //     $this->session->set_flashdata("nama_teknisi", $teknis);
+
+    //     redirect(base_url().'tiket/cetaktiket_teknisi'.$id);	
+	// }
+
+    public function cetaktiket_teknisi()
+	{
+        $id_tiket 	    = $this->input->post('id_tiket');
+        $data['teknis'] = $this->input->post('teknisi');
+
+        // $teknisi	    = $this->session->flashdata("nama_teknisi");
+		$data['tiket']  = $this->m_tiket->cetak_teknisi($id_tiket);
+
+        $this->load->view('admin/tiket/cetak_teknisi', $data);
+	}
+
+    // public function transaksi_reports() {
+	//     $post = $this->input->post();
+	//     $tanggal1 = $post['tgl1'];
+	//     $tanggal2 = $post['tgl2'];
+	//     $program = addslashes($post['program']);
+	//     if($program == ""){
+	//     if($tanggal1 != '' and $tanggal2 != ''){
+	//          if($tanggal1==$tanggal2){
+	//             $data['transaksi'] = $this->db->query("SELECT * FROM all_transaction WHERE date(finishtime) = '$tanggal1' AND trxstatus = 'SUCCESS' order by finishtime ASC")->result();
+	//          }else{
+    //             $data['transaksi'] = $this->db->query("SELECT * FROM all_transaction WHERE (date(finishtime) BETWEEN '$tanggal1' AND '$tanggal2') AND trxstatus = 'SUCCESS' order by finishtime ASC")->result();
+	//          }
+	//     }else{
+	//     $data['transaksi'] = $this->db->query("SELECT * FROM all_transaction WHERE trxstatus = 'SUCCESS' order by finishtime ASC")->result();    
+	//     }
+	//     }else{
+	//     if($tanggal1 != '' and $tanggal2 != ''){
+	//          if($tanggal1==$tanggal2){
+	//             $data['transaksi'] = $this->db->query("SELECT * FROM all_transaction WHERE date(finishtime) = '$tanggal1' AND nama_program = '$program' AND trxstatus = 'SUCCESS' order by finishtime ASC")->result();
+	//          }else{
+    //             $data['transaksi'] = $this->db->query("SELECT * FROM all_transaction WHERE (date(finishtime) BETWEEN '$tanggal1' AND '$tanggal2') AND nama_program = '$program' AND trxstatus = 'SUCCESS' order by finishtime ASC")->result();
+	//          }
+	//     }else{
+	//     $data['transaksi'] = $this->db->query("SELECT * FROM all_transaction WHERE trxstatus = 'SUCCESS' AND nama_program = '$program' order by finishtime ASC")->result();    
+	//     }    
+	//     }
+	//     $this->load->view('dashboard/v_transaksi_reports',$data);
+
+    // }
+
+    public function cetak_grouptiket($id)
+	{
+		$data['tiket']  = $this->m_tiket->tiket($id);
+		
+		$this->load->view('admin/tiket/cetak_group', $data);
 	}
 
     public function tiket_all()
@@ -545,6 +647,177 @@ class Tiket extends CI_Controller
         $data['review']     = $this->m_tiket->tiket_review();
 
         $this->load->view('admin/template/template', $data);
+	}
+
+    public function rekap_teknisi()
+    {
+        $data['title'] 		= "Rekap Technical Support";
+        $data['navbar']     = "admin/template/navbar";
+        $data['sidebar']	= "admin/template/sidebar";
+        $data['body'] 		= "admin/tiket/rekap_teknisi";
+
+        $data['teknisi']    = $this->m_tiket->list_teknisi();
+    
+        $this->load->view('admin/template/template', $data);
+    }
+
+    public function cari_teknisi()
+	{	
+		$teknisi        = $this->input->get('teknisi');
+        $tgl1 			= $this->input->get('tgl1');
+		$tgl2 			= $this->input->get('tgl2');
+		
+		$ada=0;
+		$where = "";
+
+		if ($teknisi!=""){
+			if ($ada == 0){	
+				$where .= "tiket.id_teknisi LIKE '%$teknisi%'";	
+				$ada = 1;	
+			} else {
+				$where .= "AND tiket.id_teknisi LIKE '%$teknisi%'";
+				$ada = 1;
+			}
+		}
+
+        if($tgl1!="" and $tgl2==""){
+			if ($ada==0)
+			{
+				$where .= " tiket.created LIKE '%$tgl1%'";
+				$ada=1;
+			} else {
+				$where .= " AND tiket.created LIKE '%$tgl1%'";
+				$ada=1;
+			}
+		} else if($tgl1!="" and $tgl2!=""){
+			if ($ada==0)
+			{
+				$where .= " tiket.created between '$tgl1' and '$tgl2' ";
+				$ada=1;
+			} else {
+				$where .= " AND tiket.created between '$tgl1' and '$tgl2'";
+				$ada=1;
+			}
+		}
+
+		if($where != ""){
+		$this->session->set_userdata('wherenya',$where);
+		}
+		if($where ==""){
+			$where = $this->session->userdata('wherenya');
+			// $where .= "1";
+		}
+		
+		$data['title'] 		= "Rekap Technical Support";
+        $data['navbar']     = "admin/template/navbar";
+        $data['sidebar']	= "admin/template/sidebar";
+        $data['body'] 		= "admin/tiket/hasil_rekap";
+        
+        // $data['data_tiket']  = $this->m_tiket->rekap_tiket($where);
+        $data['data_tiket'] = $this->db->query("SELECT tiket.*, jenis_infrastruktur.jenis, lokasi_infrastruktur.lokasi, user.nama_lengkap 
+        FROM tiket 
+        LEFT JOIN jenis_infrastruktur ON tiket.id_jenis = jenis_infrastruktur.id
+        LEFT JOIN lokasi_infrastruktur ON tiket.id_lokasi = lokasi_infrastruktur.id
+        LEFT JOIN user ON tiket.id_teknisi = user.id
+        WHERE $where 
+        ORDER BY tiket.id ASC")->result();
+    
+        $this->load->view('admin/template/template', $data);
+	}
+
+	public function cetak_pencarian()
+	{
+		$where = $this->session->userdata('wherenya');
+		// $data['data_tiket']  = $this->m_tiket->rekap_tiket($where);
+        $data['data_tiket'] = $this->db->query("SELECT tiket.*, jenis_infrastruktur.jenis, lokasi_infrastruktur.lokasi, user.nama_lengkap 
+        FROM tiket 
+        LEFT JOIN jenis_infrastruktur ON tiket.id_jenis = jenis_infrastruktur.id
+        LEFT JOIN lokasi_infrastruktur ON tiket.id_lokasi = lokasi_infrastruktur.id
+        LEFT JOIN user ON tiket.id_teknisi = user.id
+        WHERE $where 
+        ORDER BY tiket.id ASC")->result();
+		
+		$this->load->view('admin/tiket/cetak_rekap', $data);
+	}
+
+    public function tiket_group($kode_tiket)
+    {
+        $data['title'] 		= "Data Group Tiket";
+        $data['navbar']     = "admin/template/navbar";
+        $data['sidebar']	= "admin/template/sidebar";
+        $data['body'] 		= "admin/tiket/list_grouptiket";
+
+        $level      		= $this->session->userdata('level');
+        $id_user            = $this->session->userdata('id');
+        $id_lokasi          = $this->session->userdata('id_lokasi');
+
+        $data['kode_tiket'] = $kode_tiket;
+        $data['data_tiket'] = $this->m_tiket->tiket_group($kode_tiket);
+    
+        $this->load->view('admin/template/template', $data);
+    }
+
+    public function group_tiket($kode_tiket)
+	{
+        $data['title'] 		= "Input Group Tiket";
+        $data['navbar']     = "admin/template/navbar";
+        $data['sidebar']	= "admin/template/sidebar";
+        $data['body'] 		= "admin/tiket/add_grouptiket";
+
+        $data['tiket']      = $this->m_tiket->group_tiket($kode_tiket);
+        $data['jenis']      = $this->m_tiket->jenis();
+
+        $this->load->view('admin/template/template', $data);
+	}
+
+    public function save_grouptiket()
+	{
+        $this->form_validation->set_rules('user_pemohon','Nama User','required');
+		$this->form_validation->set_rules('jenis','Jenis Infrastuktur','required');
+        $this->form_validation->set_rules('model','Model Infrastruktur','required');
+        $this->form_validation->set_rules('keterangan','Keterangan','required');
+
+        if($this->form_validation->run() == FALSE) {
+            $this->tiket_all();
+        } else {
+            $kode_tiket		    = $this->m_tiket->getkodetiket();
+            $group_tiket	    = $this->input->post('group_tiket');
+            $user_pemohon	    = $this->input->post('user_pemohon');
+            $jenis	            = $this->input->post('jenis');
+            $model	            = $this->input->post('model');
+            $lokasi	            = $this->input->post('lokasi');
+            $keterangan	        = $this->input->post('keterangan');
+            $jenis_pekerjaan    = $this->input->post('jenis_pekerjaan');
+            $teknisi	        = $this->input->post('teknisi');
+            $status	            = $this->input->post('status');
+            $tanggal	 		= $this->input->post('tanggal');
+
+            $data = array(
+                'kode_tiket'	    => $kode_tiket,
+                'group_tiket'	    => $group_tiket,
+                'user_pemohon'	    => $user_pemohon,
+                'id_jenis'		    => $jenis,
+                'model'	            => $model,
+                'id_lokasi'		    => $lokasi,
+                'keterangan'	    => $keterangan,
+                'jenis_pekerjaan'	=> $jenis_pekerjaan,
+                'id_teknisi'        => $teknisi,
+                'status'            => $status,
+                'created'		    => $tanggal
+            );
+            $this->m_tiket->insert($data);
+
+            $data = array(
+                'kode_tiket'    	=> $kode_tiket,
+                'group_tiket'    	=> $group_tiket
+            );
+            $this->m_tiket->insert_group($data);
+
+            $datanya = "swal('Success', 'Data Tiket Anda telah terkirim', 'success');";
+            $this->session->set_flashdata("message", $datanya);
+            // $this->session->set_flashdata('success', 'Success Message...');  
+            redirect(base_url().'tiket/tiket_all');
+        }
 	}
 
 }
