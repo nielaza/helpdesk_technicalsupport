@@ -28,7 +28,7 @@ if(!empty($tiket[0]->lampiran)){
     $drawing->setPath('uploads/'.$tiket[0]->lampiran.''); 
     $drawing->setCoordinates('D11');
     $drawing->setWidth(180);
-    $drawing->setOffsetX(20);
+    $drawing->setOffsetX(40);
     $drawing->getShadow()->setVisible(true);
     $drawing->getShadow()->setDirection(45);
     $drawing->setWorksheet($spreadsheet->getActiveSheet());

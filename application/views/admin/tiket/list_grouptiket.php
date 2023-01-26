@@ -1,5 +1,5 @@
 <div class="container-fluid">
-	<h5 class="h5 mb-0 text-gray-800">Data Group Tiket</h5>
+	<h5 class="h5 mb-0 text-gray-800">Data Group Tiket - <?php echo $kode_tiket ?></h5>
     <br>
     <a href="<?php echo base_url().'tiket/group-tiket/'.$kode_tiket; ?>" class="btn btn-sm btn-success">Tambah Tiket</a><hr>
 

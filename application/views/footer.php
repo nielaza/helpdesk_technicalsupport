@@ -38,7 +38,8 @@
             <ul>
               <li><i class="bx bx-chevron-right"></i> <a href="<?php echo base_url() ?>">Home</a></li>
               <li><i class="bx bx-chevron-right"></i> <a href="<?php echo base_url('modul/tentang_kami') ?>">Tentang Kami</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="<?php echo base_url('modul/team_sistem_informasi') ?>">Team Sistem Informasi</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="<?php echo base_url('tiket/daftar_tiket') ?>">Daftar Tiket</a></li>
+              <!-- <li><i class="bx bx-chevron-right"></i> <a href="<?php //echo base_url('modul/team_sistem_informasi') ?>">Team Sistem Informasi</a></li> -->
               <li><i class="bx bx-chevron-right"></i> <a href="<?php echo base_url('tiket/buat_tiket') ?>">Buat Tiket</a></li>
             </ul>
           </div>

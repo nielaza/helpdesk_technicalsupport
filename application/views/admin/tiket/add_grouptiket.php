@@ -77,7 +77,7 @@
                     <div class="col-sm-6 form-group">
                         <label><strong>Status Pengerjaan</strong></label>
                         <select class="form-control" name="status" required>
-                            <option value="-">--Pilih Status Penegerjaan--</option>
+                            <option value="-">--Pilih Status Pengerjaan--</option>
                             <option value="2">Dalam Proses Pengerjaan</option>
                             <option value="3">Pengerjaan Selesai</option>
                         </select>
@@ -85,7 +85,7 @@
 
                     <div class="col-sm-6 form-group">
                         <label><strong>Tanggal Pengerjaan</strong></label>
-                        <input type="date" name="tanggal" class="form-control" required>
+                        <input type="datetime-local" name="tanggal" class="form-control" required>
                     </div>
                 </div>
 

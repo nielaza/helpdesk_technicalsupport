@@ -36,8 +36,10 @@ class Auth extends CI_Controller
                 $cek['login'] = 'Berhasil';
                 $this->session->set_userdata($cek);
                 if($this->session->userdata('level') == "Unit"){
+                    $this->session->set_flashdata('success_login','Sukses, Anda Berhasil Login');
                     redirect(base_url('tiket/tiket-all'));
                 } else {
+                    $this->session->set_flashdata('success_login','Sukses, Anda Berhasil Login');
                     redirect(base_url('admin/dashboard'));
                 }
             } else {

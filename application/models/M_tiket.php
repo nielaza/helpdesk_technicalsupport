@@ -47,6 +47,11 @@ class M_tiket extends CI_Model
         return $kode_tiket;
     }
 
+	function cek_tiket($table,$where)
+    {
+		return $this->db->get_where($table,$where);
+	}
+
 	public function insert($data)
 	{
 		$this->db->insert('tiket',$data);

@@ -1,6 +1,26 @@
 <div class="container-fluid">
 	<h5 class="h5 mb-0 text-gray-800">Data Tiket</h5><hr>
 
+	<?php if($this->session->flashdata('success') !='') : ?>
+	<script>
+	swal({
+		type: "success",
+		title: "Sukses!",
+		text: "Anda Berhasil Input Pengerjaan"
+	});
+	</script>
+	<?php endif; ?>
+
+	<?php if($this->session->flashdata('success_approve') !='') : ?>
+	<script>
+	swal({
+		type: "success",
+		title: "Sukses!",
+		text: "Tiket telah di Approve by User"
+	});
+	</script>
+	<?php endif; ?>
+
 	<div class="row">
 		<div class="col-xl-2 col-md-6 mb-4">
 			<a href="<?php echo site_url('tiket/tiket-all') ?>" style="text-decoration:none">
@@ -99,9 +119,16 @@
 	<div class="card shadow mb-4">
 		<div class="card-body">
 			<div class="table-responsive">
+			<?php if ($this->session->userdata('level') == "Unit") { ?>
+			<form action="<?php echo base_url(); ?>tiket/approve-tiket" method="post">
+   			<button type="submit" name="submit" class="btn btn-primary">Add Selected</button><br><br>
+			<?php } ?>
 				<table class="table table-striped" id="dataTable" width="100%" cellspacing="0">
 					<thead>
 						<tr>
+							<?php if ($this->session->userdata('level') == "Unit") { ?>
+							<th></th>
+							<?php } ?>
 							<th>No.</th>
                             <th>User</th>
                             <th>Jenis</th>
@@ -112,7 +139,7 @@
                             <th>Teknisi</th>
                             <th>Status</th>
 							<th>Tgl. Tiket</th>
-							<?php if ($this->session->userdata('level') == "Teknisi") { ?>
+							<?php if ($this->session->userdata('level') == "Unit") { ?>
                             <th>Rate Tiket</th>
 							<?php } ?>
 						</tr>
@@ -120,6 +147,11 @@
 					<tbody>
 						<?php $no = 1; foreach ($data_tiket as $row){?>
 							<tr>
+								<?php if ($this->session->userdata('level') == "Unit") { ?>
+								<td>
+                  					<input type="checkbox" name="tiket_id[]" value="<?php echo $row->id; ?>">
+                				</td>
+								<?php } ?>
 								<td><?php echo $no ?>.</td>
                                 <td><strong style="color: #2E6095;"><?php echo $row->user_pemohon?></strong></td>
                                 <td><?php echo $row->jenis?></td>
@@ -152,7 +184,7 @@
 									</td>
 								<?php } ?>
 								<td><?php echo date('d F Y', strtotime($row->created))?></td>
-								<?php if ($this->session->userdata('level') == "Teknisi") { ?>
+								<?php if ($this->session->userdata('level') == "Unit") { ?>
                                 <td class="text-center">
                                     <a href="<?php echo site_url('tiket/rate_tiket/'.$row->id)?>" class="btn btn-success btn-circle btn-sm" title="Rate Tiket">
                                         <i class="fas fa-check-circle"></i>
@@ -163,6 +195,7 @@
 						<?php $no++;}?>
 					</tbody>
 				</table>
+			</form>
 			</div>
 		</div>
 	</div>

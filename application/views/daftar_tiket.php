@@ -1,18 +1,18 @@
 <main id="main">
 
-<!-- ======= About Us Section ======= -->
-<section class="breadcrumbs">
-  <div class="container">
-    <div class="d-flex justify-content-between align-items-center">
-      <h2>Tiket</h2>
-      <ol>
-        <li><a href="#">Home</a></li>
-        <li>Daftar Tiket</li>
-      </ol>
-    </div>
-  </div>
-</section>
-<!-- End About Us Section -->
+	<!-- ======= About Us Section ======= -->
+	<section class="breadcrumbs">
+		<div class="container">
+			<div class="d-flex justify-content-between align-items-center">
+			<h2>Tiket</h2>
+			<ol>
+				<li><a href="#">Tiket</a></li>
+				<li>Daftar Tiket</li>
+			</ol>
+			</div>
+		</div>
+	</section>
+	<!-- End About Us Section -->
 
     <section id="blog" class="blog">
       <div class="container" data-aos="fade-up">

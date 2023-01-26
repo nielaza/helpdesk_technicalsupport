@@ -1,18 +1,18 @@
 <main id="main">
 
-<!-- ======= About Us Section ======= -->
-<section class="breadcrumbs">
-  <div class="container">
-    <div class="d-flex justify-content-between align-items-center">
-      <h2>Tentang Kami</h2>
-      <ol>
-        <li><a href="#">Home</a></li>
-        <li>Tentang Kami</li>
-      </ol>
+  <!-- ======= About Us Section ======= -->
+  <section class="breadcrumbs">
+    <div class="container">
+      <div class="d-flex justify-content-between align-items-center">
+        <h2>Tentang Kami</h2>
+        <ol>
+          <li><a href="#">Home</a></li>
+          <li>Tentang Kami</li>
+        </ol>
+      </div>
     </div>
-  </div>
-</section>
-<!-- End About Us Section -->
+  </section>
+  <!-- End About Us Section -->
 
     <section id="blog" class="blog">
       <div class="container" data-aos="fade-up">

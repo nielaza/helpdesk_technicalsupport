@@ -43,6 +43,17 @@ class Tiket extends CI_Controller
         $data['header']     = "header";
         $data['content']	= "form_tiket";
         $data['footer']		= "footer";
+
+        $date	     		= date('Y-m-d');
+
+        $where1 = array(
+            'id_lokasi'     => '11',
+            'status'        => '3'
+            // 'created'       => $date
+        );
+
+        $cek1 = $this->m_tiket->cek_tiket('tiket',$where1)->num_rows();
+        // var_dump($cek1);
         
         $data['jenis_infrastruktur']    = $this->m_tiket->jenis();
         $data['lokasi_infrastruktur']   = $this->m_tiket->lokasi();
@@ -59,48 +70,64 @@ class Tiket extends CI_Controller
         $this->form_validation->set_rules('keterangan','Keterangan','required');
         $this->form_validation->set_rules('telp','No. Telp.','required');
 
-        if($this->form_validation->run() == FALSE) {
-            $this->buat_tiket();
-        } else {
-            $kode_tiket		    = $this->m_tiket->getkodetiket();
-            $user_pemohon	    = $this->input->post('user_pemohon');
-            $jenis	            = $this->input->post('jenis');
-            $model	            = $this->input->post('model');
-            $lokasi	            = $this->input->post('lokasi');
-            $lampiran			= $_FILES['lampiran']['name'];
-            if($lampiran=''){}else{
-                $config['upload_path'] 		= './uploads/';
-                $config['allowed_types'] 	= 'jpg|jpeg|png|pdf';
-                $config['max_size']			= 10240;
-                $config['file_name']		= 'tiket-'.date('ymd').'-'.substr(md5(rand()),0,10);
-                $this->load->library('upload',$config);
-                if(!$this->upload->do_upload('lampiran')){
-                    echo "Gagal Diupload !";
-                }else{
-                    $lampiran   =$this->upload->data('file_name');
-                }
+        $kode_tiket		    = $this->m_tiket->getkodetiket();
+        $user_pemohon	    = $this->input->post('user_pemohon');
+        $jenis	            = $this->input->post('jenis');
+        $model	            = $this->input->post('model');
+        $lokasi	            = $this->input->post('lokasi');
+        $lampiran			= $_FILES['lampiran']['name'];
+        if($lampiran=''){}else{
+            $config['upload_path'] 		= './uploads/';
+            $config['allowed_types'] 	= 'jpg|jpeg|png|pdf';
+            $config['max_size']			= 10240;
+            $config['file_name']		= 'tiket-'.date('ymd').'-'.substr(md5(rand()),0,10);
+            $this->load->library('upload',$config);
+            if(!$this->upload->do_upload('lampiran')){
+                echo "Gagal Diupload !";
+            }else{
+                $lampiran   =$this->upload->data('file_name');
             }
-            $keterangan	        = $this->input->post('keterangan');
-            $telp	            = $this->input->post('telp');
-            $tanggal	 		= date('Y-m-d H:i:s');
+        }
+        $keterangan	        = $this->input->post('keterangan');
+        $telp	            = $this->input->post('telp');
+        $tanggal	 		= date('Y-m-d H:i:s');
+        $date	     		= date('Y-m-d');
 
-            $data = array(
-                'kode_tiket'	=> $kode_tiket,
-                'user_pemohon'	=> $user_pemohon,
-                'id_jenis'		=> $jenis,
-                'model'	        => $model,
-                'id_lokasi'		=> $lokasi,
-                'lampiran'		=> $lampiran,
-                'keterangan'	=> $keterangan,
-                'telp'		    => $telp,
-                'status'        => '1',
-                'created'		=> $tanggal
-            );
+        $where1 = array(
+            'id_lokasi'     => $lokasi,
+            'status'        => '3'
+            // 'created'       => $date
+        );
 
-            $this->m_tiket->insert($data);
-            $datanya = "swal('Success', 'Data Tiket Anda telah terkirim', 'success');";
-            $this->session->set_flashdata("message", $datanya);
-            // $this->session->set_flashdata('success', 'Success Message...');  
+        $cek1 = $this->m_tiket->cek_tiket('tiket',$where1)->num_rows();
+
+        if($cek1 < 3){
+
+            if($this->form_validation->run() == FALSE) {
+                $this->session->set_flashdata('error', validation_errors());
+                $this->buat_tiket();
+            } else {
+    
+                $data = array(
+                    'kode_tiket'	=> $kode_tiket,
+                    'user_pemohon'	=> $user_pemohon,
+                    'id_jenis'		=> $jenis,
+                    'model'	        => $model,
+                    'id_lokasi'		=> $lokasi,
+                    'lampiran'		=> $lampiran,
+                    'keterangan'	=> $keterangan,
+                    'telp'		    => $telp,
+                    'status'        => '1',
+                    'created'		=> $tanggal
+                );
+    
+                $this->m_tiket->insert($data);
+                $this->session->set_flashdata('success','Sukses, Tiket berhasil dibuat');
+                redirect(base_url());
+            }
+
+        }else{
+            $this->session->set_flashdata('error','Gagal, Tiket gagal dibuat');
             redirect(base_url());
         }
 	}
@@ -142,14 +169,6 @@ class Tiket extends CI_Controller
         $this->load->view('admin/template/template', $data);
     }
 
-    // public function prosestiket_teknisi()
-	// {
-    //     $teknis 	    = $this->input->post('teknisi');
-    //     $this->session->set_flashdata("nama_teknisi", $teknis);
-
-    //     redirect(base_url().'tiket/cetaktiket_teknisi'.$id);	
-	// }
-
     public function cetaktiket_teknisi()
 	{
         $id_tiket 	    = $this->input->post('id_tiket');
@@ -160,36 +179,6 @@ class Tiket extends CI_Controller
 
         $this->load->view('admin/tiket/cetak_teknisi', $data);
 	}
-
-    // public function transaksi_reports() {
-	//     $post = $this->input->post();
-	//     $tanggal1 = $post['tgl1'];
-	//     $tanggal2 = $post['tgl2'];
-	//     $program = addslashes($post['program']);
-	//     if($program == ""){
-	//     if($tanggal1 != '' and $tanggal2 != ''){
-	//          if($tanggal1==$tanggal2){
-	//             $data['transaksi'] = $this->db->query("SELECT * FROM all_transaction WHERE date(finishtime) = '$tanggal1' AND trxstatus = 'SUCCESS' order by finishtime ASC")->result();
-	//          }else{
-    //             $data['transaksi'] = $this->db->query("SELECT * FROM all_transaction WHERE (date(finishtime) BETWEEN '$tanggal1' AND '$tanggal2') AND trxstatus = 'SUCCESS' order by finishtime ASC")->result();
-	//          }
-	//     }else{
-	//     $data['transaksi'] = $this->db->query("SELECT * FROM all_transaction WHERE trxstatus = 'SUCCESS' order by finishtime ASC")->result();    
-	//     }
-	//     }else{
-	//     if($tanggal1 != '' and $tanggal2 != ''){
-	//          if($tanggal1==$tanggal2){
-	//             $data['transaksi'] = $this->db->query("SELECT * FROM all_transaction WHERE date(finishtime) = '$tanggal1' AND nama_program = '$program' AND trxstatus = 'SUCCESS' order by finishtime ASC")->result();
-	//          }else{
-    //             $data['transaksi'] = $this->db->query("SELECT * FROM all_transaction WHERE (date(finishtime) BETWEEN '$tanggal1' AND '$tanggal2') AND nama_program = '$program' AND trxstatus = 'SUCCESS' order by finishtime ASC")->result();
-	//          }
-	//     }else{
-	//     $data['transaksi'] = $this->db->query("SELECT * FROM all_transaction WHERE trxstatus = 'SUCCESS' AND nama_program = '$program' order by finishtime ASC")->result();    
-	//     }    
-	//     }
-	//     $this->load->view('dashboard/v_transaksi_reports',$data);
-
-    // }
 
     public function cetak_grouptiket($id)
 	{
@@ -586,7 +575,8 @@ class Tiket extends CI_Controller
             $this->db->where('id', $id);
             $this->db->update('tiket', $data);
 
-            redirect(base_url().'tiket/tiket_all');
+            $this->session->set_flashdata('success','Sukses, Berhasil Input Pengerjaan');
+            redirect(base_url().'tiket/tiket_selesai');
         }
 	}
 
@@ -633,7 +623,8 @@ class Tiket extends CI_Controller
             $this->db->where('id', $id);
             $this->db->update('tiket', $data);
 
-            redirect(base_url().'tiket/tiket_all');
+            $this->session->set_flashdata('success','Sukses, Berhasil Buat Review');
+            redirect(base_url().'tiket/tiket_approved');
         }
 	}
 
@@ -813,11 +804,27 @@ class Tiket extends CI_Controller
             );
             $this->m_tiket->insert_group($data);
 
-            $datanya = "swal('Success', 'Data Tiket Anda telah terkirim', 'success');";
-            $this->session->set_flashdata("message", $datanya);
-            // $this->session->set_flashdata('success', 'Success Message...');  
+            $this->session->set_flashdata('success','Sukses, Berhasil buat Group Tiket');
             redirect(base_url().'tiket/tiket_all');
         }
 	}
+
+    public function approve_tiket()
+    {
+        $tiket_id = $this->input->post('tiket_id'); 
+
+        for ($i=0; $i < sizeof($tiket_id); $i++) 
+        {             
+            $data = array(
+                'status'    => '4'
+            );
+
+            $this->db->where('id', $tiket_id[$i]);
+            $this->db->update('tiket', $data);
+        }
+
+        $this->session->set_flashdata('success_approve','Sukses, Tiket telah di Approve by User');
+        redirect(base_url().'tiket/tiket_selesai');
+    }
 
 }

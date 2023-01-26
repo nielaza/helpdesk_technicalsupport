@@ -102,7 +102,11 @@
 				<table class="table table-striped" id="dataTable" width="100%" cellspacing="0">
 					<thead>
 						<tr>
+							<?php if ($this->session->userdata('level') == "Unit") { ?>
+							<th>No.</th>
+							<?php } else { ?>
 							<th colspan="2">No.</th>
+							<?php } ?>
                             <th>User</th>
                             <th>Jenis</th>
 							<th>Model</th>
@@ -121,19 +125,28 @@
 						<?php $no = 1; foreach ($data_tiket as $row){?>
 							<tr>
 								<td><?php echo $no ?>.</td>
+								<?php if ($this->session->userdata('level') != "Unit") { ?>
 								<td><div class="dropdown text-center">
 									<a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="text-decoration: none">
 										<i class="fas fa-fw fa-list-ul"></i>
 									</a>
 									<ul class="dropdown-menu" style="padding:10px">
-										<li class="disabled"><a style="cursor:default"><h4><span class="h6">Kode Tiket : <br></span><span class="text-success"><?php echo $row->kode_tiket?></span></h4></a></li><hr style="border: 1px solid;">
+										<li class="disabled"><a style="cursor:default"><span class="h6">Kode Tiket : <br></span><span class="text-success" style="font-size:16px"><?php echo $row->kode_tiket?></span></a></li><hr style="border: 1px solid;">
 										<li role="separator" class="divider"></li>
-										<li><a href="<?php echo site_url('tiket/cetak_tiket/'.$row->id)?>" style="text-decoration: none"><strong>Cetak Tiket</strong></a></li>
-										<li><a href="<?php echo site_url('tiket/cetak_grouptiket/'.$row->id)?>" style="text-decoration: none"><strong>Cetak Group Tiket</strong></a></li>
-										<li><a href="<?php echo site_url('tiket/tiket-group/'.$row->kode_tiket)?>" style="text-decoration: none"><strong>Input Group Tiket</strong></a></li>
+										<?php if ($this->session->userdata('level') == "Teknisi") { ?>
+											<li><a href="<?php echo site_url('tiket/cetak-tiket/'.$row->id)?>" style="text-decoration: none"><strong>Cetak Tiket</strong></a></li>
+										<?php } ?>
+										<?php if ($this->session->userdata('level') == "Admin") { ?>
+											<li><a href="<?php echo site_url('tiket/tiket-teknisi/'.$row->id)?>" style="text-decoration: none"><strong>Cetak Tiket Teknisi</strong></a></li>
+										<?php } ?>
+										<?php if ($this->session->userdata('level') == "Teknisi") { ?>
+											<li><a href="<?php echo site_url('tiket/cetak-grouptiket/'.$row->id)?>" style="text-decoration: none"><strong>Cetak Group Tiket</strong></a></li>
+											<li><a href="<?php echo site_url('tiket/tiket-group/'.$row->kode_tiket)?>" style="text-decoration: none"><strong>Input Group Tiket</strong></a></li>
+										<?php } ?>
 									</ul>
 									</div>
 								</td>
+								<?php } ?>
                                 <td><strong style="color: #2E6095;"><?php echo $row->user_pemohon?></strong></td>
                                 <td><?php echo $row->jenis?></td>
                                 <td><?php echo $row->model?></td>

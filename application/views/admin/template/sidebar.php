@@ -103,14 +103,6 @@
 
 		<hr class="sidebar-divider">
 		<li class="nav-item">
-			<a class="nav-link" href="<?php echo site_url('tiket/rekap-teknisi') ?>">
-				<i class="fas fa-fw fa-user"></i>
-				<span>Rekap Teknisi</span>
-			</a>
-		</li>
-
-		<hr class="sidebar-divider">
-		<li class="nav-item">
 			<a class="nav-link" href="<?php echo site_url('tiket/tiket-all') ?>">
 				<i class="fas fa-fw fa-ticket-alt"></i>
 				<span>Data Tiket</span>

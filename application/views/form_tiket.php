@@ -3,7 +3,6 @@
     <!-- ======= Contact Section ======= -->
     <section class="breadcrumbs">
       <div class="container">
-
         <div class="d-flex justify-content-between align-items-center">
           <h2>Buat Tiket</h2>
           <ol>
@@ -11,13 +10,23 @@
             <li>Buat Tiket</li>
           </ol>
         </div>
-
       </div>
     </section><!-- End Contact Section -->
 
     <!-- ======= Contact Section ======= -->
     <section class="contact" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500">
       <div class="container">
+
+        <?php if($this->session->flashdata('error') !='') : ?>
+            <script>
+            swal({
+              type: "error",
+              title: "Gagal!",
+              text: "Tiket gagal dibuat"
+            });
+            </script>
+        <?php endif; ?>
+
         <div class="row">
           <div class="col-lg-12">
             <form method="POST" action="<?php echo base_url('add-tiket') ?>" enctype="multipart/form-data">
@@ -63,3 +72,11 @@
 
   </main>
   <!-- End #main -->
+
+  <script>
+  window.setTimeout(function() {
+      $(".alert").fadeTo(500, 0).slideUp(500, function(){
+      $(this).remove(); 
+      });
+  }, 5000);
+  </script>

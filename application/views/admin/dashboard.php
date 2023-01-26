@@ -4,6 +4,16 @@
 			<h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
 		</div>
 
+		<?php if($this->session->flashdata('success_login') !='') : ?>
+            <script>
+            swal({
+              type: "success",
+              title: "Sukses!",
+              text: "Anda Berhasil Login"
+            });
+            </script>
+         <?php endif; ?>
+
 		<div class="row">
 			<div class="col-xl-2 col-md-6 mb-4">
 				<a href="<?php echo site_url('tiket/tiket-all') ?>" style="text-decoration:none">

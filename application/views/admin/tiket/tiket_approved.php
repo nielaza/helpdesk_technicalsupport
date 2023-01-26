@@ -1,6 +1,16 @@
 <div class="container-fluid">
 	<h5 class="h5 mb-0 text-gray-800">Data Tiket</h5><hr>
 
+	<?php if($this->session->flashdata('success') !='') : ?>
+	<script>
+	swal({
+		type: "success",
+		title: "Sukses!",
+		text: "Anda Berhasil Buat Review Teknisi"
+	});
+	</script>
+	<?php endif; ?>
+
 	<div class="row">
 		<div class="col-xl-2 col-md-6 mb-4">
 			<a href="<?php echo site_url('tiket/tiket-all') ?>" style="text-decoration:none">

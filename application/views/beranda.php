@@ -58,6 +58,27 @@
     <!-- ======= Why Us Section ======= -->
     <section class="why-us" data-aos="fade-up" date-aos-delay="200">
       <div class="container">
+
+        <?php if($this->session->flashdata('error') !='') : ?>
+            <script>
+            swal({
+              type: "error",
+              title: "Gagal!",
+              text: "Tiket gagal dibuat"
+            });
+            </script>
+        <?php endif; ?>
+        
+        <?php if($this->session->flashdata('success') !='') : ?>
+            <script>
+            swal({
+              type: "success",
+              title: "Sukses!",
+              text: "Tiket berhasil dibuat"
+            });
+            </script>
+         <?php endif; ?>
+
         <div class="row">
           <div class="col-lg-6 video-box">
             <img src="<?php echo base_url(); ?>assets/img/alur_tiketing.jpg" class="img-fluid" alt="">
@@ -117,3 +138,11 @@
     <!-- End Features Section -->
   </main>
   <!-- End #main -->
+
+  <script>
+  window.setTimeout(function() {
+      $(".alert").fadeTo(500, 0).slideUp(500, function(){
+      $(this).remove(); 
+      });
+  }, 5000);
+  </script>

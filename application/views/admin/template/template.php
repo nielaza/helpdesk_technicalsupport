@@ -30,6 +30,9 @@
 
 	<!-- <script type="text/javascript" src="<?php //echo base_url().'assets/js/zoom.js'?>"></script> -->
 
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.9/sweetalert2.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.9/sweetalert2.min.js"></script>
+
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body id="page-top">
