@@ -53,4 +53,4 @@ $route['default_controller']    = 'Beranda';
 $route['404_override']  = '';
 $route['translate_uri_dashes']  = TRUE;
 
-$route['add-tiket']     = 'tiket/save_tiket';
+$route['add-tiket']     = 'modul/save_tiket';

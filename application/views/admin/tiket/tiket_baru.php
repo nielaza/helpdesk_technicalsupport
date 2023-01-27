@@ -117,7 +117,7 @@
                             <th>Status</th>
 							<th>Tgl. Tiket</th>
 							<?php if ($this->session->userdata('level') == "Teknisi") { ?>
-                            <th>CETAK</th>
+                            <th>AKSI</th>
 							<?php } ?>
 						</tr>
 					</thead>
@@ -180,7 +180,7 @@
 								<td><?php echo date('d F Y', strtotime($row->created))?></td>
 								<?php if ($this->session->userdata('level') == "Teknisi") { ?>
                                 <td class="text-center">
-                                    <a href="<?php echo site_url('tiket/proses_tiket/'.$row->id)?>" class="btn btn-warning btn-circle btn-sm" title="Cetak Tiket">
+                                    <a href="<?php echo site_url('tiket/proses_tiket/'.$row->id)?>" class="btn btn-warning btn-circle btn-sm" title="Proses Tiket">
                                         <i class="fas fa-print"></i>
                                     </a>
                                 </td>

@@ -119,6 +119,9 @@
 							<?php if ($this->session->userdata('level') == "Teknisi") { ?>
                             <th>Input Pengerjaan</th>
 							<?php } ?>
+							<?php if ($this->session->userdata('level') == "Unit") { ?>
+                            <th>CETAK</th>
+							<?php } ?>
 						</tr>
 					</thead>
 					<tbody>
@@ -182,6 +185,13 @@
                                 <td class="text-center">
                                     <a href="<?php echo site_url('tiket/pengerjaan/'.$row->id)?>" class="btn btn-primary btn-circle btn-sm" title="Input Pengerjaan">
                                         <i class="fas fa-check"></i>
+                                    </a>
+                                </td>
+								<?php } ?>
+								<?php if ($this->session->userdata('level') == "Unit") { ?>
+                                <td class="text-center">
+                                    <a href="<?php echo site_url('tiket/cetak_unit/'.$row->id)?>" class="btn btn-warning btn-circle btn-sm" title="Cetak Tiket">
+                                        <i class="fas fa-print"></i>
                                     </a>
                                 </td>
 								<?php } ?>

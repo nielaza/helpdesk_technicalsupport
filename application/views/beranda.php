@@ -6,7 +6,7 @@
       <div class="carousel-item active">
         <div class="carousel-container">
           <h2 class="animate__animated animate__fadeInDown">APLIKASI<span> E-TICKETING</span></h2>
-          <h3 class="animate__animated animate__fadeInDown">(PIKET<span> REPARASI)</span></h3>
+          <!-- <h3 class="animate__animated animate__fadeInDown">(PIKET<span> REPARASI)</span></h3> -->
           <p class="animate__animated animate__fadeInUp">"APLIKASI E-TICKETING PERENCANAAN PEMELIHARAAN DAN PERAWATAN PRASARANA DAN SARANA SISTEM INFORMASI BINA MARGA"</p>
         </div>
       </div>
@@ -85,13 +85,13 @@
             <a href="https://www.youtube.com/watch?v=jDDaplaOz7Q" class="venobox mb-4" data-vbtype="video" data-autoplay="true"></a>
           </div>
           <div class="col-lg-6 d-flex flex-column justify-content-center p-5">
-            <h4 class="title">Alur Penggunaan Aplikasi Piket Reparasi</h4>
+            <h4 class="title">Alur Penggunaan Aplikasi E-Ticketing</h4>
             <p>
-                Aplikasi Piket Reparasi digunakan untuk membantu Menampung, dan Mengelola Permintaan Bidang / Unit Dinas Bina Marga terkait Prasarana Dan Sarana Sistem Informasi Bina Marga yang Bermasalah / Rusak. Berikut merupakan alur penggunaan Aplikasi Piket Reparasi : 
+                Aplikasi E-Ticketing digunakan untuk membantu Menampung, dan Mengelola Permintaan Bidang / Unit Dinas Bina Marga terkait Prasarana Dan Sarana Sistem Informasi Bina Marga yang Bermasalah / Rusak. Berikut merupakan alur penggunaan Aplikasi E-Ticketing : 
             </p>
             <ol>
                 <li>Unit / Bidang melaporkan kerusakan / permasalahan</li>
-                <li>Akses melalui Link / Barcode Aplikasi Piket Reparasi</li>
+                <li>Akses melalui Link / Barcode Aplikasi E-Ticketing</li>
                 <li>Pemohon mengisi data isian pada data Aplikasi</li>
                 <li>Pusdatin Sistem Informasi Memonitor & Mengolah data pemohon</li>
                 <li>Tenaga Ahli melakukan tindak lanjut</li>

@@ -163,6 +163,46 @@ $spreadsheet->getActiveSheet()
 			->setVertical(Alignment::VERTICAL_CENTER);
 
 $spreadsheet->getActiveSheet()
+            ->setCellValue('D24', "Kasubbag / PPTK");
+$spreadsheet->getActiveSheet()
+			->getStyle('D24')
+			->getAlignment()
+			->setHorizontal(Alignment::HORIZONTAL_CENTER);
+$spreadsheet->getActiveSheet()
+            ->setCellValue('D30', "……………………………………..");
+$spreadsheet->getActiveSheet()
+			->getStyle('D30')
+			->getFont()
+			->setBold(true)
+			->setUnderline(true);
+$spreadsheet->getActiveSheet()
+			->getStyle('D30')
+			->getAlignment()
+			->setHorizontal(Alignment::HORIZONTAL_CENTER);
+$spreadsheet->getActiveSheet()
+            ->setCellValue('F24', "Kasubbag Pusdatin");
+$spreadsheet->getActiveSheet()
+			->getStyle('F24')
+			->getAlignment()
+			->setHorizontal(Alignment::HORIZONTAL_CENTER);
+$spreadsheet->getActiveSheet()
+            ->setCellValue('F30', "……………………………………..");
+$spreadsheet->getActiveSheet()
+			->getStyle('F30')
+			->getFont()
+			->setBold(true)
+			->setUnderline(true);
+$spreadsheet->getActiveSheet()
+			->getStyle('F30')
+			->getAlignment()
+			->setHorizontal(Alignment::HORIZONTAL_CENTER);
+$spreadsheet->getActiveSheet()
+            ->setCellValue('F31', "Turmudi, S.T,. M.T");
+$spreadsheet->getActiveSheet()
+			->getStyle('F31')
+			->getAlignment()
+			->setHorizontal(Alignment::HORIZONTAL_CENTER);
+$spreadsheet->getActiveSheet()
             ->setCellValue('G24', "Tenaga Ahli");
 $spreadsheet->getActiveSheet()
 			->getStyle('G24')
