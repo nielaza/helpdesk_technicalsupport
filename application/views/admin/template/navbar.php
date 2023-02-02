@@ -10,12 +10,12 @@
 			</a>
 			<div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
 
-				<a class="dropdown-item" href="#">
+				<!-- <a class="dropdown-item" href="#">
 					<i class="fas fa-id-card-alt fa-sm fa-fw mr-2 text-black-100"></i>
 					Profile
-				</a>
+				</a> -->
 				
-				<a class="dropdown-item" href="#">
+				<a class="dropdown-item" href="<?php echo site_url('admin/user/ganti-password') ?>">
 					<i class="fas fa-key fa-sm fa-fw mr-2 text-black-100"></i>
 					Change Password
 				</a>

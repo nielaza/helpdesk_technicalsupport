@@ -68,7 +68,7 @@
 									</td>
 								<?php } else if ($row->status == 4) {?>
 									<td>
-										<button type="button" class="btn btn-success" style="font-size:14px"><i class="fas fa-check-circle fa"></i><strong>  Tiket Done</strong></button>
+										<button type="button" class="btn btn-success" style="font-size:14px"><i class="fas fa-check-circle fa"></i><strong>&nbsp;&nbsp;Tiket Done</strong></button>
 									</td>
 								<?php } ?>
 								<td><?php echo tanggal_indonesia(date('Y-m-d', strtotime($row->created)))?></td>

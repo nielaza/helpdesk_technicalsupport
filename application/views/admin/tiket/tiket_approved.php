@@ -119,7 +119,7 @@
                             <th>Lokasi</th>
 							<th>Sub Lokasi</th>
 							<th>Keterangan</th>
-                            <th>Telp</th>
+                            <!-- <th>Telp</th> -->
 							<th>Status</th>
 							<th>Approval</th>
                             <th>Teknisi</th>
@@ -136,7 +136,7 @@
 								<td><strong style="color: #2E6095;"><?php echo $row->lokasi?></strong></td>
                                 <td><strong style="color: #2E6095;"><?php echo $row->sub_lokasi?></strong></td>
                                 <td><?php echo $row->keterangan?></td>
-                                <td><?php echo $row->telp?></td>
+                                <!-- <td><?php //echo $row->telp?></td> -->
 								<?php if ($row->status == 1) {?>
 									<td>
 										<strong style="color: #B14145;">Tiket Dibuat</strong>
@@ -151,7 +151,7 @@
 									</td>
 								<?php } else if ($row->status == 4) {?>
 									<td>
-										<button type="button" class="btn btn-success" style="font-size:14px"><i class="fas fa-check-circle fa"></i><strong>  Tiket Done</strong></button>
+										<button type="button" class="btn btn-success" style="font-size:14px"><i class="fas fa-check-circle fa"></i><strong>&nbsp;&nbsp;Tiket Done</strong></button>
 									</td>
 								<?php } ?>
 								<?php if ($row->approval == 0) {?>

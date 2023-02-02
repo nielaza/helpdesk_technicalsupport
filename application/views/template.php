@@ -13,6 +13,8 @@
   <link href="<?php echo base_url(); ?>assets/img/icon/favicon.ico" rel="icon">
   <link href="<?php echo base_url(); ?>assets/img/icon/apple-touch-icon.png" rel="apple-touch-icon">
 
+  <link href="<?php echo base_url() ?>assets/admin/vendor/fontawesome-free/css/all.css" rel="stylesheet" type="text/css">
+
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,700,700i&display=swap" rel="stylesheet">
 

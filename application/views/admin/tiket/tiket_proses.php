@@ -114,7 +114,7 @@
 							<th>Sub Lokasi</th>
 							<th>Keterangan</th>
 							<th>Jenis Pekerjaan</th>
-                            <th>Telp</th>
+                            <!-- <th>Telp</th> -->
 							<th>Status</th>
 							<th>Approval</th>
                             <th>Teknisi</th>
@@ -140,7 +140,7 @@
 										<li class="disabled"><a style="cursor:default"><span class="h6">Kode Tiket : <br></span><span class="text-success" style="font-size:16px"><?php echo $row->kode_tiket?></span></a></li><hr style="border: 1px solid;">
 										<li role="separator" class="divider"></li>
 										<?php if ($this->session->userdata('level') == "Teknisi") { ?>
-											<li><a href="<?php echo site_url('tiket/cetak-tiket/'.$row->id)?>" style="text-decoration: none"><strong>Cetak Tiket</strong></a></li>
+											<li><a href="<?php echo site_url('tiket/cetak-tiket/'.$row->id)?>" style="text-decoration: none"><strong>Lihat Tiket</strong></a></li>
 										<?php } ?>
 										<?php if ($this->session->userdata('level') == "Admin") { ?>
 											<li><a href="<?php echo site_url('tiket/tiket-teknisi/'.$row->id)?>" style="text-decoration: none"><strong>Cetak Tiket Teknisi</strong></a></li>
@@ -160,7 +160,7 @@
                                 <td><strong style="color: #2E6095;"><?php echo $row->sub_lokasi?></strong></td>
                                 <td><?php echo $row->keterangan?></td>
 								<td><?php echo $row->jenis_pekerjaan?></td>
-                                <td><?php echo $row->telp?></td>
+                                <!-- <td><?php //echo $row->telp?></td> -->
 								<?php if ($row->status == 1) {?>
 									<td>
 										<strong style="color: #B14145;">Tiket Dibuat</strong>
@@ -175,7 +175,7 @@
 									</td>
 								<?php } else if ($row->status == 4) {?>
 									<td>
-										<strong style="color: #1CC88A;">Pengerjaan selesai Approval by User</strong>
+										<button type="button" class="btn btn-success" style="font-size:14px"><i class="fas fa-check-circle fa"></i><strong>&nbsp;&nbsp;Tiket Done</strong></button>
 									</td>
 								<?php } ?>
 								<?php if ($row->approval == 0) {?>

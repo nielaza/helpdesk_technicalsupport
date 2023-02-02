@@ -29,6 +29,15 @@
 				<div class="card o-hidden border-0 shadow-lg" style="margin: auto; margin-top: 15%">
 					<div class="card-body p-0">
 						<div class="row">
+						<?php if($this->session->flashdata('info') !='') : ?>
+						<script>
+						swal({
+							type: "success",
+							title: "Sukses!",
+							text: "Password berhasil diganti, Silahkan melakukan login kembali !"
+						});
+						</script>
+						<?php endif; ?>
 							<div class="col-lg">
 								<div class="p-5">
 									<div class="text-center">

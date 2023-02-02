@@ -23,5 +23,9 @@ class M_user extends CI_Model
 		$this->db->insert('user',$data);
 	}
 
+	public function update($table, $data, $where){
+		$this->db->update($table, $data, $where);
+	}	
+
 }
 ?>

@@ -25,7 +25,8 @@
 							<th>No.</th>
                             <th>Tgl. Tiket</th>
                             <th>User</th>
-                            <th>Lokasi / Bagian</th>
+                            <th>Lokasi</th>
+							<th>Sub Lokasi</th>
                             <th>Jenis</th>
 							<th>Model</th>
 							<th>Keterangan</th>
@@ -40,6 +41,7 @@
                                 <td><?php echo tanggal_indonesia(date('Y-m-d', strtotime($row->created)))?></td>
                                 <td><strong style="color: #2E6095;"><?php echo $row->user_pemohon?></strong></td>
                                 <td><strong style="color: #2E6095;"><?php echo $row->lokasi?></strong></td>
+								<td><strong style="color: #2E6095;"><?php echo $row->sub_lokasi?></strong></td>
                                 <td><?php echo $row->jenis?></td>
                                 <td><?php echo $row->model?></td>
                                 <td><?php echo $row->keterangan?></td>
@@ -64,7 +66,7 @@
 									</td>
 								<?php } else if ($row->status == 4) {?>
 									<td>
-										<button type="button" class="btn btn-success" style="font-size:14px"><i class="fas fa-check-circle fa"></i><strong>  Tiket Done</strong></button>
+										<button type="button" class="btn btn-success" style="font-size:14px"><i class="fas fa-check-circle fa"></i><strong>&nbsp;&nbsp;Tiket Done</strong></button>
 									</td>
 								<?php } ?>
 							</tr>
