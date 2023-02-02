@@ -29,7 +29,7 @@
                                 <td><strong style="color: #2E6095;"><?php echo $row->user_pemohon?></strong></td>
                                 <td><?php echo $row->jenis?></td>
                                 <td><?php echo $row->model?></td>
-                                <td><strong style="color: #2E6095;"><?php echo $row->lokasi?></strong></td>
+                                <td><strong style="color: #2E6095;"><?php echo $row->sub_lokasi?></strong></td>
                                 <td><?php echo $row->keterangan?></td>
                                 <td><?php echo $row->telp?></td>
 								<?php if ($row->id_teknisi == 0) {?>

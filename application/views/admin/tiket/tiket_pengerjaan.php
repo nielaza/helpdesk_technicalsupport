@@ -37,7 +37,7 @@
 
                     <div class="col-sm-6 form-group">
                         <label><strong>Lokasi</strong></label>
-                        <input type="text" class="form-control" value="<?php echo $tiket[0]->lokasi ?>" disabled>
+                        <input type="text" class="form-control" value="<?php echo $tiket[0]->sub_lokasi ?>" disabled>
                     </div>
                 </div><hr>
 
@@ -54,10 +54,26 @@
                 </div>
 
                 <div class="row clearfix">
-                    <div class="col-sm-12 form-group">
+                    <div class="col-sm-6 form-group">
+                        <label><strong>Status Pengerjaan</strong></label>
+                        <select class="form-control" name="status" required>
+                            <option value="-">--Pilih Status Pengerjaan--</option>
+                            <option value="2">Dalam Proses Pengerjaan</option>
+                            <option value="3">Pengerjaan Selesai</option>
+                        </select>
+                    </div>
+
+                    <?php if(!empty($tiket[0]->jenis_pekerjaan)){ ?>
+                    <div class="col-sm-6 form-group">
+                        <label><strong>Jenis Pengerjaan</strong></label>
+                        <textarea name="jenis_pekerjaan" class="form-control" placeholder="Masukkan Jenis Pekerjaan .." cols="45" rows="5" required><?php echo $tiket[0]->jenis_pekerjaan ?></textarea>
+                    </div>
+                    <?php } else { ?>
+                    <div class="col-sm-6 form-group">
                         <label><strong>Jenis Pengerjaan</strong></label>
                         <textarea name="jenis_pekerjaan" class="form-control" placeholder="Masukkan Jenis Pekerjaan .." cols="45" rows="5" required></textarea>
                     </div>
+                    <?php } ?>
                 </div>
 
 				<button type="submit" class="btn btn-success" >Simpan</button>

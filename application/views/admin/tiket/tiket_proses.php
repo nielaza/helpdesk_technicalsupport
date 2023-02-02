@@ -110,18 +110,21 @@
                             <th>User</th>
                             <th>Jenis</th>
 							<th>Model</th>
-                            <th>Lokasi / Bagian</th>
+                            <th>Lokasi</th>
+							<th>Sub Lokasi</th>
 							<th>Keterangan</th>
+							<th>Jenis Pekerjaan</th>
                             <th>Telp</th>
+							<th>Status</th>
+							<th>Approval</th>
                             <th>Teknisi</th>
-                            <th>Status</th>
 							<th>Tgl. Tiket</th>
 							<?php if ($this->session->userdata('level') == "Teknisi") { ?>
                             <th>Input Pengerjaan</th>
 							<?php } ?>
-							<?php if ($this->session->userdata('level') == "Unit") { ?>
-                            <th>CETAK</th>
-							<?php } ?>
+							<?php //if ($this->session->userdata('level') == "Unit") { ?>
+                            <!-- <th>CETAK</th> -->
+							<?php //} ?>
 						</tr>
 					</thead>
 					<tbody>
@@ -142,10 +145,10 @@
 										<?php if ($this->session->userdata('level') == "Admin") { ?>
 											<li><a href="<?php echo site_url('tiket/tiket-teknisi/'.$row->id)?>" style="text-decoration: none"><strong>Cetak Tiket Teknisi</strong></a></li>
 										<?php } ?>
-										<?php if ($this->session->userdata('level') == "Teknisi") { ?>
-											<li><a href="<?php echo site_url('tiket/cetak-grouptiket/'.$row->id)?>" style="text-decoration: none"><strong>Cetak Group Tiket</strong></a></li>
-											<li><a href="<?php echo site_url('tiket/tiket-group/'.$row->kode_tiket)?>" style="text-decoration: none"><strong>Input Group Tiket</strong></a></li>
-										<?php } ?>
+										<?php //if ($this->session->userdata('level') == "Teknisi") { ?>
+											<!-- <li><a href="<?php //echo site_url('tiket/cetak-grouptiket/'.$row->id)?>" style="text-decoration: none"><strong>Cetak Group Tiket</strong></a></li>
+											<li><a href="<?php //echo site_url('tiket/tiket-group/'.$row->kode_tiket)?>" style="text-decoration: none"><strong>Input Group Tiket</strong></a></li> -->
+										<?php //} ?>
 									</ul>
 									</div>
 								</td>
@@ -153,16 +156,11 @@
                                 <td><strong style="color: #2E6095;"><?php echo $row->user_pemohon?></strong></td>
                                 <td><?php echo $row->jenis?></td>
                                 <td><?php echo $row->model?></td>
-                                <td><strong style="color: #2E6095;"><?php echo $row->lokasi?></strong></td>
+								<td><strong style="color: #2E6095;"><?php echo $row->lokasi?></strong></td>
+                                <td><strong style="color: #2E6095;"><?php echo $row->sub_lokasi?></strong></td>
                                 <td><?php echo $row->keterangan?></td>
+								<td><?php echo $row->jenis_pekerjaan?></td>
                                 <td><?php echo $row->telp?></td>
-								<?php if ($row->id_teknisi == 0) {?>
-									<td>
-										<strong style="color: #B14145;">Belum Ditangani</strong>
-									</td>
-								<?php } else { ?>
-									<td><strong style="color: #FC8500;"><?php echo $row->nama_lengkap?></strong></td>
-								<?php } ?>
 								<?php if ($row->status == 1) {?>
 									<td>
 										<strong style="color: #B14145;">Tiket Dibuat</strong>
@@ -180,6 +178,22 @@
 										<strong style="color: #1CC88A;">Pengerjaan selesai Approval by User</strong>
 									</td>
 								<?php } ?>
+								<?php if ($row->approval == 0) {?>
+									<td>
+										<button type="button" class="btn btn-danger" style="font-size:14px"><i class="fas fa-times-circle fa"></i><strong>  Belum Approval</strong></button>
+									</td>
+								<?php } else if ($row->approval == 1) { ?>
+									<td>
+										<button type="button" class="btn btn-success" style="font-size:14px"><i class="fas fa-check-circle fa"></i><strong>  Sudah Approval</strong></button>
+									</td>
+								<?php } ?>
+								<?php if ($row->id_teknisi == 0) {?>
+									<td>
+										<strong style="color: #B14145;">Belum Ditangani</strong>
+									</td>
+								<?php } else { ?>
+									<td><strong style="color: #FC8500;"><?php echo $row->nama_lengkap?></strong></td>
+								<?php } ?>
 								<td><?php echo date('d F Y', strtotime($row->created))?></td>
 								<?php if ($this->session->userdata('level') == "Teknisi") { ?>
                                 <td class="text-center">
@@ -188,13 +202,13 @@
                                     </a>
                                 </td>
 								<?php } ?>
-								<?php if ($this->session->userdata('level') == "Unit") { ?>
-                                <td class="text-center">
-                                    <a href="<?php echo site_url('tiket/cetak_unit/'.$row->id)?>" class="btn btn-warning btn-circle btn-sm" title="Cetak Tiket">
+								<?php //if ($this->session->userdata('level') == "Unit") { ?>
+                                <!-- <td class="text-center">
+                                    <a href="<?php //echo site_url('tiket/cetak_unit/'.$row->id)?>" class="btn btn-warning btn-circle btn-sm" title="Cetak Tiket">
                                         <i class="fas fa-print"></i>
                                     </a>
-                                </td>
-								<?php } ?>
+                                </td> -->
+								<?php //} ?>
 							</tr>
 						<?php $no++;}?>
 					</tbody>

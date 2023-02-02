@@ -74,7 +74,7 @@ foreach($data_tiket as $data){ // Lakukan looping pada variabel siswa
     $sheet->setCellValue('E'.$numrow, $data->telp);
     $sheet->setCellValue('F'.$numrow, $data->jenis);
     $sheet->setCellValue('G'.$numrow, $data->model);
-    $sheet->setCellValue('H'.$numrow, $data->lokasi);
+    $sheet->setCellValue('H'.$numrow, $data->sub_lokasi);
     $sheet->setCellValue('I'.$numrow, $data->keterangan);
     if ($data->id_teknisi == 0) {
         $sheet->setCellValue('J'.$numrow, "Belum Ditangani");

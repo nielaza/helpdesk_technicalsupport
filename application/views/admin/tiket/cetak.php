@@ -34,6 +34,32 @@ if(!empty($tiket[0]->lampiran)){
     $drawing->setWorksheet($spreadsheet->getActiveSheet());
 }
 
+if($tiket[0]->approval == 1){
+    $drawing = new \PhpOffice\PhpSpreadsheet\Worksheet\Drawing();
+    $drawing->setName('Paid');
+    $drawing->setDescription('Paid');
+    $drawing->setPath('assets/img/approved.png'); 
+    $drawing->setCoordinates('B18');
+    $drawing->setWidth(180);
+	$drawing->setHeight(100);
+    $drawing->setOffsetX(90);
+    $drawing->getShadow()->setVisible(true);
+    $drawing->getShadow()->setDirection(45);
+    $drawing->setWorksheet($spreadsheet->getActiveSheet());
+} else if($tiket[0]->approval == 0){
+    $drawing = new \PhpOffice\PhpSpreadsheet\Worksheet\Drawing();
+    $drawing->setName('Paid');
+    $drawing->setDescription('Paid');
+    $drawing->setPath('assets/img/not_approved.png'); 
+    $drawing->setCoordinates('B17');
+    $drawing->setWidth(180);
+	$drawing->setHeight(132);
+    $drawing->setOffsetX(75);
+    $drawing->getShadow()->setVisible(true);
+    $drawing->getShadow()->setDirection(45);
+    $drawing->setWorksheet($spreadsheet->getActiveSheet());
+}
+
 $spreadsheet->getActiveSheet()
 			->getColumnDimension('B')
 			->setWidth(45);
@@ -83,7 +109,7 @@ $spreadsheet->getActiveSheet()
 $spreadsheet->getActiveSheet()
             ->setCellValue('D7', "Bidang / Unit : ");
 $spreadsheet->getActiveSheet()
-            ->setCellValue('D8', "".$tiket[0]->lokasi."");
+            ->setCellValue('D8', "".$tiket[0]->sub_lokasi."");
 $spreadsheet->getActiveSheet()
             ->setCellValue('B8', "No. Telp : ".$tiket[0]->telp."");
 $spreadsheet->getActiveSheet()
@@ -201,8 +227,13 @@ $spreadsheet->getActiveSheet()
 			->getStyle('D23')
 			->getAlignment()
 			->setHorizontal(Alignment::HORIZONTAL_CENTER);
+if(!empty($tiket[0]->id_teknisi)){
+$spreadsheet->getActiveSheet()
+            ->setCellValue('D24', "".$tiket[0]->nama_lengkap."");
+} else {
 $spreadsheet->getActiveSheet()
             ->setCellValue('D24', "".$this->session->userdata('nama_lengkap')."");
+}			
 $spreadsheet->getActiveSheet()
 			->getStyle('D24')
 			->getAlignment()

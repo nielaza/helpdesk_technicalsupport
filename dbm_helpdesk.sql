@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jan 20, 2023 at 07:33 AM
+-- Generation Time: Feb 01, 2023 at 04:38 AM
 -- Server version: 8.0.18
 -- PHP Version: 7.3.11
 
@@ -191,18 +191,15 @@ CREATE TABLE `lokasi_infrastruktur` (
 --
 
 INSERT INTO `lokasi_infrastruktur` (`id`, `lokasi`) VALUES
-(1, 'Sekretariat Umum'),
-(2, 'Sekretariat Keuangan'),
-(3, 'Sekretariat Kepegawaian'),
-(4, 'Sekretariat Program'),
-(5, 'Bidang Kelengkapan Jalan'),
-(6, 'Bidang Jalan dan Jembatan'),
-(7, 'Bidang Prasarana dan Sarana Utilitas Kota'),
-(8, 'Bidang Penerangan Jalan dan Sarana Umum'),
-(9, 'UPPPP'),
-(10, 'Unit Alkal'),
-(11, 'Pusdatin'),
-(12, 'Unit Pengadaan Tanah');
+(1, 'Sekretariat'),
+(2, 'Bidang Jalan dan Jembatan'),
+(3, 'Bidang Kelengkapan Jalan'),
+(4, 'Bidang Prasarana dan Sarana Utilitas Kota'),
+(5, 'Bidang Penerangan Jalan dan Sarana Umum'),
+(6, 'Unit Peralatan dan Perbekalan Bina Marga'),
+(7, 'Unit Pengadaan Tanah Bina Marga'),
+(8, 'Unit Pengelola Penyelidikan, Pengujian dan Pengukuran Bina Marga'),
+(9, 'Pusat Data dan Informasi Bina Marga');
 
 -- --------------------------------------------------------
 
@@ -218,13 +215,43 @@ CREATE TABLE `review_user` (
   `created` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `review_user`
+-- Table structure for table `sub_lokasi_infrastruktur`
 --
 
-INSERT INTO `review_user` (`id`, `id_tiket`, `emot`, `komentar`, `created`) VALUES
-(1, 2, 'Puas', 'Mantaap', '2023-01-17 10:05:54'),
-(2, 3, 'Tidak Puas', 'lama', '2023-01-17 14:22:41');
+CREATE TABLE `sub_lokasi_infrastruktur` (
+  `id` int(11) NOT NULL,
+  `id_lokasi` int(11) NOT NULL,
+  `sub_lokasi` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `sub_lokasi_infrastruktur`
+--
+
+INSERT INTO `sub_lokasi_infrastruktur` (`id`, `id_lokasi`, `sub_lokasi`) VALUES
+(1, 1, 'Sekretariat Umum'),
+(2, 1, 'Sekretariat Kepegawaian'),
+(3, 1, 'Sekretariat Program dan Pelaporan'),
+(4, 1, 'Sekretariat Keuangan'),
+(5, 2, 'Seksi Perencanaan Jalan dan Jembatan'),
+(6, 2, 'Seksi Pembangunan dan Peningkatan Jalan dan Jembatan'),
+(7, 2, 'Seksi Pemeliharaan Jalan dan Jembatan'),
+(8, 3, 'Seksi Perencanaan dan Kelengkapan Prasarana Jalan'),
+(9, 3, 'Seksi Pembangunan dan Peningkatan Kelengkapan Jalan'),
+(10, 3, 'Seksi Pemeliharaan Kelengkapan Jalan'),
+(11, 4, 'Seksi Perencanaan Sarana dan Prasarana Utilitas Kota'),
+(12, 4, 'Seksi Pembangunan dan Peningkatan Sarana dan Prasarana Utilitas Kota'),
+(13, 4, 'Seksi Pemeliharaan Prasarana dan Sarana Utilitas Kota'),
+(14, 5, 'Seksi Penerangan Jalan'),
+(15, 5, 'Seksi Penerangan Sarana Umum'),
+(16, 5, 'Seksi Pengembangan dan Logistik'),
+(17, 6, 'Unit Peralatan dan Perbekalan Bina Marga'),
+(18, 7, 'Unit Pengadaan Tanah Bina Marga'),
+(19, 8, 'Unit Pengelola Penyelidikan, Pengujian dan Pengukuran Bina Marga'),
+(20, 9, 'Pusat Data dan Informasi Bina Marga');
 
 -- --------------------------------------------------------
 
@@ -285,25 +312,16 @@ CREATE TABLE `tiket` (
   `id_jenis` int(1) NOT NULL,
   `model` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
   `id_lokasi` int(11) NOT NULL,
+  `id_sublokasi` int(11) NOT NULL,
   `lampiran` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
   `keterangan` text COLLATE utf8mb4_general_ci NOT NULL,
   `jenis_pekerjaan` text COLLATE utf8mb4_general_ci NOT NULL,
   `telp` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `id_teknisi` int(1) NOT NULL,
+  `approval` int(1) NOT NULL DEFAULT '0',
   `status` int(1) NOT NULL,
   `created` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `tiket`
---
-
-INSERT INTO `tiket` (`id`, `kode_tiket`, `group_tiket`, `user_pemohon`, `id_jenis`, `model`, `id_lokasi`, `lampiran`, `keterangan`, `jenis_pekerjaan`, `telp`, `id_teknisi`, `status`, `created`) VALUES
-(1, 'T20230117001HAM', '', 'Fulan', 1, 'HP', 11, 'tiket-230117-c8ca5df335.png', 'Komputer lemot', '', '08131232123', 3, 3, '2023-01-16 09:41:11'),
-(2, 'T20230117002SWC', '', 'Fulana', 2, 'Asus', 1, 'tiket-230117-9202ee93f5.png', 'Install Ulang', 'Install software', '08129945498', 2, 4, '2023-01-17 09:42:35'),
-(3, 'T20230117003QZS', '', 'Arif', 2, 'Lenovo', 10, 'tiket-230117-234744fbbb.png', 'Install ulang laptop', 'recovery', '08099412323', 2, 4, '2023-01-18 13:43:22'),
-(4, 'T20230119004TLX', 'T20230117001HAM', 'daniel', 3, 'epson', 11, '', 'error', 'deep clean', '', 3, 2, '2023-01-19 00:00:00'),
-(5, 'T20230120005DJK', 'T20230117003QZS', 'Setiawan', 5, 'Office', 10, '', 'Aktivasi', 'Aktivasi Office', '', 2, 2, '2023-01-19 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -317,14 +335,6 @@ CREATE TABLE `tiket_group` (
   `group_tiket` varchar(30) COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `tiket_group`
---
-
-INSERT INTO `tiket_group` (`id`, `kode_tiket`, `group_tiket`) VALUES
-(1, 'T20230119004TLX', 'T20230117001HAM'),
-(2, 'T20230120005DJK', 'T20230117003QZS');
-
 -- --------------------------------------------------------
 
 --
@@ -333,39 +343,68 @@ INSERT INTO `tiket_group` (`id`, `kode_tiket`, `group_tiket`) VALUES
 
 CREATE TABLE `user` (
   `id` int(11) NOT NULL,
-  `id_lokasi` int(11) NOT NULL,
-  `nama_lengkap` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `nip_user` varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `jenis_kelamin` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `telp` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `email` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `username` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `password` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `level` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `status` varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `tgl_register` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `id_lokasi` int(11) DEFAULT NULL,
+  `id_sublokasi` int(11) DEFAULT NULL,
+  `nama_lengkap` varchar(150) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `nip_user` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `jenis_kelamin` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `telp` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `email` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `username` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `password` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `level` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `status` varchar(10) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `tgl_register` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id`, `id_lokasi`, `nama_lengkap`, `nip_user`, `jenis_kelamin`, `telp`, `email`, `username`, `password`, `level`, `status`) VALUES
-(1, 0, 'Admin', '', '', '08998115748', 'admin@binamarga.jakarta.go.id', 'admin', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'Admin', 'Aktif'),
-(2, 0, 'Wahid Ikhsan', '', '', '', '', 'wahid', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'Teknisi', 'Aktif'),
-(3, 0, 'Ade Rulliana', '', '', '', '', 'ade', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'Teknisi', 'Aktif'),
-(4, 1, 'Sekretariat Umum', '', '', '', '', 'umum', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'Unit', 'Aktif'),
-(5, 2, 'Sekretariat Keuangan', '', '', '', '', 'keuangan', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'Unit', 'Aktif'),
-(6, 3, 'Sekretariat Kepegawaian', '', '', '', '', 'kepegawaian', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'Unit', 'Aktif'),
-(7, 4, 'Sekretariat Program', '', '', '', '', 'program', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'Unit', 'Aktif'),
-(8, 5, 'Bidang Kelengkapan Jalan', '', '', '', '', 'kelengkapanjalan', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'Unit', 'Aktif'),
-(9, 6, 'Bidang Jalan dan Jembatan', '', '', '', '', 'jantan', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'Unit', 'Aktif'),
-(10, 7, 'Bidang Prasarana dan Sarana Utilitas Kota', '', '', '', '', 'sarpraskota', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'Unit', 'Aktif'),
-(11, 8, 'Bidang Penerangan Jalan dan Sarana Umum', '', '', '', '', 'peneranganjalan', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'Unit', 'Aktif'),
-(12, 9, 'UPPPP', '', '', '', '', 'upppp', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'Unit', 'Aktif'),
-(13, 10, 'Unit Alkal', '', '', '', '', 'alkal', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'Unit', 'Aktif'),
-(14, 11, 'Pusdatin', '', '', '', '', 'pusdatin', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'Unit', 'Aktif'),
-(15, 12, 'Unit Pengadaan Tanah', '', '', '', '', 'unittanah', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'Unit', 'Aktif');
+INSERT INTO `user` (`id`, `id_lokasi`, `id_sublokasi`, `nama_lengkap`, `nip_user`, `jenis_kelamin`, `telp`, `email`, `username`, `password`, `level`, `status`, `tgl_register`) VALUES
+(1, 0, 0, 'Admin', NULL, NULL, '08998115748', 'admin@binamarga.jakarta.go.id', 'admin', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'Admin', 'Aktif', '2023-02-01 02:30:35'),
+(2, 0, 0, 'Wahid Ikhsan', NULL, NULL, NULL, NULL, 'wahid', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'Teknisi', 'Aktif', '2023-02-01 02:30:35'),
+(3, 0, 0, 'Ade Rulliana', NULL, NULL, NULL, NULL, 'ade', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'Teknisi', 'Aktif', '2023-02-01 02:30:35'),
+(4, 1, 1, 'Sekretariat Umum', NULL, NULL, NULL, NULL, 'umum', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'Unit', 'Aktif', '2023-02-01 02:30:35'),
+(5, 1, 2, 'Sekretariat Kepegawaian', NULL, NULL, NULL, NULL, 'kepegawaian', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'Unit', 'Aktif', '2023-02-01 02:30:35'),
+(6, 1, 3, 'Sekretariat Program dan Pelaporan', NULL, NULL, NULL, NULL, 'program', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'Unit', 'Aktif', '2023-02-01 02:30:35'),
+(7, 1, 4, 'Sekretariat Keuangan', NULL, NULL, NULL, NULL, 'keuangan', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'Unit', 'Aktif', '2023-02-01 02:30:35'),
+(8, 2, 5, 'Seksi Perencanaan Jalan dan Jembatan', NULL, NULL, NULL, NULL, 'jantan1', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'Unit', 'Aktif', '2023-02-01 02:30:35'),
+(9, 2, 6, 'Seksi Pembangunan dan Peningkatan Jalan dan Jembatan', NULL, NULL, NULL, NULL, 'jantan2', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'Unit', 'Aktif', '2023-02-01 02:30:35'),
+(10, 2, 7, 'Seksi Pemeliharaan Jalan dan Jembatan', NULL, NULL, NULL, NULL, 'jantan3', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'Unit', 'Aktif', '2023-02-01 02:30:35'),
+(11, 3, 8, 'Seksi Perencanaan dan Kelengkapan Prasarana Jalan', NULL, NULL, NULL, NULL, 'jalan1', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'Unit', 'Aktif', '2023-02-01 02:30:35'),
+(12, 3, 9, 'Seksi Pembangunan dan Peningkatan Kelengkapan Jalan', NULL, NULL, NULL, NULL, 'jalan2', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'Unit', 'Aktif', '2023-02-01 02:30:35'),
+(13, 3, 10, 'Seksi Pemeliharaan Kelengkapan Jalan', NULL, NULL, NULL, NULL, 'jalan3', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'Unit', 'Aktif', '2023-02-01 02:30:35'),
+(14, 4, 11, 'Seksi Perencanaan Sarana dan Prasarana Utilitas Kota', NULL, NULL, NULL, NULL, 'kota1', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'Unit', 'Aktif', '2023-02-01 02:30:35'),
+(15, 4, 12, 'Seksi Pembangunan dan Peningkatan Sarana dan Prasarana Utilitas Kota', NULL, NULL, NULL, NULL, 'kota2', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'Unit', 'Aktif', '2023-02-01 02:30:35'),
+(16, 4, 13, 'Seksi Pemeliharaan Prasarana dan Sarana Utilitas Kota', NULL, NULL, NULL, NULL, 'kota3', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'Unit', 'Aktif', '2023-02-01 02:30:35'),
+(17, 5, 14, 'Seksi Penerangan Jalan', NULL, NULL, NULL, NULL, 'peneranganjalan', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'Unit', 'Aktif', '2023-02-01 02:30:35'),
+(18, 5, 15, 'Seksi Penerangan Sarana Umum', NULL, NULL, NULL, NULL, 'peneranganumum', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'Unit', 'Aktif', '2023-02-01 02:30:35'),
+(19, 5, 16, 'Seksi Pengembangan dan Logistik', NULL, NULL, NULL, NULL, 'pengembanganlogistik', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'Unit', 'Aktif', '2023-02-01 02:30:35'),
+(20, 6, 17, 'Unit Peralatan dan Perbekalan Bina Marga', NULL, NULL, NULL, NULL, 'alkal', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'Unit', 'Aktif', '2023-02-01 02:30:35'),
+(21, 7, 18, 'Unit Pengadaan Tanah Bina Marga', NULL, NULL, NULL, NULL, 'upt', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'Unit', 'Aktif', '2023-02-01 02:30:35'),
+(22, 8, 19, 'Unit Pengelola Penyelidikan, Pengujian dan Pengukuran Bina Marga', NULL, NULL, NULL, NULL, 'upp', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'Unit', 'Aktif', '2023-02-01 02:30:35'),
+(23, 9, 20, 'Pusat Data dan Informasi Bina Marga', NULL, NULL, NULL, NULL, 'pusdatin', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'Unit', 'Aktif', '2023-02-01 02:30:35'),
+(24, 1, 1, 'Ka. Sub Bagian Umum', NULL, NULL, NULL, NULL, 'kasubbag_umum', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'Pimpinan', 'Aktif', '2023-02-01 02:30:35'),
+(25, 1, 2, 'Ka. Sub Koord. Kepegawaian', NULL, NULL, NULL, NULL, 'kasubkoord_kepegawaian', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'Pimpinan', 'Aktif', '2023-02-01 02:30:35'),
+(26, 1, 3, 'Ka. Sub Koord.  Program dan Pelaporan', NULL, NULL, NULL, NULL, 'kasubkoord_program', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'Pimpinan', 'Aktif', '2023-02-01 02:30:35'),
+(27, 1, 4, 'Ka. Sub Bagian Keuangan', NULL, NULL, NULL, NULL, 'kasubbag_keuangan', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'Pimpinan', 'Aktif', '2023-02-01 02:30:35'),
+(28, 2, 5, 'Ka. Sub Koord.  Perencanaan Jalan dan Jembatan', NULL, NULL, NULL, NULL, 'kasubkoord_jantan1', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'Pimpinan', 'Aktif', '2023-02-01 02:30:35'),
+(29, 2, 6, 'Ka. Sub Koord.  Pembangunan dan Peningkatan Jalan dan Jembatan', NULL, NULL, NULL, NULL, 'kasubkoord_jantan2', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'Pimpinan', 'Aktif', '2023-02-01 02:30:35'),
+(30, 2, 7, 'Ka. Sub Koord.  Pemeliharaan Jalan dan Jembatan', NULL, NULL, NULL, NULL, 'kasubkoord_jantan3', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'Pimpinan', 'Aktif', '2023-02-01 02:30:35'),
+(31, 3, 8, 'Ka. Sub Koord.  Perencanaan dan Kelengkapan Prasarana Jalan', NULL, NULL, NULL, NULL, 'kasubkoord_jalan1', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'Pimpinan', 'Aktif', '2023-02-01 02:30:35'),
+(32, 3, 9, 'Ka. Sub Koord.  Pembangunan dan Peningkatan Kelengkapan Jalan', NULL, NULL, NULL, NULL, 'kasubkoord_jalan2', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'Pimpinan', 'Aktif', '2023-02-01 02:30:35'),
+(33, 3, 10, 'Ka. Sub Koord.  Urusan Pemeliharaan Kelengkapan Jalan', NULL, NULL, NULL, NULL, 'kasubkoord_jalan3', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'Pimpinan', 'Aktif', '2023-02-01 02:30:35'),
+(34, 4, 11, 'Ka. Sub Koord.  Urusan Perencanaan Sarana dan Prasarana Utilitas Kota', NULL, NULL, NULL, NULL, 'kasubkoord_kota1', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'Pimpinan', 'Aktif', '2023-02-01 02:30:35'),
+(35, 4, 12, 'Ka. Sub Koord.  Urusan Pembangunan dan Peningkatan Sarana dan Prasarana Utilitas Kota', NULL, NULL, NULL, NULL, 'kasubkoord_kota2', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'Pimpinan', 'Aktif', '2023-02-01 02:30:35'),
+(36, 4, 13, 'Ka. Sub Koord.  UrusanPemeliharaan Prasarana dan Sarana Utilitas Kota', NULL, NULL, NULL, NULL, 'kasubkoord_kota3', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'Pimpinan', 'Aktif', '2023-02-01 02:30:35'),
+(37, 5, 14, 'Ka. Sub Koord.  Urusan Penerangan Jalan', NULL, NULL, NULL, NULL, 'kasubkoord_peneranganjalan', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'Pimpinan', 'Aktif', '2023-02-01 02:30:35'),
+(38, 5, 15, 'Ka. Sub Koord.  Urusan Penerangan Sarana Umum', NULL, NULL, NULL, NULL, 'kasubkoord_peneranganumum', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'Pimpinan', 'Aktif', '2023-02-01 02:30:35'),
+(39, 5, 16, 'Ka. Sub Koord.  Urusan Pengembangan dan Logistik', NULL, NULL, NULL, NULL, 'kasubkoord_pengembanganlogistik', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'Pimpinan', 'Aktif', '2023-02-01 02:30:35'),
+(40, 6, 17, 'Ka. Sub Bagian  Unit Peralatan dan Perbekalan Bina Marga', NULL, NULL, NULL, NULL, 'kasubbag_alkal', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'Pimpinan', 'Aktif', '2023-02-01 02:30:35'),
+(41, 7, 18, 'Ka. Sub Bagian  Unit Pengadaan Tanah Bina Marga', NULL, NULL, NULL, NULL, 'kasubbag_upt', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'Pimpinan', 'Aktif', '2023-02-01 02:30:35'),
+(42, 8, 19, 'Ka. Sub Bagian  Unit Pengelola Penyelidikan, Pengujian dan Pengukuran Bina Marga', NULL, NULL, NULL, NULL, 'kasubbag_upp', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'Pimpinan', 'Aktif', '2023-02-01 02:30:35'),
+(43, 9, 20, 'Ka. Sub Bagian Pusat Data dan Informasi Bina Marga', NULL, NULL, NULL, NULL, 'kasubbag_pusdatin', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'Pimpinan', 'Aktif', '2023-02-01 02:30:35');
 
 --
 -- Indexes for dumped tables
@@ -411,6 +450,12 @@ ALTER TABLE `lokasi_infrastruktur`
 -- Indexes for table `review_user`
 --
 ALTER TABLE `review_user`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `sub_lokasi_infrastruktur`
+--
+ALTER TABLE `sub_lokasi_infrastruktur`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -481,13 +526,19 @@ ALTER TABLE `kondisi`
 -- AUTO_INCREMENT for table `lokasi_infrastruktur`
 --
 ALTER TABLE `lokasi_infrastruktur`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `review_user`
 --
 ALTER TABLE `review_user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `sub_lokasi_infrastruktur`
+--
+ALTER TABLE `sub_lokasi_infrastruktur`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `sumber_dana`
@@ -505,19 +556,19 @@ ALTER TABLE `teknisi`
 -- AUTO_INCREMENT for table `tiket`
 --
 ALTER TABLE `tiket`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tiket_group`
 --
 ALTER TABLE `tiket_group`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

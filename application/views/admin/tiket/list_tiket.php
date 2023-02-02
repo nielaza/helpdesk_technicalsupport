@@ -119,9 +119,23 @@
 	<div class="card shadow mb-4">
 		<div class="card-body">
 			<div class="table-responsive">
+			<?php if ($this->session->userdata('level') == "Pimpinan") { ?>
+			<form action="<?php echo base_url(); ?>tiket/approval-tiket" method="post">
+   			<button type="submit" name="submit" class="btn btn-primary">Approval Tiket</button><br>
+			<span style="font-size:14px"><strong>Silahkan select(pilih tiket) yang akan di Approval</strong></span><br><br>
+			<?php } ?>
 				<table class="table table-striped" id="dataTable" width="100%" cellspacing="0">
 					<thead>
 						<tr>
+							<?php if(!empty($data_tiket)){ 
+								$approval = $data_tiket[0]->approval == 0;
+							} else {
+								$approval = '';
+							} 
+							?>
+							<?php if ($this->session->userdata('level') == "Pimpinan" && $approval) { ?>
+							<th></th>
+							<?php } ?>
 							<?php if ($this->session->userdata('level') == "Unit") { ?>
 							<th>No.</th>
 							<?php } else { ?>
@@ -130,17 +144,30 @@
                             <th>User</th>
                             <th>Jenis</th>
 							<th>Model</th>
-                            <th>Lokasi / Bagian</th>
+                            <th>Lokasi</th>
+							<th>Sub Lokasi</th>
 							<th>Keterangan</th>
                             <th>Telp</th>
+							<th>Status</th>
+							<th>Approval</th>
                             <th>Teknisi</th>
-                            <th>Status</th>
 							<th>Tgl. Tiket</th>
 						</tr>
 					</thead>
 					<tbody>
 						<?php $no = 1; foreach ($data_tiket as $row){?>
 							<tr>
+								<?php if(!empty($data_tiket)){ 
+									$approval = $data_tiket[0]->approval == 0;
+								} else {
+									$approval = '';
+								} 
+								?>
+								<?php if ($this->session->userdata('level') == "Pimpinan" && $approval) { ?>
+								<td>
+                  					<input type="checkbox" name="tiket_id[]" value="<?php echo $row->id; ?>">
+                				</td>
+								<?php } ?>
 								<td><?php echo $no ?>.</td>
 								<?php if ($this->session->userdata('level') != "Unit") { ?>
 								<td><div class="dropdown text-center">
@@ -156,10 +183,10 @@
 										<?php if ($this->session->userdata('level') == "Admin") { ?>
 											<li><a href="<?php echo site_url('tiket/tiket-teknisi/'.$row->id)?>" style="text-decoration: none"><strong>Cetak Tiket Teknisi</strong></a></li>
 										<?php } ?>
-										<?php if ($this->session->userdata('level') == "Teknisi") { ?>
-											<li><a href="<?php echo site_url('tiket/cetak-grouptiket/'.$row->id)?>" style="text-decoration: none"><strong>Cetak Group Tiket</strong></a></li>
-											<li><a href="<?php echo site_url('tiket/tiket-group/'.$row->kode_tiket)?>" style="text-decoration: none"><strong>Input Group Tiket</strong></a></li>
-										<?php } ?>
+										<?php //if ($this->session->userdata('level') == "Teknisi") { ?>
+											<!-- <li><a href="<?php //echo site_url('tiket/cetak-grouptiket/'.$row->id)?>" style="text-decoration: none"><strong>Cetak Group Tiket</strong></a></li>
+											<li><a href="<?php //echo site_url('tiket/tiket-group/'.$row->kode_tiket)?>" style="text-decoration: none"><strong>Input Group Tiket</strong></a></li> -->
+										<?php //} ?>
 									</ul>
 									</div>
 								</td>
@@ -167,16 +194,10 @@
                                 <td><strong style="color: #2E6095;"><?php echo $row->user_pemohon?></strong></td>
                                 <td><?php echo $row->jenis?></td>
                                 <td><?php echo $row->model?></td>
-                                <td><strong style="color: #2E6095;"><?php echo $row->lokasi?></strong></td>
+								<td><strong style="color: #2E6095;"><?php echo $row->lokasi?></strong></td>
+                                <td><strong style="color: #2E6095;"><?php echo $row->sub_lokasi?></strong></td>
                                 <td><?php echo $row->keterangan?></td>
                                 <td><?php echo $row->telp?></td>
-								<?php if ($row->id_teknisi == 0) {?>
-									<td>
-										<strong style="color: #B14145;">Belum Ditangani</strong>
-									</td>
-								<?php } else { ?>
-									<td><strong style="color: #FC8500;"><?php echo $row->nama_lengkap?></strong></td>
-								<?php } ?>
 								<?php if ($row->status == 1) {?>
 									<td>
 										<strong style="color: #B14145;">Tiket Dibuat</strong>
@@ -194,11 +215,28 @@
 										<button type="button" class="btn btn-success" style="font-size:14px"><i class="fas fa-check-circle fa"></i><strong>  Tiket Done</strong></button>
 									</td>
 								<?php } ?>
+								<?php if ($row->approval == 0) {?>
+									<td>
+										<button type="button" class="btn btn-danger" style="font-size:14px"><i class="fas fa-times-circle fa"></i><strong>  Belum Approval</strong></button>
+									</td>
+								<?php } else if ($row->approval == 1) { ?>
+									<td>
+										<button type="button" class="btn btn-success" style="font-size:14px"><i class="fas fa-check-circle fa"></i><strong>  Sudah Approval</strong></button>
+									</td>
+								<?php } ?>
+								<?php if ($row->id_teknisi == 0) {?>
+									<td>
+										<strong style="color: #B14145;">Belum Ditangani</strong>
+									</td>
+								<?php } else { ?>
+									<td><strong style="color: #FC8500;"><?php echo $row->nama_lengkap?></strong></td>
+								<?php } ?>
 								<td><?php echo tanggal_indonesia(date('Y-m-d', strtotime($row->created)))?></td>
 							</tr>
 						<?php $no++;}?>
 					</tbody>
 				</table>
+				</form>
 			</div>
 		</div>
 	</div>

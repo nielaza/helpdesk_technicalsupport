@@ -87,6 +87,7 @@ class Tiket extends CI_Controller
         $level      		= $this->session->userdata('level');
         $id_user            = $this->session->userdata('id');
         $id_lokasi          = $this->session->userdata('id_lokasi');
+        $id_sublokasi       = $this->session->userdata('id_sublokasi');
 
         if($level == 'Teknisi'){
             $all                    = $this->m_tiket->all();
@@ -106,22 +107,39 @@ class Tiket extends CI_Controller
 
             $data['data_tiket']     = $this->m_tiket->list_tiket();  
 		} else if ($level == 'Unit'){
-            $all                    = $this->m_tiket->unit_all($id_lokasi);
+            $all                    = $this->m_tiket->unit_all($id_sublokasi);
             $data['semua_tiket']    = $all->jml_tiket;
 
-            $new                    = $this->m_tiket->unit_new($id_lokasi);
+            $new                    = $this->m_tiket->unit_new($id_sublokasi);
             $data['tiket_baru']     = $new->jml_newtiket;
 
-            $proses                 = $this->m_tiket->unit_processed($id_lokasi);
+            $proses                 = $this->m_tiket->unit_processed($id_sublokasi);
             $data['tiket_proses']   = $proses->jml_tiketproses;
 
-            $selesai                = $this->m_tiket->unit_finished($id_lokasi);
+            $selesai                = $this->m_tiket->unit_finished($id_sublokasi);
             $data['tiket_selesai']  = $selesai->jml_tiketselesai;
 
-            $approved               = $this->m_tiket->unit_done($id_lokasi);
+            $approved               = $this->m_tiket->unit_done($id_sublokasi);
             $data['tiket_approved'] = $approved->jml_tiketapproved;
 
-            $data['data_tiket']     = $this->m_tiket->unit_tiket($id_lokasi);    
+            $data['data_tiket']     = $this->m_tiket->unit_tiket($id_sublokasi);    
+        } else if ($level == 'Pimpinan'){
+            $all                    = $this->m_tiket->unit_all($id_sublokasi);
+            $data['semua_tiket']    = $all->jml_tiket;
+
+            $new                    = $this->m_tiket->unit_new($id_sublokasi);
+            $data['tiket_baru']     = $new->jml_newtiket;
+
+            $proses                 = $this->m_tiket->unit_processed($id_sublokasi);
+            $data['tiket_proses']   = $proses->jml_tiketproses;
+
+            $selesai                = $this->m_tiket->unit_finished($id_sublokasi);
+            $data['tiket_selesai']  = $selesai->jml_tiketselesai;
+
+            $approved               = $this->m_tiket->unit_done($id_sublokasi);
+            $data['tiket_approved'] = $approved->jml_tiketapproved;
+
+            $data['data_tiket']     = $this->m_tiket->unit_tiket($id_sublokasi);    
 	    } else {
             $all                    = $this->m_tiket->all();
             $data['semua_tiket']    = $all->jml_tiket;
@@ -154,6 +172,7 @@ class Tiket extends CI_Controller
         $level      		= $this->session->userdata('level');
         $id_user            = $this->session->userdata('id');
         $id_lokasi          = $this->session->userdata('id_lokasi');
+        $id_sublokasi       = $this->session->userdata('id_sublokasi');
 
         if($level == 'Teknisi'){
             $all                    = $this->m_tiket->all();
@@ -174,24 +193,43 @@ class Tiket extends CI_Controller
             $status = "1";
             $data['data_tiket']     = $this->m_tiket->tiket_status($status);    
 		} else if ($level == 'Unit'){
-            $all                    = $this->m_tiket->unit_all($id_lokasi);
+            $all                    = $this->m_tiket->unit_all($id_sublokasi);
             $data['semua_tiket']    = $all->jml_tiket;
 
-            $new                    = $this->m_tiket->unit_new($id_lokasi);
+            $new                    = $this->m_tiket->unit_new($id_sublokasi);
             $data['tiket_baru']     = $new->jml_newtiket;
 
-            $proses                 = $this->m_tiket->unit_processed($id_lokasi);
+            $proses                 = $this->m_tiket->unit_processed($id_sublokasi);
             $data['tiket_proses']   = $proses->jml_tiketproses;
 
-            $selesai                = $this->m_tiket->unit_finished($id_lokasi);
+            $selesai                = $this->m_tiket->unit_finished($id_sublokasi);
             $data['tiket_selesai']  = $selesai->jml_tiketselesai;
 
-            $approved               = $this->m_tiket->unit_done($id_lokasi);
+            $approved               = $this->m_tiket->unit_done($id_sublokasi);
             $data['tiket_approved'] = $approved->jml_tiketapproved;
             
 
             $status = "1";
-            $data['data_tiket']     = $this->m_tiket->tiket_unit($status, $id_lokasi);    
+            $data['data_tiket']     = $this->m_tiket->tiket_unit($status, $id_sublokasi);    
+        } else if ($level == 'Pimpinan'){
+            $all                    = $this->m_tiket->unit_all($id_sublokasi);
+            $data['semua_tiket']    = $all->jml_tiket;
+
+            $new                    = $this->m_tiket->unit_new($id_sublokasi);
+            $data['tiket_baru']     = $new->jml_newtiket;
+
+            $proses                 = $this->m_tiket->unit_processed($id_sublokasi);
+            $data['tiket_proses']   = $proses->jml_tiketproses;
+
+            $selesai                = $this->m_tiket->unit_finished($id_sublokasi);
+            $data['tiket_selesai']  = $selesai->jml_tiketselesai;
+
+            $approved               = $this->m_tiket->unit_done($id_sublokasi);
+            $data['tiket_approved'] = $approved->jml_tiketapproved;
+            
+
+            $status = "1";
+            $data['data_tiket']     = $this->m_tiket->tiket_unit($status, $id_sublokasi);    
 	    } else {
             $all                    = $this->m_tiket->all();
             $data['semua_tiket']    = $all->jml_tiket;
@@ -225,6 +263,7 @@ class Tiket extends CI_Controller
         $level      		= $this->session->userdata('level');
         $id_user            = $this->session->userdata('id');
         $id_lokasi          = $this->session->userdata('id_lokasi');
+        $id_sublokasi       = $this->session->userdata('id_sublokasi');
 
         if($level == 'Teknisi'){
             $all                    = $this->m_tiket->all();
@@ -245,23 +284,41 @@ class Tiket extends CI_Controller
             $status = "2";
             $data['data_tiket']     = $this->m_tiket->tiket_teknisi($status, $id_user);    
 		} else if ($level == 'Unit'){
-            $all                    = $this->m_tiket->unit_all($id_lokasi);
+            $all                    = $this->m_tiket->unit_all($id_sublokasi);
             $data['semua_tiket']    = $all->jml_tiket;
 
-            $new                    = $this->m_tiket->unit_new($id_lokasi);
+            $new                    = $this->m_tiket->unit_new($id_sublokasi);
             $data['tiket_baru']     = $new->jml_newtiket;
 
-            $proses                 = $this->m_tiket->unit_processed($id_lokasi);
+            $proses                 = $this->m_tiket->unit_processed($id_sublokasi);
             $data['tiket_proses']   = $proses->jml_tiketproses;
 
-            $selesai                = $this->m_tiket->unit_finished($id_lokasi);
+            $selesai                = $this->m_tiket->unit_finished($id_sublokasi);
             $data['tiket_selesai']  = $selesai->jml_tiketselesai;
 
-            $approved               = $this->m_tiket->unit_done($id_lokasi);
+            $approved               = $this->m_tiket->unit_done($id_sublokasi);
             $data['tiket_approved'] = $approved->jml_tiketapproved;
 
             $status = "2";
-            $data['data_tiket']     = $this->m_tiket->tiket_unit($status, $id_lokasi);    
+            $data['data_tiket']     = $this->m_tiket->tiket_unit($status, $id_sublokasi);    
+        } else if ($level == 'Pimpinan'){
+            $all                    = $this->m_tiket->unit_all($id_sublokasi);
+            $data['semua_tiket']    = $all->jml_tiket;
+
+            $new                    = $this->m_tiket->unit_new($id_sublokasi);
+            $data['tiket_baru']     = $new->jml_newtiket;
+
+            $proses                 = $this->m_tiket->unit_processed($id_sublokasi);
+            $data['tiket_proses']   = $proses->jml_tiketproses;
+
+            $selesai                = $this->m_tiket->unit_finished($id_sublokasi);
+            $data['tiket_selesai']  = $selesai->jml_tiketselesai;
+
+            $approved               = $this->m_tiket->unit_done($id_sublokasi);
+            $data['tiket_approved'] = $approved->jml_tiketapproved;
+
+            $status = "2";
+            $data['data_tiket']     = $this->m_tiket->tiket_unit($status, $id_sublokasi);    
 	    } else {
             $all                    = $this->m_tiket->all();
             $data['semua_tiket']    = $all->jml_tiket;
@@ -295,6 +352,7 @@ class Tiket extends CI_Controller
         $level      		= $this->session->userdata('level');
         $id_user            = $this->session->userdata('id');
         $id_lokasi          = $this->session->userdata('id_lokasi');
+        $id_sublokasi       = $this->session->userdata('id_sublokasi');
 
         if($level == 'Teknisi'){
             $all                    = $this->m_tiket->all();
@@ -315,23 +373,41 @@ class Tiket extends CI_Controller
             $status = "3";
             $data['data_tiket']     = $this->m_tiket->tiket_teknisi($status, $id_user);    
 		} else if ($level == 'Unit'){
-            $all                    = $this->m_tiket->unit_all($id_lokasi);
+            $all                    = $this->m_tiket->unit_all($id_sublokasi);
             $data['semua_tiket']    = $all->jml_tiket;
 
-            $new                    = $this->m_tiket->unit_new($id_lokasi);
+            $new                    = $this->m_tiket->unit_new($id_sublokasi);
             $data['tiket_baru']     = $new->jml_newtiket;
 
-            $proses                 = $this->m_tiket->unit_processed($id_lokasi);
+            $proses                 = $this->m_tiket->unit_processed($id_sublokasi);
             $data['tiket_proses']   = $proses->jml_tiketproses;
 
-            $selesai                = $this->m_tiket->unit_finished($id_lokasi);
+            $selesai                = $this->m_tiket->unit_finished($id_sublokasi);
             $data['tiket_selesai']  = $selesai->jml_tiketselesai;
 
-            $approved               = $this->m_tiket->unit_done($id_lokasi);
+            $approved               = $this->m_tiket->unit_done($id_sublokasi);
             $data['tiket_approved'] = $approved->jml_tiketapproved;
 
             $status = "3";
-            $data['data_tiket']     = $this->m_tiket->tiket_unit($status, $id_lokasi);    
+            $data['data_tiket']     = $this->m_tiket->tiket_unit($status, $id_sublokasi);    
+        } else if ($level == 'Pimpinan'){
+            $all                    = $this->m_tiket->unit_all($id_sublokasi);
+            $data['semua_tiket']    = $all->jml_tiket;
+
+            $new                    = $this->m_tiket->unit_new($id_sublokasi);
+            $data['tiket_baru']     = $new->jml_newtiket;
+
+            $proses                 = $this->m_tiket->unit_processed($id_sublokasi);
+            $data['tiket_proses']   = $proses->jml_tiketproses;
+
+            $selesai                = $this->m_tiket->unit_finished($id_sublokasi);
+            $data['tiket_selesai']  = $selesai->jml_tiketselesai;
+
+            $approved               = $this->m_tiket->unit_done($id_sublokasi);
+            $data['tiket_approved'] = $approved->jml_tiketapproved;
+
+            $status = "3";
+            $data['data_tiket']     = $this->m_tiket->tiket_unit($status, $id_sublokasi);    
 	    } else {
             $all                    = $this->m_tiket->all();
             $data['semua_tiket']    = $all->jml_tiket;
@@ -365,6 +441,7 @@ class Tiket extends CI_Controller
         $level      		= $this->session->userdata('level');
         $id_user            = $this->session->userdata('id');
         $id_lokasi          = $this->session->userdata('id_lokasi');
+        $id_sublokasi       = $this->session->userdata('id_sublokasi');
 
         if($level == 'Teknisi'){
             $all                    = $this->m_tiket->all();
@@ -385,23 +462,41 @@ class Tiket extends CI_Controller
             $status = "4";
             $data['data_tiket']     = $this->m_tiket->tiket_teknisi($status, $id_user);    
 		} else if ($level == 'Unit'){
-            $all                    = $this->m_tiket->unit_all($id_lokasi);
+            $all                    = $this->m_tiket->unit_all($id_sublokasi);
             $data['semua_tiket']    = $all->jml_tiket;
 
-            $new                    = $this->m_tiket->unit_new($id_lokasi);
+            $new                    = $this->m_tiket->unit_new($id_sublokasi);
             $data['tiket_baru']     = $new->jml_newtiket;
 
-            $proses                 = $this->m_tiket->unit_processed($id_lokasi);
+            $proses                 = $this->m_tiket->unit_processed($id_sublokasi);
             $data['tiket_proses']   = $proses->jml_tiketproses;
 
-            $selesai                = $this->m_tiket->unit_finished($id_lokasi);
+            $selesai                = $this->m_tiket->unit_finished($id_sublokasi);
             $data['tiket_selesai']  = $selesai->jml_tiketselesai;
 
-            $approved               = $this->m_tiket->unit_done($id_lokasi);
+            $approved               = $this->m_tiket->unit_done($id_sublokasi);
             $data['tiket_approved'] = $approved->jml_tiketapproved;
 
             $status = "4";
-            $data['data_tiket']     = $this->m_tiket->tiket_unit($status, $id_lokasi);    
+            $data['data_tiket']     = $this->m_tiket->tiket_unit($status, $id_sublokasi);    
+        } else if ($level == 'Pimpinan'){
+            $all                    = $this->m_tiket->unit_all($id_sublokasi);
+            $data['semua_tiket']    = $all->jml_tiket;
+
+            $new                    = $this->m_tiket->unit_new($id_sublokasi);
+            $data['tiket_baru']     = $new->jml_newtiket;
+
+            $proses                 = $this->m_tiket->unit_processed($id_sublokasi);
+            $data['tiket_proses']   = $proses->jml_tiketproses;
+
+            $selesai                = $this->m_tiket->unit_finished($id_sublokasi);
+            $data['tiket_selesai']  = $selesai->jml_tiketselesai;
+
+            $approved               = $this->m_tiket->unit_done($id_sublokasi);
+            $data['tiket_approved'] = $approved->jml_tiketapproved;
+
+            $status = "4";
+            $data['data_tiket']     = $this->m_tiket->tiket_unit($status, $id_sublokasi);    
 	    } else {
             $all                    = $this->m_tiket->all();
             $data['semua_tiket']    = $all->jml_tiket;
@@ -446,6 +541,7 @@ class Tiket extends CI_Controller
             $id_user            = $this->session->userdata('id');
 
             $id				    = $this->input->post('id');
+            $status             = $this->input->post('status');
             $jenis_pekerjaan    = $this->input->post('jenis_pekerjaan');
 
             $where = array(
@@ -453,20 +549,21 @@ class Tiket extends CI_Controller
 			);
 
             $data = array(
+                'status'	        => $status,
                 'jenis_pekerjaan'	=> $jenis_pekerjaan
             );
 
             $this->m_tiket->update('tiket', $data, $where);
 
-            $data = array(
-                'status'    	=> '3'
-            );
+            // $data = array(
+            //     'status'    	=> '3'
+            // );
     
             $this->db->where('id', $id);
             $this->db->update('tiket', $data);
 
             $this->session->set_flashdata('success','Sukses, Berhasil Input Pengerjaan');
-            redirect(base_url().'tiket/tiket_selesai');
+            redirect(base_url().'tiket/tiket_proses');
         }
 	}
 
@@ -715,6 +812,24 @@ class Tiket extends CI_Controller
 
         $this->session->set_flashdata('success_approve','Sukses, Tiket telah di Approve by User');
         redirect(base_url().'tiket/tiket_selesai');
+    }
+
+    public function approval_tiket()
+    {
+        $tiket_id = $this->input->post('tiket_id'); 
+
+        for ($i=0; $i < sizeof($tiket_id); $i++) 
+        {             
+            $data = array(
+                'approval'    => '1'
+            );
+
+            $this->db->where('id', $tiket_id[$i]);
+            $this->db->update('tiket', $data);
+        }
+
+        $this->session->set_flashdata('success_approve','Sukses, Tiket telah di Approval untuk ditangani');
+        redirect(base_url().'tiket/tiket_baru');
     }
 
 }

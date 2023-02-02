@@ -64,7 +64,7 @@ $spreadsheet->getActiveSheet()
 $spreadsheet->getActiveSheet()
             ->setCellValue('G5', "Hari : ".nama_hari(date('l'))."");
 $spreadsheet->getActiveSheet()
-			->setCellValue('B6', "Bidang / Unit : ".$tiket[0]->lokasi."");
+			->setCellValue('B6', "Bidang / Unit : ".$tiket[0]->sub_lokasi."");
 $spreadsheet->getActiveSheet()
             ->setCellValue('G6', "Tanggal : ".tanggal_indonesia(date('Y-m-d'))."");
             
@@ -219,8 +219,13 @@ $spreadsheet->getActiveSheet()
 			->getStyle('G30')
 			->getAlignment()
 			->setHorizontal(Alignment::HORIZONTAL_CENTER);
+if(!empty($tiket[0]->id_teknisi)){
 $spreadsheet->getActiveSheet()
-            ->setCellValue('G31', "".$this->session->userdata('nama_lengkap')."");
+			->setCellValue('G31', "".$tiket[0]->nama_lengkap."");
+} else {
+$spreadsheet->getActiveSheet()
+			->setCellValue('G31', "".$this->session->userdata('nama_lengkap')."");
+}	
 $spreadsheet->getActiveSheet()
 			->getStyle('G31')
 			->getAlignment()

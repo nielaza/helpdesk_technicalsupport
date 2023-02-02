@@ -55,7 +55,7 @@
 												<div style="text-align: left !important;">
 												<label>Username : </label>
 												</div>
-												<input type="text" name="username" class="form-control" placeholder="Enter your ID number" maxlength="15" autofocus>
+												<input type="text" name="username" class="form-control" placeholder="Masukkan Username" maxlength="30" autofocus>
 												<?php echo form_error('username'); ?>
 											</div>
 
@@ -63,7 +63,7 @@
 												<div style="text-align: left !important;">
 												<label>Password : </label>
 												</div>
-												<input type="password" name="password" class="form-control" placeholder="Enter your password">
+												<input type="password" name="password" class="form-control" placeholder="Masukan Password">
 												<?php echo form_error('password'); ?>
 											</div>
 

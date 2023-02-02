@@ -83,7 +83,7 @@ $spreadsheet->getActiveSheet()
 $spreadsheet->getActiveSheet()
             ->setCellValue('D7', "Bidang / Unit : ");
 $spreadsheet->getActiveSheet()
-            ->setCellValue('D8', "".$tiket[0]->lokasi."");
+            ->setCellValue('D8', "".$tiket[0]->sub_lokasi."");
 $spreadsheet->getActiveSheet()
             ->setCellValue('B8', "No. Telp : ".$tiket[0]->telp."");
 $spreadsheet->getActiveSheet()

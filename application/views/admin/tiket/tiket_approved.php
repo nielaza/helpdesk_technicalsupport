@@ -116,11 +116,13 @@
                             <th>User</th>
                             <th>Jenis</th>
 							<th>Model</th>
-                            <th>Lokasi / Bagian</th>
+                            <th>Lokasi</th>
+							<th>Sub Lokasi</th>
 							<th>Keterangan</th>
                             <th>Telp</th>
+							<th>Status</th>
+							<th>Approval</th>
                             <th>Teknisi</th>
-                            <th>Status</th>
 							<th>Tgl. Tiket</th>
 						</tr>
 					</thead>
@@ -131,16 +133,10 @@
                                 <td><strong style="color: #2E6095;"><?php echo $row->user_pemohon?></strong></td>
                                 <td><?php echo $row->jenis?></td>
                                 <td><?php echo $row->model?></td>
-                                <td><strong style="color: #2E6095;"><?php echo $row->lokasi?></strong></td>
+								<td><strong style="color: #2E6095;"><?php echo $row->lokasi?></strong></td>
+                                <td><strong style="color: #2E6095;"><?php echo $row->sub_lokasi?></strong></td>
                                 <td><?php echo $row->keterangan?></td>
                                 <td><?php echo $row->telp?></td>
-								<?php if ($row->id_teknisi == 0) {?>
-									<td>
-										<strong style="color: #B14145;">Belum Ditangani</strong>
-									</td>
-								<?php } else { ?>
-									<td><strong style="color: #FC8500;"><?php echo $row->nama_lengkap?></strong></td>
-								<?php } ?>
 								<?php if ($row->status == 1) {?>
 									<td>
 										<strong style="color: #B14145;">Tiket Dibuat</strong>
@@ -157,6 +153,22 @@
 									<td>
 										<button type="button" class="btn btn-success" style="font-size:14px"><i class="fas fa-check-circle fa"></i><strong>  Tiket Done</strong></button>
 									</td>
+								<?php } ?>
+								<?php if ($row->approval == 0) {?>
+									<td>
+										<button type="button" class="btn btn-danger" style="font-size:14px"><i class="fas fa-times-circle fa"></i><strong>  Belum Approval</strong></button>
+									</td>
+								<?php } else if ($row->approval == 1) { ?>
+									<td>
+										<button type="button" class="btn btn-success" style="font-size:14px"><i class="fas fa-check-circle fa"></i><strong>  Sudah Approval</strong></button>
+									</td>
+								<?php } ?>
+								<?php if ($row->id_teknisi == 0) {?>
+									<td>
+										<strong style="color: #B14145;">Belum Ditangani</strong>
+									</td>
+								<?php } else { ?>
+									<td><strong style="color: #FC8500;"><?php echo $row->nama_lengkap?></strong></td>
 								<?php } ?>
 								<td><?php echo date('d F Y', strtotime($row->created))?></td>
 							</tr>

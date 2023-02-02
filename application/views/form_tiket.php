@@ -46,10 +46,18 @@
                 <input type="text" name="model" class="form-control" placeholder="Model Perangkat" required>
               </div>
               <div class="form-group mt-3">
-                <select class="form-control" name="lokasi" required>
+                <select class="form-control" name="lokasi" id="lokasi" required>
                     <option value="-">--Pilih Lokasi Infrastruktur--</option>
                     <?php foreach($lokasi_infrastruktur as $lokasi) :?>
                     <option value="<?php echo $lokasi->id ?>"><?php echo $lokasi->lokasi ?></option>
+                    <?php endforeach; ?>
+                </select>
+              </div>
+              <div class="form-group mt-3">
+                <select class="form-control" name="sub_lokasi" id="sub_lokasi" required>
+                    <option value="-">--Pilih Sub Lokasi Infrastruktur--</option>
+                    <?php foreach($sublokasi_infrastruktur as $sublokasi) :?>
+                    <option value="<?php echo $sublokasi->id ?>"><?php echo $sublokasi->sub_lokasi ?></option>
                     <?php endforeach; ?>
                 </select>
               </div>
@@ -72,6 +80,24 @@
 
   </main>
   <!-- End #main -->
+
+  <script>
+    $("#lokasi").change(function(){
+    $("img#load1").show();
+    var lokasi = $(this).val(); 
+		$.ajax({
+			type: "POST",
+			dataType: "html",
+			url: "<?= base_url('modul/data_sublokasi'); ?>",
+			data: "lokasi="+lokasi,
+			async: false,
+			success: function(msg){
+				$("select#sub_lokasi").html(msg);                                                       
+				$("img#load1").hide();                                                       
+			}
+		});
+    });
+  </script>
 
   <script>
   window.setTimeout(function() {

@@ -73,11 +73,27 @@ class Modul extends CI_Controller
         $cek1 = $this->m_tiket->cek_tiket('tiket',$where1)->num_rows();
         // var_dump($cek1);
         
-        $data['jenis_infrastruktur']    = $this->m_tiket->jenis();
-        $data['lokasi_infrastruktur']   = $this->m_tiket->lokasi();
+        $data['jenis_infrastruktur']        = $this->m_tiket->jenis();
+        $data['lokasi_infrastruktur']       = $this->m_tiket->lokasi();
+        $data['sublokasi_infrastruktur']    = $this->m_tiket->sublokasi();
 
         $this->load->view('template', $data);
 	}
+
+    public function data_sublokasi()
+    {
+        $id_lokasi = $_POST['lokasi'];
+        if ($id_lokasi == '') {
+            exit;
+        } else {
+            $get_sublokasi = $this->db->query("SELECT * FROM sub_lokasi_infrastruktur WHERE id_lokasi ='$id_lokasi' ORDER BY id ASC")->result();
+            echo '<option value="">--Pilih Sub Lokasi Infrastruktur--</option>';
+            foreach ($get_sublokasi as $data) {
+                echo '<option value="' . $data->id . '">' . $data->sub_lokasi . '</option>';
+            }
+            exit;
+        }
+    }
 
     public function save_tiket()
 	{
@@ -93,6 +109,7 @@ class Modul extends CI_Controller
         $jenis	            = $this->input->post('jenis');
         $model	            = $this->input->post('model');
         $lokasi	            = $this->input->post('lokasi');
+        $sub_lokasi	        = $this->input->post('sub_lokasi');
         $lampiran			= $_FILES['lampiran']['name'];
         if($lampiran=''){}else{
             $config['upload_path'] 		= './uploads/';
@@ -132,6 +149,7 @@ class Modul extends CI_Controller
                     'id_jenis'		=> $jenis,
                     'model'	        => $model,
                     'id_lokasi'		=> $lokasi,
+                    'id_sublokasi'  => $sub_lokasi,
                     'lampiran'		=> $lampiran,
                     'keterangan'	=> $keterangan,
                     'telp'		    => $telp,

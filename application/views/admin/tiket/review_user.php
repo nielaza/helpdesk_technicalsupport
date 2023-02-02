@@ -11,6 +11,8 @@
 							<th>No.</th>
                             <th>Kode Tiket</th>
                             <th>User Pemohon</th>
+							<th>Lokasi</th>
+							<th>Sub Lokasi</th>
 							<th>Tgl. Tiket</th>
                             <th>Teknisi</th>
                             <th>Emoji</th>
@@ -24,6 +26,8 @@
 								<td><?php echo $no ?></td>
                                 <td><strong><?php echo $row->kode_tiket?></strong></td>
                                 <td><?php echo $row->user_pemohon?></td>
+								<td><strong style="color: #2E6095;"><?php echo $row->lokasi?></strong></td>
+                                <td><strong style="color: #2E6095;"><?php echo $row->sub_lokasi?></strong></td>
                                 <td><?php echo tanggal_indonesia(date('Y-m-d', strtotime($row->tgl_tiket)))?></td>
                                 <td><strong><?php echo $row->nama_lengkap?></strong></td>
                                 <td><?php echo $row->emot?></td>

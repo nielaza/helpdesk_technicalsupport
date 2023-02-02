@@ -151,6 +151,20 @@
 		</li>
 	<!-- Divider -->
 	<hr class="sidebar-divider d-none d-md-block">
+	<?php } else if ($this->session->userdata('level') == "Pimpinan") { ?>
+	<!--Menu Untuk Admin-->
+	<!-- Divider -->
+	<hr class="sidebar-divider my-0">
+		<!-- Nav Item - Dashboard -->
+		<hr class="sidebar-divider">
+		<li class="nav-item">
+			<a class="nav-link" href="<?php echo site_url('tiket/tiket-all') ?>">
+				<i class="fas fa-fw fa-ticket-alt"></i>
+				<span>Data Tiket</span>
+			</a>
+		</li>
+	<!-- Divider -->
+	<hr class="sidebar-divider d-none d-md-block">
 	<?php } ?>
 
 	<!-- Sidebar Toggler (Sidebar) -->
