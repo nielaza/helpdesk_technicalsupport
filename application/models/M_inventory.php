@@ -11,13 +11,13 @@ class M_inventory extends CI_Model
     public function list_inventory()
 	{
 		$data = $this->db
-			->select('inventory_komputer.*, jenis_hardware.jenis, kondisi.kondisi, sumber_dana.sumber, kelengkapan.kelengkapan, lokasi_infrastruktur.lokasi')
+			->select('inventory_komputer.*, jenis_hardware.jenis, kondisi.kondisi, sumber_dana.sumber, kelengkapan.kelengkapan, sub_lokasi_infrastruktur.sub_lokasi')
 			->from('inventory_komputer')
 			->join('jenis_hardware', 'inventory_komputer.jenis_infrastruktur = jenis_hardware.id', 'left')
 			->join('kondisi', 'inventory_komputer.kondisi = kondisi.id', 'left')
 			->join('sumber_dana', 'inventory_komputer.sumber_dana = sumber_dana.id', 'left')
 			->join('kelengkapan', 'inventory_komputer.kelengkapan = kelengkapan.id', 'left')
-			->join('lokasi_infrastruktur', 'inventory_komputer.bidang_unit = lokasi_infrastruktur.id', 'left')
+			->join('sub_lokasi_infrastruktur', 'inventory_komputer.bidang_unit = sub_lokasi_infrastruktur.id', 'left')
             ->order_by('inventory_komputer.id', 'ASC')
 			->get()->result();
 		return $data;
@@ -104,9 +104,9 @@ class M_inventory extends CI_Model
     public function bar_lokasi()
     {
         $data = $this->db
-			->select('COUNT(*) AS jumlokasi, inventory_komputer.bidang_unit, lokasi_infrastruktur.lokasi')
+			->select('COUNT(*) AS jumlokasi, inventory_komputer.bidang_unit, sub_lokasi_infrastruktur.sub_lokasi')
 			->from('inventory_komputer')
-            ->join('lokasi_infrastruktur', 'inventory_komputer.bidang_unit = lokasi_infrastruktur.id', 'left')
+            ->join('sub_lokasi_infrastruktur', 'inventory_komputer.bidang_unit = sub_lokasi_infrastruktur.id', 'left')
 			->group_by('inventory_komputer.bidang_unit')
 			->order_by('inventory_komputer.bidang_unit', 'ASC')
 			->get();
@@ -188,6 +188,16 @@ class M_inventory extends CI_Model
 			->select('*')
 			->from('lokasi_infrastruktur')
             ->order_by('lokasi', 'ASC')
+			->get()->result();
+		return $data;
+	}
+
+	public function sub_lokasi()
+	{
+		$data = $this->db
+			->select('*')
+			->from('sub_lokasi_infrastruktur')
+            ->order_by('sub_lokasi', 'ASC')
 			->get()->result();
 		return $data;
 	}

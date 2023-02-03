@@ -9,18 +9,18 @@
 					<thead>
 						<tr>
 							<th>No.</th>
-                            <th>NIP</th>
                             <th>Nama Lengkap</th>
                             <th>Username</th>
+							<th>Level</th>
 						</tr>
 					</thead>
 					<tbody>
 						<?php $no = 1; foreach ($data_user as $row){?>
 							<tr>
 								<td><?php echo $no ?></td>
-                                <td><?php echo $row->nip_user?></td>
                                 <td><?php echo $row->nama_lengkap?></td>
                                 <td><?php echo $row->username?></td>
+								<td><?php echo $row->level?></td>
 							</tr>
 						<?php $no++;}?>
 					</tbody>

@@ -129,6 +129,7 @@ class Inventory extends CI_Controller
         $data['sumber_dana']    = $this->m_inventory->sumber();
         $data['kelengkapan']    = $this->m_inventory->kelengkapan();
         $data['lokasi']         = $this->m_inventory->lokasi();
+        $data['sub_lokasi']     = $this->m_inventory->sub_lokasi();
     
         $this->load->view('admin/template/template', $data);
     }
@@ -241,13 +242,13 @@ class Inventory extends CI_Controller
         $data['body'] 		= "admin/inventory/hasil_cari";
         
         // $data['data_inventory']  = $this->m_inventory->hasil_cari($where);
-        $data['data_inventory'] = $this->db->query("SELECT inventory_komputer.*, jenis_hardware.jenis, kondisi.kondisi, sumber_dana.sumber, kelengkapan.kelengkapan, lokasi_infrastruktur.lokasi 
+        $data['data_inventory'] = $this->db->query("SELECT inventory_komputer.*, jenis_hardware.jenis, kondisi.kondisi, sumber_dana.sumber, kelengkapan.kelengkapan, sub_lokasi_infrastruktur.sub_lokasi 
         FROM inventory_komputer 
         LEFT JOIN jenis_hardware ON inventory_komputer.jenis_infrastruktur = jenis_hardware.id
         LEFT JOIN kondisi ON inventory_komputer.kondisi = kondisi.id
         LEFT JOIN sumber_dana ON inventory_komputer.sumber_dana = sumber_dana.id
         LEFT JOIN kelengkapan ON inventory_komputer.kelengkapan = kelengkapan.id
-        LEFT JOIN lokasi_infrastruktur ON inventory_komputer.bidang_unit = lokasi_infrastruktur.id 
+        LEFT JOIN sub_lokasi_infrastruktur ON inventory_komputer.bidang_unit = sub_lokasi_infrastruktur.id 
         WHERE $where 
         ORDER BY inventory_komputer.id ASC")->result();
     
@@ -258,13 +259,13 @@ class Inventory extends CI_Controller
 	{
 		$where = $this->session->userdata('wherenya');
 		// $data['data_inventory']  = $this->m_inventory->hasil_cari($where);
-        $data['data_inventory'] = $this->db->query("SELECT inventory_komputer.*, jenis_hardware.jenis, kondisi.kondisi, sumber_dana.sumber, kelengkapan.kelengkapan, lokasi_infrastruktur.lokasi 
+        $data['data_inventory'] = $this->db->query("SELECT inventory_komputer.*, jenis_hardware.jenis, kondisi.kondisi, sumber_dana.sumber, kelengkapan.kelengkapan, sub_lokasi_infrastruktur.sub_lokasi 
         FROM inventory_komputer 
         LEFT JOIN jenis_hardware ON inventory_komputer.jenis_infrastruktur = jenis_hardware.id
         LEFT JOIN kondisi ON inventory_komputer.kondisi = kondisi.id
         LEFT JOIN sumber_dana ON inventory_komputer.sumber_dana = sumber_dana.id
         LEFT JOIN kelengkapan ON inventory_komputer.kelengkapan = kelengkapan.id
-        LEFT JOIN lokasi_infrastruktur ON inventory_komputer.bidang_unit = lokasi_infrastruktur.id 
+        LEFT JOIN sub_lokasi_infrastruktur ON inventory_komputer.bidang_unit = sub_lokasi_infrastruktur.id 
         WHERE $where 
         ORDER BY inventory_komputer.id ASC")->result();
 		

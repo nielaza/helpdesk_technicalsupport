@@ -12,7 +12,7 @@
 	<link rel="icon" type="image/png" href="<?php echo base_url(); ?>assets/img/icon/favicon-32x32.png">
 	<link rel="stylesheet" href="<?php echo base_url() ?>assets/admin/css/jquery-ui.css">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
-	<!-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script> -->
+	<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
 	<!-- <script src="<?php //echo base_url() ?>assets/admin/js/jquery-1.12.4.js"></script>
 	<script src="<?php //echo base_url() ?>assets/admin/js/jquery-ui.js"></script> -->

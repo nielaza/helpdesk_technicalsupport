@@ -692,10 +692,11 @@ class Tiket extends CI_Controller
         $data['body'] 		= "admin/tiket/hasil_rekap";
         
         // $data['data_tiket']  = $this->m_tiket->rekap_tiket($where);
-        $data['data_tiket'] = $this->db->query("SELECT tiket.*, jenis_infrastruktur.jenis, lokasi_infrastruktur.lokasi, user.nama_lengkap 
+        $data['data_tiket'] = $this->db->query("SELECT tiket.*, jenis_infrastruktur.jenis, lokasi_infrastruktur.lokasi, sub_lokasi_infrastruktur.sub_lokasi, user.nama_lengkap 
         FROM tiket 
         LEFT JOIN jenis_infrastruktur ON tiket.id_jenis = jenis_infrastruktur.id
         LEFT JOIN lokasi_infrastruktur ON tiket.id_lokasi = lokasi_infrastruktur.id
+        LEFT JOIN sub_lokasi_infrastruktur ON tiket.id_sublokasi = sub_lokasi_infrastruktur.id
         LEFT JOIN user ON tiket.id_teknisi = user.id
         WHERE $where 
         ORDER BY tiket.id ASC")->result();
@@ -707,10 +708,11 @@ class Tiket extends CI_Controller
 	{
 		$where = $this->session->userdata('wherenya');
 		// $data['data_tiket']  = $this->m_tiket->rekap_tiket($where);
-        $data['data_tiket'] = $this->db->query("SELECT tiket.*, jenis_infrastruktur.jenis, lokasi_infrastruktur.lokasi, user.nama_lengkap 
+        $data['data_tiket'] = $this->db->query("SELECT tiket.*, jenis_infrastruktur.jenis, lokasi_infrastruktur.lokasi, sub_lokasi_infrastruktur.sub_lokasi, user.nama_lengkap 
         FROM tiket 
         LEFT JOIN jenis_infrastruktur ON tiket.id_jenis = jenis_infrastruktur.id
         LEFT JOIN lokasi_infrastruktur ON tiket.id_lokasi = lokasi_infrastruktur.id
+        LEFT JOIN sub_lokasi_infrastruktur ON tiket.id_sublokasi = sub_lokasi_infrastruktur.id
         LEFT JOIN user ON tiket.id_teknisi = user.id
         WHERE $where 
         ORDER BY tiket.id ASC")->result();

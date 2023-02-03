@@ -105,7 +105,7 @@ foreach($data_inventory as $data){ // Lakukan looping pada variabel siswa
     $sheet->setCellValue('P'.$numrow, $data->nama_pc);
     $sheet->setCellValue('Q'.$numrow, $data->mac_address);
     $sheet->setCellValue('R'.$numrow, $data->lantai);
-    $sheet->setCellValue('S'.$numrow, $data->lokasi);
+    $sheet->setCellValue('S'.$numrow, $data->sub_lokasi);
     $sheet->setCellValue('T'.$numrow, $data->jenis);
     $sheet->setCellValue('U'.$numrow, $data->pengguna);
     
@@ -139,22 +139,22 @@ foreach($data_inventory as $data){ // Lakukan looping pada variabel siswa
 $sheet->getColumnDimension('A')->setWidth(5); 
 $sheet->getColumnDimension('B')->setWidth(26); 
 $sheet->getColumnDimension('C')->setWidth(21); 
-$sheet->getColumnDimension('D')->setWidth(15); 
+$sheet->getColumnDimension('D')->setWidth(25); 
 $sheet->getColumnDimension('E')->setWidth(15); 
 $sheet->getColumnDimension('F')->setWidth(10); 
 $sheet->getColumnDimension('G')->setWidth(10); 
 $sheet->getColumnDimension('H')->setWidth(10); 
 $sheet->getColumnDimension('I')->setWidth(10); 
-$sheet->getColumnDimension('J')->setWidth(15); 
+$sheet->getColumnDimension('J')->setWidth(25); 
 $sheet->getColumnDimension('K')->setWidth(23); 
-$sheet->getColumnDimension('L')->setWidth(10); 
+$sheet->getColumnDimension('L')->setWidth(23); 
 $sheet->getColumnDimension('M')->setWidth(20); 
 $sheet->getColumnDimension('N')->setWidth(19); 
 $sheet->getColumnDimension('O')->setWidth(40); 
 $sheet->getColumnDimension('P')->setWidth(20); 
 $sheet->getColumnDimension('Q')->setWidth(15); 
 $sheet->getColumnDimension('R')->setWidth(10); 
-$sheet->getColumnDimension('S')->setWidth(15); 
+$sheet->getColumnDimension('S')->setWidth(35); 
 $sheet->getColumnDimension('T')->setWidth(20); 
 $sheet->getColumnDimension('U')->setWidth(25); 
 

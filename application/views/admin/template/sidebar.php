@@ -38,7 +38,7 @@
 			<div id="collapseTiket" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
 				<div class="bg-dark py-2 collapse-inner rounded">
 					<a class="collapse-item" href="<?php echo site_url('tiket/tiket-all') ?>">Data Tiket</a>
-					<a class="collapse-item" href="<?php echo site_url('tiket/review') ?>">Review user</a>
+					<a class="collapse-item" href="<?php echo site_url('tiket/review') ?>">Review User</a>
 				</div>
 			</div>
 		</li>

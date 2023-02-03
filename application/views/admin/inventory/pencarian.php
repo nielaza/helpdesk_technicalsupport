@@ -72,7 +72,7 @@
                         <label><strong>Bidang Unit</strong></label>
                         <select name="bidang_unit" class="form-control">
                             <option value="">--Pilih Bidang / Unit--</option>
-                            <?php foreach($lokasi as $lks) :?>
+                            <?php foreach($sub_lokasi as $lks) :?>
                             <option value="<?php echo $lks->id ?>"><?php echo $lks->lokasi ?></option>
                             <?php endforeach; ?>
                         </select>
