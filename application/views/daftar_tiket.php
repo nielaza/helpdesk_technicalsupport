@@ -52,7 +52,11 @@
 								<?php } else { ?>
 									<td><strong style="color: #FC8500;"><?php echo $row->nama_lengkap?></strong></td>
 								<?php } ?>
-								<?php if ($row->status == 1) {?>
+								<?php if ($row->status == 0) {?>
+									<td>
+										<button type="button" class="btn btn-danger" style="font-size:14px"><i class="fas fa-times-circle fa"></i><strong>  Tiket Ditolak</strong></button>
+									</td>
+								<?php } else if ($row->status == 1) {?>
 									<td>
 										<strong style="color: #B14145;">Tiket Dibuat</strong>
 									</td>

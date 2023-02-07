@@ -46,7 +46,7 @@ if($tiket[0]->approval == 1){
     $drawing->getShadow()->setVisible(true);
     $drawing->getShadow()->setDirection(45);
     $drawing->setWorksheet($spreadsheet->getActiveSheet());
-} else if($tiket[0]->approval == 0){
+} else if($tiket[0]->status == 0){
     $drawing = new \PhpOffice\PhpSpreadsheet\Worksheet\Drawing();
     $drawing->setName('Paid');
     $drawing->setDescription('Paid');

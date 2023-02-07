@@ -38,6 +38,7 @@
 			<div id="collapseTiket" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
 				<div class="bg-dark py-2 collapse-inner rounded">
 					<a class="collapse-item" href="<?php echo site_url('tiket/tiket-all') ?>">Data Tiket</a>
+					<a class="collapse-item" href="<?php echo site_url('tiket/tiket-ditolak') ?>">Tiket Ditolak</a>
 					<a class="collapse-item" href="<?php echo site_url('tiket/review') ?>">Review User</a>
 				</div>
 			</div>
@@ -103,10 +104,16 @@
 
 		<hr class="sidebar-divider">
 		<li class="nav-item">
-			<a class="nav-link" href="<?php echo site_url('tiket/tiket-all') ?>">
+			<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTiket" aria-expanded="true" aria-controls="collapseData">
 				<i class="fas fa-fw fa-ticket-alt"></i>
-				<span>Data Tiket</span>
+				<span>Tiket</span>
 			</a>
+			<div id="collapseTiket" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+				<div class="bg-dark py-2 collapse-inner rounded">
+					<a class="collapse-item" href="<?php echo site_url('tiket/tiket-all') ?>">Data Tiket</a>
+					<a class="collapse-item" href="<?php echo site_url('tiket/tiket-ditolak') ?>">Tiket Ditolak</a>
+				</div>
+			</div>
 		</li>
 
 		<!-- Divider -->
@@ -149,6 +156,14 @@
 				<span>Data Tiket</span>
 			</a>
 		</li>
+
+		<hr class="sidebar-divider">
+		<li class="nav-item">
+			<a class="nav-link" href="<?php echo site_url('tiket/tiket-ditolak') ?>">
+				<i class="fas fa-fw fa-ticket-alt"></i>
+				<span>Tiket Ditolak</span>
+			</a>
+		</li>
 	<!-- Divider -->
 	<hr class="sidebar-divider d-none d-md-block">
 	<?php } else if ($this->session->userdata('level') == "Pimpinan") { ?>
@@ -161,6 +176,14 @@
 			<a class="nav-link" href="<?php echo site_url('tiket/tiket-all') ?>">
 				<i class="fas fa-fw fa-ticket-alt"></i>
 				<span>Data Tiket</span>
+			</a>
+		</li>
+
+		<hr class="sidebar-divider">
+		<li class="nav-item">
+			<a class="nav-link" href="<?php echo site_url('tiket/tiket-ditolak') ?>">
+				<i class="fas fa-fw fa-ticket-alt"></i>
+				<span>Tiket Ditolak</span>
 			</a>
 		</li>
 	<!-- Divider -->

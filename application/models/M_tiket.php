@@ -90,6 +90,38 @@ class M_tiket extends CI_Model
 			->join('lokasi_infrastruktur', 'tiket.id_lokasi = lokasi_infrastruktur.id', 'left')
 			->join('sub_lokasi_infrastruktur', 'tiket.id_sublokasi = sub_lokasi_infrastruktur.id', 'left')
 			->join('user', 'tiket.id_teknisi = user.id', 'left')
+			->where('tiket.status !=', 0)
+			->order_by('tiket.id', 'ASC')
+			->get()->result();
+		return $data;
+	}
+
+	public function list_tolaktiket()
+	{
+		$data = $this->db
+			->select('tiket.*, jenis_infrastruktur.jenis, lokasi_infrastruktur.lokasi, sub_lokasi_infrastruktur.sub_lokasi, user.nama_lengkap')
+			->from('tiket')
+            ->join('jenis_infrastruktur', 'tiket.id_jenis = jenis_infrastruktur.id', 'left')
+			->join('lokasi_infrastruktur', 'tiket.id_lokasi = lokasi_infrastruktur.id', 'left')
+			->join('sub_lokasi_infrastruktur', 'tiket.id_sublokasi = sub_lokasi_infrastruktur.id', 'left')
+			->join('user', 'tiket.id_teknisi = user.id', 'left')
+			->where('tiket.status', 0)
+			->order_by('tiket.id', 'ASC')
+			->get()->result();
+		return $data;
+	}
+
+	public function unit_tolaktiket($id_sublokasi)
+	{
+		$data = $this->db
+			->select('tiket.*, jenis_infrastruktur.jenis, lokasi_infrastruktur.lokasi, sub_lokasi_infrastruktur.sub_lokasi, user.nama_lengkap')
+			->from('tiket')
+            ->join('jenis_infrastruktur', 'tiket.id_jenis = jenis_infrastruktur.id', 'left')
+			->join('lokasi_infrastruktur', 'tiket.id_lokasi = lokasi_infrastruktur.id', 'left')
+			->join('sub_lokasi_infrastruktur', 'tiket.id_sublokasi = sub_lokasi_infrastruktur.id', 'left')
+			->join('user', 'tiket.id_teknisi = user.id', 'left')
+			->where('tiket.status', 0)
+			->where('tiket.id_sublokasi', $id_sublokasi)
 			->order_by('tiket.id', 'ASC')
 			->get()->result();
 		return $data;
@@ -104,6 +136,7 @@ class M_tiket extends CI_Model
 			->join('lokasi_infrastruktur', 'tiket.id_lokasi = lokasi_infrastruktur.id', 'left')
 			->join('sub_lokasi_infrastruktur', 'tiket.id_sublokasi = sub_lokasi_infrastruktur.id', 'left')
 			->join('user', 'tiket.id_teknisi = user.id', 'left')
+			->where('tiket.status !=', 0)
 			->where('tiket.id_sublokasi', $id_sublokasi)
 			->order_by('tiket.id', 'ASC')
 			->get()->result();
@@ -158,6 +191,7 @@ class M_tiket extends CI_Model
 		$data = $this->db
 			->select('COUNT(*) AS jml_tiket')
 			->from('tiket')
+			->where('status !=', 0)
 			->get()->row();
 		return $data;
     }
@@ -168,6 +202,7 @@ class M_tiket extends CI_Model
 			->select('COUNT(*) AS jml_tiket')
 			->from('tiket')
 			->where('id_sublokasi', $id_sublokasi)
+			->where('status !=', 0)
 			->get()->row();
 		return $data;
     }

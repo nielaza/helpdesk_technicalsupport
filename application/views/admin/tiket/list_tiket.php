@@ -153,6 +153,17 @@
 							<th>Status</th>
                             <th>Teknisi</th>
 							<th>Tgl. Tiket</th>
+							<?php if(!empty($data_tiket)){ 
+								$approval = $data_tiket[0]->approval == 1;
+							} else {
+								$approval = '';
+							} 
+							?>
+							<?php if ($this->session->userdata('level') == "Teknisi" && $approval) { ?>
+                            <th>AKSI</th>
+							<?php } else if ($this->session->userdata('level') == "Pimpinan") { ?>
+							<th>AKSI</th>
+							<?php } ?>
 							<th>Detail Tiket</th>
 						</tr>
 					</thead>
@@ -211,7 +222,11 @@
 										<button type="button" class="btn btn-success" style="font-size:14px"><i class="fas fa-check-circle fa"></i><strong>  Sudah Approval</strong></button>
 									</td>
 								<?php } ?>
-								<?php if ($row->status == 1) {?>
+								<?php if ($row->status == 0) {?>
+									<td>
+										<button type="button" class="btn btn-danger" style="font-size:14px"><i class="fas fa-times-circle fa"></i><strong>  Tiket Ditolak</strong></button>
+									</td>
+								<?php } else if ($row->status == 1) {?>
 									<td>
 										<strong style="color: #B14145;">Tiket Dibuat</strong>
 									</td>
@@ -236,6 +251,17 @@
 									<td><strong style="color: #FC8500;"><?php echo $row->nama_lengkap?></strong></td>
 								<?php } ?>
 								<td><?php echo tanggal_indonesia(date('Y-m-d', strtotime($row->created)))?></td>
+								<?php if ($this->session->userdata('level') == "Teknisi" && $row->approval == 1) { ?>
+                                <td class="text-center">
+                                    <a href="<?php echo site_url('tiket/proses-tiket/'.$row->id)?>" class="btn btn-warning btn-circle btn-sm" title="Proses Tiket">
+                                        <i class="fas fa-print"></i>
+                                    </a>
+                                </td>
+								<?php } else if ($this->session->userdata('level') == "Pimpinan") { ?>
+								<td class="text-center">
+                                    <a href="<?php echo site_url('tiket/tolak-tiket/'.$row->id)?>" class="btn btn-danger btn-sm" >Tolak Tiket</a>
+                                </td>
+								<?php } ?>
 								<td class="text-center" ><a class="btn btn-primary btn-sm" href="#" title="Detail Data Tiket" data-toggle="modal" data-target="#myModal<?php echo $row->kode_tiket ?>"><i class="fas fa-search"></i></a></td>
 							</tr>
 						<?php $no++;}?>
@@ -280,9 +306,9 @@
 								<label>Approval</label>
 								<input type="text" class="form-control" value="<?php 
 																				if($row->approval== 0){
-																				echo "Belum Approval";
+																					echo "Belum Approval";
 																				} else if($row->approval== 1){
-																				echo "Sudah Approval";
+																					echo "Sudah Approval";
 																				} ?>" disabled>
 							</div>
 							<div class="form-group col-md-3">
@@ -305,22 +331,24 @@
 								<label>Teknisi</label>
 								<input type="text" class="form-control" value="<?php 
 																				if($row->id_teknisi== 0){
-																				echo "Belum Ditangani";
+																					echo "Belum Ditangani";
 																				} else {
-																				echo $row->nama_lengkap;
+																					echo $row->nama_lengkap;
 																				} ?>" disabled>
 							</div>
 							<div class="form-group col-md-6">
 								<label>Status Tiket</label>
 								<input type="text" class="form-control" value="<?php 
-																				if($row->status== 1){
-																				echo "Tiket Dibuat";
+																				if($row->status== 0){
+																					echo "Tiket Ditolak";
+																				} else if($row->status== 1){
+																					echo "Tiket Dibuat";
 																				} else if($row->status== 2){
-																				echo "Tiket Dalam Proses";
+																					echo "Tiket Dalam Proses";
 																				} else if($row->status== 3){
-																				echo "Pengerjaan selesai by Technical Support";
+																					echo "Pengerjaan selesai by Technical Support";
 																				} else if($row->status== 4){
-																				echo "Tiket Done";
+																					echo "Tiket Done";
 																				} ?>" disabled>
 							</div>
 							<div class="form-group col-md-12" align="center">

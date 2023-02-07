@@ -89,7 +89,9 @@ foreach($data_tiket as $data){ // Lakukan looping pada variabel siswa
     } else if ($data->approval == 1) {
         $sheet->setCellValue('L'.$numrow, "Sudah Approval");
     }
-    if ($data->status == 1) {
+    if ($data->status == 0) {
+        $sheet->setCellValue('M'.$numrow, "Tiket Ditolak");
+    } else if ($data->status == 1) {
         $sheet->setCellValue('M'.$numrow, "Tiket Dibuat");
     } else if ($data->status == 2) {
         $sheet->setCellValue('M'.$numrow, "Tiket Dalam Proses");

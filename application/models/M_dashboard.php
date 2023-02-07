@@ -28,6 +28,7 @@ class M_dashboard extends CI_Model
 		$data = $this->db
 			->select('MONTHNAME(created) AS bulan, COUNT(*) AS jumbulan')
 			->from('tiket')
+			->where('status !=', 0)
 			->where('YEAR(created)', date('Y'))
 			->group_by('MONTHNAME(created)')
 			->order_by('MONTH(created)', 'ASC')
@@ -40,6 +41,7 @@ class M_dashboard extends CI_Model
 		$data = $this->db
 			->select('status, COUNT(*) AS jumstat')
 			->from('tiket')
+			->where('status !=', 0)
 			->where('YEAR(created)', date('Y'))
 			->group_by('status')
 			->order_by('status', 'ASC')
@@ -52,6 +54,7 @@ class M_dashboard extends CI_Model
 		$data = $this->db
 			->select('id_teknisi, COUNT(*) AS total')
 			->from('tiket')
+			->where('status !=', 0)
 			->where('YEAR(created)', date('Y'))
 			->group_by('id_teknisi')
 			->order_by('id_teknisi', 'ASC')
@@ -66,6 +69,7 @@ class M_dashboard extends CI_Model
 			->from(' tiket')
             ->join('jenis_infrastruktur', ' tiket.id_jenis = jenis_infrastruktur.id', 'left')
 			->where('YEAR(tiket.created)', date('Y'))
+			->where('status !=', 0)
 			->where_not_in('tiket.status', 0)
 			->group_by('tiket.id_jenis')
 			->get();
@@ -79,6 +83,7 @@ class M_dashboard extends CI_Model
 			->from(' tiket')
             ->join('lokasi_infrastruktur', ' tiket.id_lokasi = lokasi_infrastruktur.id', 'left')
 			->where('YEAR(tiket.created)', date('Y'))
+			->where('status !=', 0)
 			->where_not_in('tiket.status', 0)
 			->group_by('tiket.id_lokasi')
 			->get();
@@ -90,6 +95,7 @@ class M_dashboard extends CI_Model
 		$data = $this->db
 			->select('COUNT(*) AS jml_tiket')
 			->from('tiket')
+			->where('status !=', 0)
 			->get()->row();
 		return $data;
     }

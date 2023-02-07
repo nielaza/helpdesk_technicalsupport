@@ -45,7 +45,11 @@
 										<button type="button" class="btn btn-success" style="font-size:14px"><i class="fas fa-check-circle fa"></i><strong>  Sudah Approval</strong></button>
 									</td>
 								<?php } ?>
-								<?php if ($row->status == 1) {?>
+								<?php if ($row->status == 0) {?>
+									<td>
+										<button type="button" class="btn btn-danger" style="font-size:14px"><i class="fas fa-times-circle fa"></i><strong>  Tiket Ditolak</strong></button>
+									</td>
+								<?php } else if ($row->status == 1) {?>
 									<td>
 										<strong style="color: #B14145;">Tiket Dibuat</strong>
 									</td>

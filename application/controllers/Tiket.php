@@ -32,6 +32,19 @@ class Tiket extends CI_Controller
 		$this->load->view('admin/tiket/cetak', $data);
 	}
 
+    public function tolak_tiket($id)
+	{
+        $data = array(
+            'status'    	=> '0'
+        );
+
+        $this->db->where('id', $id);
+        $this->db->update('tiket', $data);
+
+        $this->session->set_flashdata('success_tolak','Sukses, Tiket Ditolak !!');
+        redirect(base_url().'tiket/tiket_baru');
+	}
+
     public function cetak_tiket($id)
 	{
 		$data['tiket']      = $this->m_tiket->tiket($id);
@@ -520,6 +533,28 @@ class Tiket extends CI_Controller
         $this->load->view('admin/template/template', $data);
     }
 
+    public function tiket_ditolak()
+    {
+        $data['title'] 		= "Data Tiket Ditolak";
+        $data['navbar']     = "admin/template/navbar";
+        $data['sidebar']	= "admin/template/sidebar";
+        $data['body'] 		= "admin/tiket/list_tolaktiket";
+
+        $level      		= $this->session->userdata('level');
+        $id_lokasi          = $this->session->userdata('id_lokasi');
+        $id_sublokasi       = $this->session->userdata('id_sublokasi');
+
+        if($level == 'Unit'){
+            $data['data_tiket']     = $this->m_tiket->unit_tolaktiket($id_sublokasi);  
+        } else if ($level == 'Pimpinan'){
+            $data['data_tiket']     = $this->m_tiket->unit_tolaktiket($id_sublokasi);  
+	    } else {
+            $data['data_tiket']     = $this->m_tiket->list_tolaktiket();  
+        }
+    
+        $this->load->view('admin/template/template', $data);
+    }
+
     public function pengerjaan($id)
 	{
         $data['title'] 		= "Tiket Pengerjaan";
@@ -559,8 +594,8 @@ class Tiket extends CI_Controller
             //     'status'    	=> '3'
             // );
     
-            $this->db->where('id', $id);
-            $this->db->update('tiket', $data);
+            // $this->db->where('id', $id);
+            // $this->db->update('tiket', $data);
 
             $this->session->set_flashdata('success','Sukses, Berhasil Input Pengerjaan');
             redirect(base_url().'tiket/tiket_proses');
