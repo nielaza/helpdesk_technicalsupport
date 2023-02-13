@@ -85,13 +85,14 @@
 							<th>No.</th>
 							<th>Jenis Infrastruktur</th>
 							<th>Kondisi</th>
-							<th>Sumber Dana</th>
+							<!-- <th>Sumber Dana</th> -->
 							<th>Kelengkapan</th>
-							<th>Nama PC</th>
+							<!-- <th>Nama PC</th> -->
 							<th>Lantai</th>
 							<th>Bidang Unit</th>
 							<th>Pengguna</th>
 							<th>Detail Inventory</th>
+							<th>Pemeliharaan</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -100,13 +101,14 @@
 								<td><?php echo $no ?></td>
 								<td><?php echo $row->jenis?></td>
 								<td><?php echo $row->kondisi?></td>
-								<td><?php echo $row->sumber?></td>
+								<!-- <td><?php //echo $row->sumber?></td> -->
 								<td><?php echo $row->kelengkapan?></td>
-								<td><?php echo $row->nama_pc?></td>
+								<!-- <td><?php //echo $row->nama_pc?></td> -->
 								<td><?php echo $row->lantai?></td>
 								<td><?php echo $row->sub_lokasi?></td>
 								<td><?php echo $row->pengguna?></td>
 								<td class="text-center" ><a class="btn btn-primary btn-sm" href="#" title="Detail Inventory" data-toggle="modal" data-target="#myModal<?php echo $row->id ?>"><i class="fas fa-search"></i></a></td>
+								<td class="text-center" ><a class="btn btn-info btn-sm" href="#" title="Data Pemeliharaan" data-toggle="modal" data-target="#myModal<?php echo $row->id ?>"><i class="fas fa-list-alt"></i></a></td>
 							</tr>
 						<?php $no++;}?>
 					</tbody>
@@ -145,6 +147,10 @@
 								<div class="form-group col-md-6">
 									<label>Kelengkapan</label>
 									<textarea name="jenis_pekerjaan" class="form-control" rows="2" disabled><?php echo $row->kelengkapan?></textarea>
+								</div>
+								<div class="form-group col-md-4">
+									<label>Serial Number</label>
+									<input type="text" class="form-control" value="<?php echo $row->serial_number?>" disabled>
 								</div>
 								<div class="form-group col-md-4">
 									<label>Nama PC</label>
@@ -201,6 +207,10 @@
 								<div class="form-group col-md-4">
 									<label>Grafik Card</label>
 									<input type="text" class="form-control" value="<?php echo $row->grafik_card?>" disabled>
+								</div>
+								<div class="form-group col-md-4">
+									<label>IP Address</label>
+									<input type="text" class="form-control" value="<?php echo $row->ip_address?>" disabled>
 								</div>
 								<div class="form-group col-md-4">
 									<label>MAC Address</label>

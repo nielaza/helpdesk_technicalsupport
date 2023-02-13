@@ -869,4 +869,70 @@ class Tiket extends CI_Controller
         redirect(base_url().'tiket/tiket_baru');
     }
 
+    public function add_tiket()
+	{
+        $data['title'] 		= "Input Tiket";
+        $data['navbar']     = "admin/template/navbar";
+        $data['sidebar']	= "admin/template/sidebar";
+        $data['body'] 		= "admin/tiket/add_tiket";
+
+        $data['jenis']      = $this->m_tiket->jenis();
+
+        $this->load->view('admin/template/template', $data);
+	}
+
+    public function tiket_save()
+	{
+        $this->form_validation->set_rules('user_pemohon','Nama User','required');
+		$this->form_validation->set_rules('jenis','Jenis Infrastuktur','required');
+        $this->form_validation->set_rules('model','Model Infrastruktur','required');
+        $this->form_validation->set_rules('keterangan','Keterangan','required');
+
+        if($this->form_validation->run() == FALSE) {
+            $this->session->set_flashdata('error', validation_errors());
+            $this->buat_tiket();
+        } else {
+            $kode_tiket		    = $this->m_tiket->getkodetiket();
+            $user_pemohon	    = $this->input->post('user_pemohon');
+            $telp	            = $this->input->post('telp');
+            $jenis	            = $this->input->post('jenis');
+            $model	            = $this->input->post('model');
+            $id_lokasi          = $this->session->userdata('id_lokasi');
+            $id_sublokasi       = $this->session->userdata('id_sublokasi');    
+            $lampiran			= $_FILES['lampiran']['name'];
+            if($lampiran=''){}else{
+                $config['upload_path'] 		= './uploads/';
+                $config['allowed_types'] 	= 'jpg|jpeg|png|pdf';
+                $config['max_size']			= 10240;
+                $config['file_name']		= 'tiket-'.date('ymd').'-'.substr(md5(rand()),0,10);
+                $this->load->library('upload',$config);
+                if(!$this->upload->do_upload('lampiran')){
+                    echo "Gagal Diupload !";
+                }else{
+                    $lampiran   =$this->upload->data('file_name');
+                }
+            }
+            $keterangan	        = $this->input->post('keterangan');
+            $tanggal	 		= date('Y-m-d H:i:s');
+    
+            $data = array(
+                'kode_tiket'	=> $kode_tiket,
+                'user_pemohon'	=> $user_pemohon,
+                'telp'		    => $telp,
+                'id_jenis'		=> $jenis,
+                'model'	        => $model,
+                'id_lokasi'		=> $id_lokasi,
+                'id_sublokasi'  => $id_sublokasi,
+                'lampiran'		=> $lampiran,
+                'keterangan'	=> $keterangan,
+                'status'        => '1',
+                'created'		=> $tanggal
+            );
+
+            $this->m_tiket->insert($data);
+            $this->session->set_flashdata('success','Sukses, Tiket berhasil dibuat');
+            redirect(base_url().'tiket/tiket_all');
+        }
+    }
+
 }

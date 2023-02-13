@@ -40,7 +40,7 @@
               <li><i class="bx bx-chevron-right"></i> <a href="<?php echo base_url('modul/tentang_kami') ?>">Tentang Kami</a></li>
               <li><i class="bx bx-chevron-right"></i> <a href="<?php echo base_url('modul/daftar_tiket') ?>">Daftar Tiket</a></li>
               <!-- <li><i class="bx bx-chevron-right"></i> <a href="<?php //echo base_url('modul/team_sistem_informasi') ?>">Team Sistem Informasi</a></li> -->
-              <li><i class="bx bx-chevron-right"></i> <a href="<?php echo base_url('modul/buat_tiket') ?>">Buat Tiket</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="<?php echo base_url('admin/auth/login') ?>">Buat Tiket</a></li>
             </ul>
           </div>
 

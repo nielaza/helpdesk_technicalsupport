@@ -32,7 +32,7 @@
                 <a href="#">Latar Belakang</a>
               </h2>
               <div class="entry-content">
-                <p>saat ini masih dilakukan secara manual, baik Unit/Bidang mendatangi langsung ke Pusat Data dan Informasi Bina Marga ataupun menghubungi via Telepon dan Whatsapp secara pribadi kepada Staff Pusat Data dan Informasi</p>
+                <p>Saat ini masih dilakukan secara manual, baik Unit/Bidang mendatangi langsung ke Pusat Data dan Informasi Bina Marga ataupun menghubungi via Telepon dan Whatsapp secara pribadi kepada Staff Pusat Data dan Informasi</p>
               </div><br><hr><br>
 
               <h2 class="entry-title">

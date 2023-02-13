@@ -38,7 +38,7 @@
 			<div id="collapseTiket" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
 				<div class="bg-dark py-2 collapse-inner rounded">
 					<a class="collapse-item" href="<?php echo site_url('tiket/tiket-all') ?>">Data Tiket</a>
-					<a class="collapse-item" href="<?php echo site_url('tiket/tiket-ditolak') ?>">Tiket Ditolak</a>
+					<!-- <a class="collapse-item" href="<?php //echo site_url('tiket/tiket-ditolak') ?>">Tiket Ditolak</a> -->
 					<a class="collapse-item" href="<?php echo site_url('tiket/review') ?>">Review User</a>
 				</div>
 			</div>
@@ -55,6 +55,7 @@
 			<div id="collapseData" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
 				<div class="bg-dark py-2 collapse-inner rounded">
 					<a class="collapse-item" href="<?php echo site_url('admin/inventory') ?>">Inventory Komputer</a>
+					<a class="collapse-item" href="#">Inventory Pemeliharaan</a>
 					<a class="collapse-item" href="<?php echo site_url('admin/hardware') ?>">Jenis Hardware</a>
 					<a class="collapse-item" href="<?php echo site_url('admin/kondisi') ?>">Kondisi</a>
 					<a class="collapse-item" href="<?php echo site_url('admin/sumber_dana') ?>">Sumber Dana</a>
@@ -104,16 +105,10 @@
 
 		<hr class="sidebar-divider">
 		<li class="nav-item">
-			<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTiket" aria-expanded="true" aria-controls="collapseData">
+			<a class="nav-link" href="<?php echo site_url('tiket/tiket-all') ?>">
 				<i class="fas fa-fw fa-ticket-alt"></i>
-				<span>Tiket</span>
+				<span>Data Tiket</span>
 			</a>
-			<div id="collapseTiket" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-				<div class="bg-dark py-2 collapse-inner rounded">
-					<a class="collapse-item" href="<?php echo site_url('tiket/tiket-all') ?>">Data Tiket</a>
-					<a class="collapse-item" href="<?php echo site_url('tiket/tiket-ditolak') ?>">Tiket Ditolak</a>
-				</div>
-			</div>
 		</li>
 
 		<!-- Divider -->
@@ -127,6 +122,7 @@
 			<div id="collapseData" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
 				<div class="bg-dark py-2 collapse-inner rounded">
 					<a class="collapse-item" href="<?php echo site_url('admin/inventory') ?>">Inventory Komputer</a>
+					<a class="collapse-item" href="#">Inventory Pemeliharaan</a>
 					<a class="collapse-item" href="<?php echo site_url('admin/hardware') ?>">Jenis Hardware</a>
 					<a class="collapse-item" href="<?php echo site_url('admin/kondisi') ?>">Kondisi</a>
 					<a class="collapse-item" href="<?php echo site_url('admin/sumber_dana') ?>">Sumber Dana</a>
@@ -151,19 +147,27 @@
 		<!-- Nav Item - Dashboard -->
 		<hr class="sidebar-divider">
 		<li class="nav-item">
+			<a class="nav-link" href="<?php echo site_url('tiket/add-tiket') ?>">
+				<i class="fas fa-fw fa-file-signature"></i>
+				<span>Buat Tiket</span>
+			</a>
+		</li>
+
+		<hr class="sidebar-divider">
+		<li class="nav-item">
 			<a class="nav-link" href="<?php echo site_url('tiket/tiket-all') ?>">
 				<i class="fas fa-fw fa-ticket-alt"></i>
 				<span>Data Tiket</span>
 			</a>
 		</li>
 
-		<hr class="sidebar-divider">
+		<!-- <hr class="sidebar-divider">
 		<li class="nav-item">
-			<a class="nav-link" href="<?php echo site_url('tiket/tiket-ditolak') ?>">
+			<a class="nav-link" href="<?php //echo site_url('tiket/tiket-ditolak') ?>">
 				<i class="fas fa-fw fa-ticket-alt"></i>
 				<span>Tiket Ditolak</span>
 			</a>
-		</li>
+		</li> -->
 	<!-- Divider -->
 	<hr class="sidebar-divider d-none d-md-block">
 	<?php } else if ($this->session->userdata('level') == "Pimpinan") { ?>
@@ -179,13 +183,13 @@
 			</a>
 		</li>
 
-		<hr class="sidebar-divider">
+		<!-- <hr class="sidebar-divider">
 		<li class="nav-item">
-			<a class="nav-link" href="<?php echo site_url('tiket/tiket-ditolak') ?>">
+			<a class="nav-link" href="<?php //echo site_url('tiket/tiket-ditolak') ?>">
 				<i class="fas fa-fw fa-ticket-alt"></i>
 				<span>Tiket Ditolak</span>
 			</a>
-		</li>
+		</li> -->
 	<!-- Divider -->
 	<hr class="sidebar-divider d-none d-md-block">
 	<?php } ?>

@@ -164,16 +164,16 @@
                                 <td><strong style="color: #2E6095;"><?php echo $row->sub_lokasi?></strong></td>
                                 <td><?php echo $row->keterangan?></td>
 								<td><?php echo $row->jenis_pekerjaan?></td>
-                                <!-- <td><?php //echo $row->telp?></td> -->
-								<?php if ($row->approval == 0) {?>
+                                <!-- <td><?php //echo $row->telp?></td> 
+								<?php //if ($row->approval == 0) {?>
 									<td>
 										<button type="button" class="btn btn-danger" style="font-size:14px"><i class="fas fa-times-circle fa"></i><strong>  Belum Approval</strong></button>
 									</td>
-								<?php } else if ($row->approval == 1) { ?>
+								<?php //} else if ($row->approval == 1) { ?>
 									<td>
 										<button type="button" class="btn btn-success" style="font-size:14px"><i class="fas fa-check-circle fa"></i><strong>  Sudah Approval</strong></button>
 									</td>
-								<?php } ?>
+								<?php //} ?> -->
 								<?php if ($row->status == 0) {?>
 									<td>
 										<button type="button" class="btn btn-danger" style="font-size:14px"><i class="fas fa-times-circle fa"></i><strong>  Tiket Ditolak</strong></button>
@@ -202,7 +202,7 @@
 								<?php } else { ?>
 									<td><strong style="color: #FC8500;"><?php echo $row->nama_lengkap?></strong></td>
 								<?php } ?>
-								<td><?php echo date('d F Y', strtotime($row->created))?></td>
+								<td><?php echo tanggal_indonesia(date('Y-m-d', strtotime($row->created)))?></td>
 								<?php if ($this->session->userdata('level') == "Unit") { ?>
                                 <td class="text-center">
                                     <a href="<?php echo site_url('tiket/rate_tiket/'.$row->id)?>" class="btn btn-success btn-circle btn-sm" title="Rate Tiket">
@@ -251,14 +251,18 @@
 								<input type="text" class="form-control" value="<?php echo tanggal_indonesia(date('Y-m-d', strtotime($row->created)))?>" disabled>
 							</div>
 							<div class="form-group col-md-3">
+								<label>Telp User</label>
+								<input type="text" class="form-control" value="<?php echo $row->telp?>" disabled>
+							</div>
+							<!-- <div class="form-group col-md-3">
 								<label>Approval</label>
 								<input type="text" class="form-control" value="<?php 
-																				if($row->approval== 0){
-																					echo "Belum Approval";
-																				} else if($row->approval== 1){
-																					echo "Sudah Approval";
-																				} ?>" disabled>
-							</div>
+																				//if($row->approval== 0){
+																					//echo "Belum Approval";
+																				//} else if($row->approval== 1){
+																					//echo "Sudah Approval";
+																				//} ?>" disabled>
+							</div> -->
 							<div class="form-group col-md-3">
 								<label>Jenis</label>
 								<input type="text" class="form-control" value="<?php echo $row->jenis?>" disabled>

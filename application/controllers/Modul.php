@@ -62,13 +62,13 @@ class Modul extends CI_Controller
         $data['content']	= "form_tiket";
         $data['footer']		= "footer";
 
-        $date	     		= date('Y-m-d');
+        //$date	     		= date('Y-m-d');
 
-        $where1 = array(
-            'id_lokasi'     => '11',
-            'status'        => '3'
+        // $where1 = array(
+        //     'id_lokasi'     => '11',
+        //     'status'        => '3'
             // 'created'       => $date
-        );
+        //);
 
         $cek1 = $this->m_tiket->cek_tiket('tiket',$where1)->num_rows();
         // var_dump($cek1);

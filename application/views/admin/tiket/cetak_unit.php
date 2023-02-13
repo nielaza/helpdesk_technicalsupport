@@ -144,8 +144,25 @@ $spreadsheet->getActiveSheet()
 			->setVertical(Alignment::VERTICAL_CENTER);
 $spreadsheet->getActiveSheet()
             ->setCellValue('B13', "Catatan :");
+// $spreadsheet->getActiveSheet()
+//             ->setCellValue('B17', "Kasubbag / PPTK");
+// $spreadsheet->getActiveSheet()
+// 			->getStyle('B17')
+// 			->getAlignment()
+// 			->setHorizontal(Alignment::HORIZONTAL_CENTER);
+// $spreadsheet->getActiveSheet()
+//             ->setCellValue('B23', "……………………………………..");
+// $spreadsheet->getActiveSheet()
+// 			->getStyle('B23')
+// 			->getFont()
+// 			->setBold(true)
+// 			->setUnderline(true);
+// $spreadsheet->getActiveSheet()
+// 			->getStyle('B23')
+// 			->getAlignment()
+// 			->setHorizontal(Alignment::HORIZONTAL_CENTER);
 $spreadsheet->getActiveSheet()
-            ->setCellValue('B17', "Kasubbag / PPTK");
+            ->setCellValue('B17', "Kasubbag Pusdatin");
 $spreadsheet->getActiveSheet()
 			->getStyle('B17')
 			->getAlignment()
@@ -162,26 +179,9 @@ $spreadsheet->getActiveSheet()
 			->getAlignment()
 			->setHorizontal(Alignment::HORIZONTAL_CENTER);
 $spreadsheet->getActiveSheet()
-            ->setCellValue('C17', "Kasubbag Pusdatin");
+            ->setCellValue('B24', "Turmudi, S.T,. M.T");
 $spreadsheet->getActiveSheet()
-			->getStyle('C17')
-			->getAlignment()
-			->setHorizontal(Alignment::HORIZONTAL_CENTER);
-$spreadsheet->getActiveSheet()
-            ->setCellValue('C23', "……………………………………..");
-$spreadsheet->getActiveSheet()
-			->getStyle('C23')
-			->getFont()
-			->setBold(true)
-			->setUnderline(true);
-$spreadsheet->getActiveSheet()
-			->getStyle('C23')
-			->getAlignment()
-			->setHorizontal(Alignment::HORIZONTAL_CENTER);
-$spreadsheet->getActiveSheet()
-            ->setCellValue('C24', "Turmudi, S.T,. M.T");
-$spreadsheet->getActiveSheet()
-			->getStyle('C24')
+			->getStyle('B24')
 			->getAlignment()
 			->setHorizontal(Alignment::HORIZONTAL_CENTER);
 $spreadsheet->getActiveSheet()
