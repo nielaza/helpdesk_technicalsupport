@@ -115,8 +115,8 @@
 							<th>Sub Lokasi</th>
 							<th>Keterangan</th>
 							<th>Jenis Pekerjaan</th>
-                            <!-- <th>Telp</th> -->
-							<th>Approval</th>
+                            <!-- <th>Telp</th> 
+							<th>Approval</th>-->
 							<th>Status</th>
                             <th>Teknisi</th>
 							<th>Tgl. Tiket</th>

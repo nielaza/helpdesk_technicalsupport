@@ -119,8 +119,8 @@
                             <th>Lokasi</th> -->
 							<th>Sub Lokasi</th>
 							<th>Keterangan</th>
-                            <!-- <th>Telp</th> -->
-							<th>Approval</th>
+                            <!-- <th>Telp</th> 
+							<th>Approval</th>-->
 							<th>Status</th>
                             <th>Teknisi</th>
 							<th>Tgl. Tiket</th>

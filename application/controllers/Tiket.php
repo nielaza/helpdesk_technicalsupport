@@ -636,7 +636,7 @@ class Tiket extends CI_Controller
                 'created'	    => $tanggal
             );
 
-            $this->m_tiket->insert_review($data);
+            $this->m_tiket->insert('review_user',$data);
 
             $data = array(
                 'status'    	=> '4'
@@ -820,13 +820,13 @@ class Tiket extends CI_Controller
                 'status'            => $status,
                 'created'		    => $tanggal
             );
-            $this->m_tiket->insert($data);
+            $this->m_tiket->insert('tiket',$data);
 
             $data = array(
                 'kode_tiket'    	=> $kode_tiket,
                 'group_tiket'    	=> $group_tiket
             );
-            $this->m_tiket->insert_group($data);
+            $this->m_tiket->insert('tiket_group',$data);
 
             $this->session->set_flashdata('success','Sukses, Berhasil buat Group Tiket');
             redirect(base_url().'tiket/tiket_all');
@@ -929,7 +929,7 @@ class Tiket extends CI_Controller
                 'created'		=> $tanggal
             );
 
-            $this->m_tiket->insert($data);
+            $this->m_tiket->insert('tiket',$data);
             $this->session->set_flashdata('success','Sukses, Tiket berhasil dibuat');
             redirect(base_url().'tiket/tiket_all');
         }

@@ -55,7 +55,7 @@
 			<div id="collapseData" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
 				<div class="bg-dark py-2 collapse-inner rounded">
 					<a class="collapse-item" href="<?php echo site_url('admin/inventory') ?>">Inventory Komputer</a>
-					<a class="collapse-item" href="#">Inventory Pemeliharaan</a>
+					<a class="collapse-item" href="<?php echo site_url('admin/inventory/all-pemeliharaan') ?>">Inventory Pemeliharaan</a>
 					<a class="collapse-item" href="<?php echo site_url('admin/hardware') ?>">Jenis Hardware</a>
 					<a class="collapse-item" href="<?php echo site_url('admin/kondisi') ?>">Kondisi</a>
 					<a class="collapse-item" href="<?php echo site_url('admin/sumber_dana') ?>">Sumber Dana</a>
@@ -122,7 +122,7 @@
 			<div id="collapseData" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
 				<div class="bg-dark py-2 collapse-inner rounded">
 					<a class="collapse-item" href="<?php echo site_url('admin/inventory') ?>">Inventory Komputer</a>
-					<a class="collapse-item" href="#">Inventory Pemeliharaan</a>
+					<a class="collapse-item" href="<?php echo site_url('admin/inventory/all-pemeliharaan') ?>">Inventory Pemeliharaan</a>
 					<a class="collapse-item" href="<?php echo site_url('admin/hardware') ?>">Jenis Hardware</a>
 					<a class="collapse-item" href="<?php echo site_url('admin/kondisi') ?>">Kondisi</a>
 					<a class="collapse-item" href="<?php echo site_url('admin/sumber_dana') ?>">Sumber Dana</a>
@@ -190,6 +190,39 @@
 				<span>Tiket Ditolak</span>
 			</a>
 		</li> -->
+	<!-- Divider -->
+	<hr class="sidebar-divider d-none d-md-block">
+	<<?php } else if ($this->session->userdata('level') == "Inventory") { ?>
+	<!--Menu Untuk Admin-->
+	<!-- Divider -->
+	<hr class="sidebar-divider my-0">
+		<!-- Divider -->
+		<hr class="sidebar-divider">
+		<!-- Nav Item - Pages Collapse Menu -->
+		<li class="nav-item">
+			<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseData" aria-expanded="true" aria-controls="collapseData">
+				<i class="fas fa-fw fa-cog"></i>
+				<span>Data Inventory</span>
+			</a>
+			<div id="collapseData" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+				<div class="bg-dark py-2 collapse-inner rounded">
+					<a class="collapse-item" href="<?php echo site_url('admin/inventory') ?>">Inventory Komputer</a>
+					<a class="collapse-item" href="<?php echo site_url('admin/inventory/all-pemeliharaan') ?>">Inventory Pemeliharaan</a>
+					<a class="collapse-item" href="<?php echo site_url('admin/hardware') ?>">Jenis Hardware</a>
+					<a class="collapse-item" href="<?php echo site_url('admin/kondisi') ?>">Kondisi</a>
+					<a class="collapse-item" href="<?php echo site_url('admin/sumber_dana') ?>">Sumber Dana</a>
+					<a class="collapse-item" href="<?php echo site_url('admin/kelengkapan') ?>">Kelengkapan</a>
+				</div>
+			</div>
+		</li>
+
+		<hr class="sidebar-divider">
+		<li class="nav-item">
+			<a class="nav-link" href="<?php echo site_url('admin/inventory/pencarian') ?>">
+				<i class="fas fa-fw fa-search"></i>
+				<span>Cari Inventory</span>
+			</a>
+		</li>
 	<!-- Divider -->
 	<hr class="sidebar-divider d-none d-md-block">
 	<?php } ?>

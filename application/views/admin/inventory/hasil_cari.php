@@ -13,11 +13,12 @@
 							<th>No.</th>
 							<th>Jenis Infrastruktur</th>
 							<th>Kondisi</th>
-							<th>Sumber Dana</th>
+							<!-- <th>Sumber Dana</th> 
 							<th>Kelengkapan</th>
-							<th>Nama PC</th>
+							<th>Nama PC</th> -->
 							<th>Lantai</th>
 							<th>Bidang Unit</th>
+							<!-- <th>Seksi</th> -->
 							<th>Pengguna</th>
 							<th>Detail Inventory</th>
 						</tr>
@@ -28,11 +29,12 @@
 								<td><?php echo $no ?></td>
 								<td><?php echo $row->jenis?></td>
 								<td><?php echo $row->kondisi?></td>
-								<td><?php echo $row->sumber?></td>
-								<td><?php echo $row->kelengkapan?></td>
-								<td><?php echo $row->nama_pc?></td>
+								<!-- <td><?php //echo $row->sumber?></td> 
+								<td><?php //echo $row->kelengkapan?></td>
+								<td><?php //echo $row->nama_pc?></td> -->
 								<td><?php echo $row->lantai?></td>
-								<td><?php echo $row->sub_lokasi?></td>
+								<td><?php echo $row->lokasi?></td>
+								<!-- <td><?php //echo $row->seksi?></td> -->
 								<td><?php echo $row->pengguna?></td>
 								<td class="text-center" ><a class="btn btn-primary btn-sm" href="#" title="Detail Inventory" data-toggle="modal" data-target="#myModal<?php echo $row->id ?>"><i class="fas fa-search"></i></a></td>
 							</tr>
@@ -55,15 +57,19 @@
 									<label>Barcode Inventory</label>
 									<input type="text" class="form-control" value="<?php echo $row->barcode?>" disabled>
 								</div>
-							</div>
-							<div class="row clearfix">
 								<div class="form-group col-md-6">
 									<label>Pengguna</label>
 									<input type="text" class="form-control" value="<?php echo $row->pengguna?>" disabled>
 								</div>
+							</div>
+							<div class="row clearfix">
 								<div class="form-group col-md-6">
 									<label>Bidang Unit</label>
-									<textarea name="jenis_pekerjaan" class="form-control" rows="2" disabled><?php echo $row->sub_lokasi?></textarea>
+									<textarea name="jenis_pekerjaan" class="form-control" rows="2" disabled><?php echo $row->lokasi?></textarea>
+								</div>
+								<div class="form-group col-md-6">
+									<label>Seksi</label>
+									<textarea name="jenis_pekerjaan" class="form-control" rows="2" disabled><?php echo $row->seksi?></textarea>
 								</div>
 							</div><hr>  
 							<div class="row clearfix">
@@ -76,6 +82,10 @@
 									<textarea name="jenis_pekerjaan" class="form-control" rows="2" disabled><?php echo $row->kelengkapan?></textarea>
 								</div>
 								<div class="form-group col-md-4">
+									<label>Serial Number</label>
+									<input type="text" class="form-control" value="<?php echo $row->serial_number?>" disabled>
+								</div>
+								<div class="form-group col-md-4">
 									<label>Nama PC</label>
 									<input type="text" class="form-control" value="<?php echo $row->nama_pc?>" disabled>
 								</div>
@@ -86,10 +96,6 @@
 								<div class="form-group col-md-4">
 									<label>Tahun Pengadaan</label>
 									<input type="text" class="form-control" value="<?php echo $row->tahun_pengadaan?>" disabled>
-								</div>
-								<div class="form-group col-md-4">
-									<label>Seksi</label>
-									<input type="text" class="form-control" value="<?php echo $row->seksi?>" disabled>
 								</div>
 								<div class="form-group col-md-4">
 									<label>Lantai</label>
@@ -111,25 +117,29 @@
 									<label>Sistem Operasi</label>
 									<input type="text" class="form-control" value="<?php echo $row->sistem_operasi?>" disabled>
 								</div>
-								<div class="form-group col-md-4">
+								<div class="form-group col-md-3">
 									<label>Ram DDR</label>
 									<input type="text" class="form-control" value="<?php echo $row->ram_ddr?>" disabled>
 								</div>
-								<div class="form-group col-md-4">
+								<div class="form-group col-md-3">
 									<label>Ram GB</label>
 									<input type="text" class="form-control" value="<?php echo $row->ram_gb?>" disabled>
 								</div>
-								<div class="form-group col-md-4">
+								<div class="form-group col-md-3">
 									<label>Hardisk (SSD)</label>
 									<input type="text" class="form-control" value="<?php echo $row->hd_ssd?>" disabled>
 								</div>
-								<div class="form-group col-md-4">
+								<div class="form-group col-md-3">
 									<label>Hardisk (HDD)</label>
 									<input type="text" class="form-control" value="<?php echo $row->hd_hdd?>" disabled>
 								</div>
 								<div class="form-group col-md-4">
 									<label>Grafik Card</label>
 									<input type="text" class="form-control" value="<?php echo $row->grafik_card?>" disabled>
+								</div>
+								<div class="form-group col-md-4">
+									<label>IP Address</label>
+									<input type="text" class="form-control" value="<?php echo $row->ip_address?>" disabled>
 								</div>
 								<div class="form-group col-md-4">
 									<label>MAC Address</label>

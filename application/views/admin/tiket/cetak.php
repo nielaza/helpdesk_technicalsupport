@@ -194,6 +194,12 @@ $spreadsheet->getActiveSheet()
 			->getAlignment()
 			->setHorizontal(Alignment::HORIZONTAL_CENTER);
 $spreadsheet->getActiveSheet()
+            ->setCellValue('B22', "Turmudi, S.T,. M.T");
+$spreadsheet->getActiveSheet()
+			->getStyle('B22')
+			->getAlignment()
+			->setHorizontal(Alignment::HORIZONTAL_CENTER);
+$spreadsheet->getActiveSheet()
             ->setCellValue('B23', "……………………………………..");
 $spreadsheet->getActiveSheet()
 			->getStyle('B23')
@@ -205,7 +211,7 @@ $spreadsheet->getActiveSheet()
 			->getAlignment()
 			->setHorizontal(Alignment::HORIZONTAL_CENTER);
 $spreadsheet->getActiveSheet()
-            ->setCellValue('B24', "Turmudi, S.T,. M.T");
+            ->setCellValue('B24', "NIP : 196609061992031010");
 $spreadsheet->getActiveSheet()
 			->getStyle('B24')
 			->getAlignment()

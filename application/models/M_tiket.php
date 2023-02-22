@@ -62,9 +62,9 @@ class M_tiket extends CI_Model
 		return $this->db->get_where($table,$where);
 	}
 
-	public function insert($data)
+	public function insert($tabel,$data)
 	{
-		$this->db->insert('tiket',$data);
+		$this->db->insert($tabel,$data);
 	}
 
 	public function daftar_tiket()
@@ -367,11 +367,6 @@ class M_tiket extends CI_Model
 		$this->db->update($table, $data, $where);
 	}
 
-	public function insert_review($data)
-	{
-		$this->db->insert('review_user',$data);
-	}
-
 	public function tiket_review()
 	{
 		$data = $this->db
@@ -427,11 +422,6 @@ class M_tiket extends CI_Model
 			->order_by('tiket.id', 'ASC')
 			->get()->result();
 		return $data;
-	}
-
-	public function insert_group($data)
-	{
-		$this->db->insert('tiket_group',$data);
 	}
 
 	// public function rekap_tiket($where)

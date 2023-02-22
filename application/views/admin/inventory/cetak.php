@@ -105,8 +105,8 @@ foreach($data_inventory as $data){ // Lakukan looping pada variabel siswa
     $sheet->setCellValue('P'.$numrow, $data->nama_pc);
     $sheet->setCellValue('Q'.$numrow, $data->mac_address);
     $sheet->setCellValue('R'.$numrow, $data->lantai);
-    $sheet->setCellValue('S'.$numrow, $data->sub_lokasi);
-    $sheet->setCellValue('T'.$numrow, $data->jenis);
+    $sheet->setCellValue('S'.$numrow, $data->lokasi);
+    $sheet->setCellValue('T'.$numrow, $data->seksi);
     $sheet->setCellValue('U'.$numrow, $data->pengguna);
     
     // Apply style row yang telah kita buat tadi ke masing-masing baris (isi tabel)

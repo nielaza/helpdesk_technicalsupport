@@ -7,7 +7,7 @@
 <div class="container-fluid">
 	<div class="card">
 		<div class="card-body">
-			<form method="POST" action="<?php echo base_url('tiket/add_review')?>">
+			<form method="POST" action="<?php echo base_url('tiket/add-review')?>">
                 <div class="row clearfix">
                     <div class="col-sm-6 form-group">
                         <label><strong>Kode Tiket</strong></label>

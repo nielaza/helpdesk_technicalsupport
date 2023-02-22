@@ -11,14 +11,83 @@ class M_inventory extends CI_Model
     public function list_inventory()
 	{
 		$data = $this->db
-			->select('inventory_komputer.*, jenis_hardware.jenis, kondisi.kondisi, sumber_dana.sumber, kelengkapan.kelengkapan, sub_lokasi_infrastruktur.sub_lokasi')
+			->select('inventory_komputer.*, jenis_hardware.jenis, kondisi.kondisi, sumber_dana.sumber, kelengkapan.kelengkapan, lokasi_infrastruktur.lokasi, seksi.seksi')
 			->from('inventory_komputer')
 			->join('jenis_hardware', 'inventory_komputer.jenis_infrastruktur = jenis_hardware.id', 'left')
-			->join('kondisi', 'inventory_komputer.kondisi = kondisi.id', 'left')
+			->join('kondisi', 'inventory_komputer.id_kondisi = kondisi.id', 'left')
 			->join('sumber_dana', 'inventory_komputer.sumber_dana = sumber_dana.id', 'left')
-			->join('kelengkapan', 'inventory_komputer.kelengkapan = kelengkapan.id', 'left')
-			->join('sub_lokasi_infrastruktur', 'inventory_komputer.bidang_unit = sub_lokasi_infrastruktur.id', 'left')
+			->join('kelengkapan', 'inventory_komputer.id_kelengkapan = kelengkapan.id', 'left')
+			->join('lokasi_infrastruktur', 'inventory_komputer.bidang_unit = lokasi_infrastruktur.id', 'left')
+			->join('seksi', 'inventory_komputer.id_seksi = seksi.id', 'left')
             ->order_by('inventory_komputer.id', 'ASC')
+			->get()->result();
+		return $data;
+	}
+
+	public function inventory($id)
+	{
+		$data = $this->db
+			->select('inventory_komputer.*, jenis_hardware.jenis, kondisi.kondisi, sumber_dana.sumber, kelengkapan.kelengkapan, lokasi_infrastruktur.lokasi, seksi.seksi')
+			->from('inventory_komputer')
+			->join('jenis_hardware', 'inventory_komputer.jenis_infrastruktur = jenis_hardware.id', 'left')
+			->join('kondisi', 'inventory_komputer.id_kondisi = kondisi.id', 'left')
+			->join('sumber_dana', 'inventory_komputer.sumber_dana = sumber_dana.id', 'left')
+			->join('kelengkapan', 'inventory_komputer.id_kelengkapan = kelengkapan.id', 'left')
+			->join('lokasi_infrastruktur', 'inventory_komputer.bidang_unit = lokasi_infrastruktur.id', 'left')
+			->join('seksi', 'inventory_komputer.id_seksi = seksi.id', 'left')
+			->where('inventory_komputer.id', $id)
+			->get()->result();
+		return $data;
+	}
+
+	public function all_pemeliharaan()
+	{
+		$data = $this->db
+			->select('inventory_pemeliharaan.*, inventory_komputer.barcode, inventory_komputer.pengguna, inventory_komputer.bidang_unit, inventory_komputer.id_seksi, lokasi_infrastruktur.lokasi, seksi.seksi')
+			->from('inventory_pemeliharaan')
+			->join('inventory_komputer', 'inventory_pemeliharaan.barcode = inventory_komputer.barcode', 'left')
+			->join('lokasi_infrastruktur', 'inventory_komputer.bidang_unit = lokasi_infrastruktur.id', 'left')
+			->join('seksi', 'inventory_komputer.id_seksi = seksi.id', 'left')
+            ->order_by('inventory_pemeliharaan.id', 'ASC')
+			->get()->result();
+		return $data;
+	}
+
+	public function inv_pemeliharaan($barcode)
+	{
+		$data = $this->db
+			->select('inventory_pemeliharaan.*, inventory_komputer.barcode, inventory_komputer.pengguna, inventory_komputer.bidang_unit, inventory_komputer.id_seksi, lokasi_infrastruktur.lokasi, seksi.seksi')
+			->from('inventory_pemeliharaan')
+			->join('inventory_komputer', 'inventory_pemeliharaan.barcode = inventory_komputer.barcode', 'left')
+			->join('lokasi_infrastruktur', 'inventory_komputer.bidang_unit = lokasi_infrastruktur.id', 'left')
+			->join('seksi', 'inventory_komputer.id_seksi = seksi.id', 'left')
+			->where('inventory_pemeliharaan.barcode', $barcode)
+            ->order_by('inventory_pemeliharaan.id', 'ASC')
+			->get()->result();
+		return $data;
+	}
+
+	public function pemeliharaan($barcode)
+	{
+		$data = $this->db
+			->select('inventory_komputer.barcode, inventory_komputer.pengguna, inventory_komputer.bidang_unit, inventory_komputer.id_seksi, lokasi_infrastruktur.lokasi, seksi.seksi')
+			->from('inventory_komputer')
+			->join('lokasi_infrastruktur', 'inventory_komputer.bidang_unit = lokasi_infrastruktur.id', 'left')
+			->join('seksi', 'inventory_komputer.id_seksi = seksi.id', 'left')
+			->where('inventory_komputer.barcode', $barcode)
+			->get()->result();
+		return $data;
+	}
+
+	public function pemel($id)
+	{
+		$data = $this->db
+			->select('inventory_pemeliharaan.*, inventory_komputer.barcode, inventory_komputer.pengguna, inventory_komputer.bidang_unit, inventory_komputer.id_seksi, lokasi_infrastruktur.lokasi, seksi.seksi')
+			->from('inventory_pemeliharaan')
+			->join('inventory_komputer', 'inventory_pemeliharaan.barcode = inventory_komputer.barcode', 'left')
+			->join('lokasi_infrastruktur', 'inventory_komputer.bidang_unit = lokasi_infrastruktur.id', 'left')
+			->join('seksi', 'inventory_komputer.id_seksi = seksi.id', 'left')
+			->where('inventory_pemeliharaan.id', $id)
 			->get()->result();
 		return $data;
 	}
@@ -36,22 +105,28 @@ class M_inventory extends CI_Model
 	public function kondisi_inventory($id_kondisi)
 	{
 		$data = $this->db
-			->select('inventory_komputer.*, jenis_hardware.jenis, kondisi.kondisi, sumber_dana.sumber, kelengkapan.kelengkapan, lokasi_infrastruktur.lokasi')
+			->select('inventory_komputer.*, jenis_hardware.jenis, kondisi.kondisi, sumber_dana.sumber, kelengkapan.kelengkapan, lokasi_infrastruktur.lokasi, seksi.seksi')
 			->from('inventory_komputer')
 			->join('jenis_hardware', 'inventory_komputer.jenis_infrastruktur = jenis_hardware.id', 'left')
-			->join('kondisi', 'inventory_komputer.kondisi = kondisi.id', 'left')
+			->join('kondisi', 'inventory_komputer.id_kondisi = kondisi.id', 'left')
 			->join('sumber_dana', 'inventory_komputer.sumber_dana = sumber_dana.id', 'left')
-			->join('kelengkapan', 'inventory_komputer.kelengkapan = kelengkapan.id', 'left')
+			->join('kelengkapan', 'inventory_komputer.id_kelengkapan = kelengkapan.id', 'left')
 			->join('lokasi_infrastruktur', 'inventory_komputer.bidang_unit = lokasi_infrastruktur.id', 'left')
-			->where('inventory_komputer.kondisi', $id_kondisi)
+			->join('seksi', 'inventory_komputer.id_seksi = seksi.id', 'left')
+			->where('inventory_komputer.id_kondisi', $id_kondisi)
             ->order_by('inventory_komputer.id', 'ASC')
 			->get()->result();
 		return $data;
 	}
 
-	public function insert($data)
+	public function insert($tabel,$data)
 	{
-		$this->db->insert('jenis_hardware',$data);
+		$this->db->insert($tabel,$data);
+	}
+
+	public function update_data($table,$where,$data){
+		$this->db->where($where);
+		$this->db->update($table,$data);
 	}
 
 	public function piejenis()
@@ -81,11 +156,11 @@ class M_inventory extends CI_Model
 	public function piekelengkapan()
     {
 		$data = $this->db
-			->select('COUNT(*) AS jumlengkap, inventory_komputer.kelengkapan, kelengkapan.kelengkapan')
+			->select('COUNT(*) AS jumlengkap, inventory_komputer.id_kelengkapan, kelengkapan.kelengkapan')
 			->from('inventory_komputer')
-            ->join('kelengkapan', 'inventory_komputer.kelengkapan = kelengkapan.id', 'left')
-			->group_by('inventory_komputer.kelengkapan')
-			->order_by('inventory_komputer.kelengkapan', 'ASC')
+            ->join('kelengkapan', 'inventory_komputer.id_kelengkapan = kelengkapan.id', 'left')
+			->group_by('inventory_komputer.id_kelengkapan')
+			->order_by('inventory_komputer.id_kelengkapan', 'ASC')
 			->get();
 		return $data;
     }
@@ -104,9 +179,9 @@ class M_inventory extends CI_Model
     public function bar_lokasi()
     {
         $data = $this->db
-			->select('COUNT(*) AS jumlokasi, inventory_komputer.bidang_unit, sub_lokasi_infrastruktur.sub_lokasi')
+			->select('COUNT(*) AS jumlokasi, inventory_komputer.bidang_unit, lokasi_infrastruktur.lokasi')
 			->from('inventory_komputer')
-            ->join('sub_lokasi_infrastruktur', 'inventory_komputer.bidang_unit = sub_lokasi_infrastruktur.id', 'left')
+            ->join('lokasi_infrastruktur', 'inventory_komputer.bidang_unit = lokasi_infrastruktur.id', 'left')
 			->group_by('inventory_komputer.bidang_unit')
 			->order_by('inventory_komputer.bidang_unit', 'ASC')
 			->get();
@@ -127,7 +202,7 @@ class M_inventory extends CI_Model
 		$data = $this->db
 			->select('COUNT(*) AS jml_baik')
 			->from('inventory_komputer')
-			->where('kondisi', 1)
+			->where('id_kondisi', 1)
 			->get()->row();
 		return $data;
     }
@@ -137,7 +212,7 @@ class M_inventory extends CI_Model
 		$data = $this->db
 			->select('COUNT(*) AS jml_bermasalah')
 			->from('inventory_komputer')
-			->where('kondisi', 2)
+			->where('id_kondisi', 2)
 			->get()->row();
 		return $data;
     }
@@ -147,7 +222,7 @@ class M_inventory extends CI_Model
 		$data = $this->db
 			->select('COUNT(*) AS jml_rusak')
 			->from('inventory_komputer')
-			->where('kondisi', 3)
+			->where('id_kondisi', 3)
 			->get()->row();
 		return $data;
     }
@@ -187,7 +262,7 @@ class M_inventory extends CI_Model
 		$data = $this->db
 			->select('*')
 			->from('lokasi_infrastruktur')
-            ->order_by('lokasi', 'ASC')
+            ->order_by('id', 'ASC')
 			->get()->result();
 		return $data;
 	}
@@ -202,17 +277,12 @@ class M_inventory extends CI_Model
 		return $data;
 	}
 
-	public function hasil_cari($where)
+	public function seksi()
 	{
 		$data = $this->db
-			->select('inventory_komputer.*, jenis_hardware.jenis, kondisi.kondisi, sumber_dana.sumber, kelengkapan.kelengkapan, lokasi_infrastruktur.lokasi')
-			->from('inventory_komputer')
-			->join('jenis_hardware', 'inventory_komputer.jenis_infrastruktur = jenis_hardware.id', 'left')
-			->join('kondisi', 'inventory_komputer.kondisi = kondisi.id', 'left')
-			->join('sumber_dana', 'inventory_komputer.sumber_dana = sumber_dana.id', 'left')
-			->join('kelengkapan', 'inventory_komputer.kelengkapan = kelengkapan.id', 'left')
-			->join('lokasi_infrastruktur', 'inventory_komputer.bidang_unit = lokasi_infrastruktur.id', 'left')
-            ->order_by('inventory_komputer.no_barang', 'ASC')
+			->select('*')
+			->from('seksi')
+            ->order_by('seksi', 'ASC')
 			->get()->result();
 		return $data;
 	}

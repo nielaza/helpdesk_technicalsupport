@@ -16,7 +16,7 @@
 		swal({
 			type: "success",
 			title: "Sukses!",
-			text: "Anda Berhasil Buat Group Tiket"
+			text: "Anda Berhasil Buat Tiket"
 		});
 		</script>
 	<?php endif; ?>

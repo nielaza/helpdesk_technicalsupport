@@ -137,8 +137,8 @@
 							<th>Sub Lokasi</th>
 							<th>Keterangan</th>
 							<th>Jenis Pekerjaan</th>
-                            <!-- <th>Telp</th> -->
-							<th>Approval</th>
+                            <!-- <th>Telp</th> 
+							<th>Approval</th>-->
 							<th>Status</th>
                             <th>Teknisi</th>
 							<th>Tgl. Tiket</th>
@@ -205,7 +205,7 @@
 								<td><?php echo tanggal_indonesia(date('Y-m-d', strtotime($row->created)))?></td>
 								<?php if ($this->session->userdata('level') == "Unit") { ?>
                                 <td class="text-center">
-                                    <a href="<?php echo site_url('tiket/rate_tiket/'.$row->id)?>" class="btn btn-success btn-circle btn-sm" title="Rate Tiket">
+                                    <a href="<?php echo site_url('tiket/rate-tiket/'.$row->id)?>" class="btn btn-success btn-circle btn-sm" title="Rate Tiket">
                                         <i class="fas fa-check-circle"></i>
                                     </a>
                                 </td>

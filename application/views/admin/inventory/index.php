@@ -1,4 +1,43 @@
 <div class="container-fluid">
+	<?php if($this->session->flashdata('success_addinv') !='') : ?>
+		<script>
+		swal({
+			type: "success",
+			title: "Sukses!",
+			text: "Data Inventory Berhasil Ditambah"
+		});
+		</script>
+	<?php endif; ?>
+
+	<?php if($this->session->flashdata('success_updinv') !='') : ?>
+		<script>
+		swal({
+			type: "success",
+			title: "Sukses!",
+			text: "Berhasil Update Data Inventory"
+		});
+		</script>
+	<?php endif; ?>
+
+	<?php if($this->session->flashdata('success_addpemel') !='') : ?>
+		<script>
+		swal({
+			type: "success",
+			title: "Sukses!",
+			text: "Berhasil Tambah Data Pemeliharaan Inventory"
+		});
+		</script>
+	<?php endif; ?>
+
+	<?php if($this->session->flashdata('success_updpemel') !='') : ?>
+		<script>
+		swal({
+			type: "success",
+			title: "Sukses!",
+			text: "Berhasil Update Data Pemeliharaan Inventory"
+		});
+		</script>
+	<?php endif; ?>
     <h5 class="h5 mb-0 text-gray-800">Data Inventory Komputer</h5><hr>
 
     <div class="row">
@@ -77,6 +116,11 @@
 
     <!-- Datatable -->
 	<div class="card shadow mb-4">
+		<div class="card-header py-3">
+			<a href="<?php echo base_url(); ?>admin/inventory/add-inventory" title="Add Inventory" class="btn btn-primary">
+				<i class="fa fa-plus"></i> Tambah Inventory
+			</a>
+		</div>
 		<div class="card-body">
 			<div class="table-responsive">
 				<table class="table table-striped" id="dataTable" width="100%" cellspacing="0">
@@ -85,13 +129,14 @@
 							<th>No.</th>
 							<th>Jenis Infrastruktur</th>
 							<th>Kondisi</th>
-							<!-- <th>Sumber Dana</th> -->
+							<!-- <th>Sumber Dana</th> 
 							<th>Kelengkapan</th>
-							<!-- <th>Nama PC</th> -->
+							<th>Nama PC</th> -->
 							<th>Lantai</th>
 							<th>Bidang Unit</th>
+							<!-- <th>Seksi</th> -->
 							<th>Pengguna</th>
-							<th>Detail Inventory</th>
+							<th>AKSI</th>
 							<th>Pemeliharaan</th>
 						</tr>
 					</thead>
@@ -101,14 +146,18 @@
 								<td><?php echo $no ?></td>
 								<td><?php echo $row->jenis?></td>
 								<td><?php echo $row->kondisi?></td>
-								<!-- <td><?php //echo $row->sumber?></td> -->
-								<td><?php echo $row->kelengkapan?></td>
-								<!-- <td><?php //echo $row->nama_pc?></td> -->
+								<!-- <td><?php //echo $row->sumber?></td> 
+								<td><?php //echo $row->kelengkapan?></td>
+								<td><?php //echo $row->nama_pc?></td> -->
 								<td><?php echo $row->lantai?></td>
-								<td><?php echo $row->sub_lokasi?></td>
+								<td><?php echo $row->lokasi?></td>
+								<!-- <td><?php //echo $row->seksi?></td> -->
 								<td><?php echo $row->pengguna?></td>
-								<td class="text-center" ><a class="btn btn-primary btn-sm" href="#" title="Detail Inventory" data-toggle="modal" data-target="#myModal<?php echo $row->id ?>"><i class="fas fa-search"></i></a></td>
-								<td class="text-center" ><a class="btn btn-info btn-sm" href="#" title="Data Pemeliharaan" data-toggle="modal" data-target="#myModal<?php echo $row->id ?>"><i class="fas fa-list-alt"></i></a></td>
+								<td class="text-center" >
+									<a class="btn btn-primary btn-sm" href="#" title="Detail Inventory" data-toggle="modal" data-target="#myModal<?php echo $row->id ?>"><i class="fas fa-search"></i></a>
+									<a href="<?php echo site_url('admin/inventory/edit-inventory/'.$row->id) ?>" title="Edit Inventory" data-toggle="tooltip" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
+								</td>
+								<td class="text-center" ><a href="<?php echo site_url('admin/inventory/inv-pemeliharaan/'.$row->barcode) ?>" title="Data Pemeliharaan" data-toggle="tooltip" class="btn btn-info btn-sm"><i class="fas fa-list-alt"></i></a></td>
 							</tr>
 						<?php $no++;}?>
 					</tbody>
@@ -128,15 +177,19 @@
 									<label>Barcode Inventory</label>
 									<input type="text" class="form-control" value="<?php echo $row->barcode?>" disabled>
 								</div>
-							</div>
-							<div class="row clearfix">
 								<div class="form-group col-md-6">
 									<label>Pengguna</label>
 									<input type="text" class="form-control" value="<?php echo $row->pengguna?>" disabled>
 								</div>
+							</div>
+							<div class="row clearfix">
 								<div class="form-group col-md-6">
 									<label>Bidang Unit</label>
-									<textarea name="jenis_pekerjaan" class="form-control" rows="2" disabled><?php echo $row->sub_lokasi?></textarea>
+									<textarea name="jenis_pekerjaan" class="form-control" rows="2" disabled><?php echo $row->lokasi?></textarea>
+								</div>
+								<div class="form-group col-md-6">
+									<label>Seksi</label>
+									<textarea name="jenis_pekerjaan" class="form-control" rows="2" disabled><?php echo $row->seksi?></textarea>
 								</div>
 							</div><hr>  
 							<div class="row clearfix">
@@ -165,10 +218,6 @@
 									<input type="text" class="form-control" value="<?php echo $row->tahun_pengadaan?>" disabled>
 								</div>
 								<div class="form-group col-md-4">
-									<label>Seksi</label>
-									<input type="text" class="form-control" value="<?php echo $row->seksi?>" disabled>
-								</div>
-								<div class="form-group col-md-4">
 									<label>Lantai</label>
 									<input type="text" class="form-control" value="<?php echo $row->lantai?>" disabled>
 								</div>
@@ -188,19 +237,19 @@
 									<label>Sistem Operasi</label>
 									<input type="text" class="form-control" value="<?php echo $row->sistem_operasi?>" disabled>
 								</div>
-								<div class="form-group col-md-4">
+								<div class="form-group col-md-3">
 									<label>Ram DDR</label>
 									<input type="text" class="form-control" value="<?php echo $row->ram_ddr?>" disabled>
 								</div>
-								<div class="form-group col-md-4">
+								<div class="form-group col-md-3">
 									<label>Ram GB</label>
 									<input type="text" class="form-control" value="<?php echo $row->ram_gb?>" disabled>
 								</div>
-								<div class="form-group col-md-4">
+								<div class="form-group col-md-3">
 									<label>Hardisk (SSD)</label>
 									<input type="text" class="form-control" value="<?php echo $row->hd_ssd?>" disabled>
 								</div>
-								<div class="form-group col-md-4">
+								<div class="form-group col-md-3">
 									<label>Hardisk (HDD)</label>
 									<input type="text" class="form-control" value="<?php echo $row->hd_hdd?>" disabled>
 								</div>
@@ -361,7 +410,7 @@
 
     foreach ($label_lokasi as $data)
     {
-        $lok	      = $data->sub_lokasi;
+        $lok	      = $data->lokasi;
         $lokasi      .= "'$lok'". ", ";
         $jum5	      = $data->jumlokasi;
         $jum_lokasi  .= "$jum5". ", ";

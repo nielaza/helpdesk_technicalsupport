@@ -9,7 +9,6 @@
 		<div class="card-body">
 			<form method="POST" action="<?php echo base_url('tiket/save-grouptiket')?>">
                 <div class="row clearfix">
-
                     <div class="col-sm-6 form-group">
                         <label><strong>Kode Tiket</strong></label>
                         <input type="text" class="form-control" value="<?php echo $tiket[0]->kode_tiket ?>" disabled>
